@@ -1,0 +1,374 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: add-to-any\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-01-18 12:47-0800\n"
+"PO-Revision-Date: \n"
+"Last-Translator: Michael Yunat <Michael.Yunat@gmail.com>\n"
+"Language-Team: http://getvoip.com/\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-KeywordsList: __;_e\n"
+"X-Poedit-Basepath: ../\n"
+"Language: uk_UA\n"
+"X-Generator: Poedit 1.6.5\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: add-to-any-wp-widget.php:55
+msgid "Title:"
+msgstr "Назва:"
+
+#: add-to-any-wp-widget.php:59 add-to-any.php:926 add-to-any.php:1385
+#: add-to-any.php:1421
+msgid "Settings"
+msgstr "Налаштування"
+
+#: add-to-any.php:387
+msgid "Share"
+msgstr "Частка"
+
+#: add-to-any.php:388
+msgid "Save"
+msgstr "Зберегти"
+
+#: add-to-any.php:389
+msgid "Subscribe"
+msgstr "Підписуватися"
+
+#: add-to-any.php:390
+msgid "E-mail"
+msgstr "Електронна пошта"
+
+#: add-to-any.php:391
+msgid "Bookmark"
+msgstr "Закладка"
+
+#: add-to-any.php:392
+msgid "Show all"
+msgstr "Показати все"
+
+#: add-to-any.php:393
+msgid "Show less"
+msgstr "Показати менше"
+
+#: add-to-any.php:394
+msgid "Find service(s)"
+msgstr "Знайти послуг (и)"
+
+#: add-to-any.php:395
+msgid "Instantly find any service to add to"
+msgstr "Миттєво знайти будь-яку послугу, щоб додати до"
+
+#: add-to-any.php:396
+msgid "Powered by"
+msgstr "Створено"
+
+#: add-to-any.php:397
+msgid "Share via e-mail"
+msgstr "Частка по електронній пошті"
+
+#: add-to-any.php:398
+msgid "Subscribe via e-mail"
+msgstr "Підписатися по електронній пошті"
+
+#: add-to-any.php:399
+msgid "Bookmark in your browser"
+msgstr "Bookmark у вашому браузері"
+
+#: add-to-any.php:400
+msgid "Press Ctrl+D or \\u2318+D to bookmark this page"
+msgstr "Натисніть Ctrl + D або \\u2318 + D відзначати цю сторінку"
+
+#: add-to-any.php:401
+msgid "Add to your favorites"
+msgstr "Додати в закладки"
+
+#: add-to-any.php:402
+msgid "Send from any e-mail address or e-mail program"
+msgstr ""
+"Відправити з будь-якої адреси електронної пошти або програма електронної "
+"пошти"
+
+#: add-to-any.php:403
+msgid "E-mail program"
+msgstr "Електронна пошта програми"
+
+#: add-to-any.php:517
+msgid ""
+"Your theme needs to be fixed. To fix your theme, use the <a href=\"theme-"
+"editor.php\">Theme Editor</a> to insert <code>&lt;?php wp_footer(); ?&gt;</"
+"code> just before the <code>&lt;/body&gt;</code> line of your theme's "
+"<code>footer.php</code> file."
+msgstr ""
+"Ваша тема повинна бути встановлена. Щоб виправити вашу тему, використовуйте "
+"<a href=\"theme-editor.php\">тему редактор</a> вставити <code><?php "
+"wp_footer(); ?></code> якраз перед <code></body></code> лінії вашої теми "
+"<code>footer.php</code> файлу."
+
+#: add-to-any.php:534
+msgid ""
+"Your theme needs to be fixed. To fix your theme, use the <a href=\"theme-"
+"editor.php\">Theme Editor</a> to insert <code>&lt;?php wp_head(); ?&gt;</"
+"code> just before the <code>&lt;/head&gt;</code> line of your theme's "
+"<code>header.php</code> file."
+msgstr ""
+"Ваша тема повинна бути встановлена. Щоб виправити вашу тему, використовуйте "
+"<a href=\"theme-editor.php\">тему редактор</a> вставити <code><?php "
+"wp_head(); ?></code> якраз перед <code></head></code> лінії вашої теми "
+"<code>header.php</code> файл."
+
+#: add-to-any.php:707 php-format
+msgid ""
+"Unable to create directory %s. Is its parent directory writable by the "
+"server?"
+msgstr ""
+"Неможливо створити каталог %s. Чи є його батьківський каталог записи на "
+"сервер?"
+
+#: add-to-any.php:842 add-to-any.php:978 add-to-any.php:982 add-to-any.php:986
+#: add-to-any.php:990 add-to-any.php:1022
+msgid "Share/Bookmark"
+msgstr "Share/Bookmark"
+
+#: add-to-any.php:866
+msgid "Settings saved."
+msgstr "Налаштування збережені."
+
+#: add-to-any.php:887
+msgid "bottom"
+msgstr "дно"
+
+#: add-to-any.php:891
+msgid "top"
+msgstr "топ"
+
+#: add-to-any.php:895
+msgid "top &amp; bottom"
+msgstr "кращих і знизу"
+
+#: add-to-any.php:926
+msgid "AddToAny: Share/Save "
+msgstr "AddToAny: Share/Save"
+
+#: add-to-any.php:934
+msgid "Standalone Services"
+msgstr "Автономні послуги"
+
+#: add-to-any.php:939
+msgid ""
+"Choose the services you want below. &nbsp;Click a chosen service again to "
+"remove. &nbsp;Reorder services by dragging and dropping as they appear above."
+msgstr ""
+"Виберіть послуги, які ви хочете нижче. Натисніть обрану послугу знову, щоб "
+"видалити. Зміна порядку послуги за допомогою перетягування, як вони "
+"з'являються вище."
+
+#: add-to-any.php:973
+msgid "Button"
+msgstr "Кнопка"
+
+#: add-to-any.php:1012
+msgid "Image URL"
+msgstr "URL зображення"
+
+#: add-to-any.php:1019
+msgid "Text only"
+msgstr "Тільки текст"
+
+#: add-to-any.php:1027
+msgid "Placement"
+msgstr "Розміщення"
+
+#: add-to-any.php:1032 php-format
+msgid "Display at the %s of posts"
+msgstr "Показати на %s посад"
+
+#: add-to-any.php:1039 php-format
+msgid "Display at the %s of post excerpts"
+msgstr "Показати на %s поштових витримки"
+
+#: add-to-any.php:1046 php-format
+msgid "Display at the %s of posts on the front page"
+msgstr "Показати на %s повідомлень на головній сторінці"
+
+#: add-to-any.php:1054 php-format
+msgid "Display at the %s of posts in the feed"
+msgstr "Показати на %s посад в сировині"
+
+#: add-to-any.php:1058 php-format
+msgid "Display at the %s of pages"
+msgstr "Показати на %s сторінок"
+
+#: add-to-any.php:1062
+msgid ""
+"If unchecked, be sure to place the following code in <a href=\"theme-editor."
+"php\">your template pages</a> (within <code>index.php</code>, <code>single."
+"php</code>, and/or <code>page.php</code>)"
+msgstr ""
+"Якщо не зупинити, обов'язково помістіть наступний код у <a href=\"theme-"
+"editor.php\">ваших сторінках шаблону</a> (в межах <code>index.php</code> , "
+"<code>single.php</code> , та/або <code>page.php</code> )"
+
+#: add-to-any.php:1071
+msgid "Menu Style"
+msgstr "Стиль меню"
+
+#: add-to-any.php:1073
+msgid ""
+"Using AddToAny's Menu Styler, you can customize the colors of your Share/"
+"Save menu! When you're done, be sure to paste the generated code in the <a "
+"href=\"#\" onclick=\"document."
+"getElementById('A2A_SHARE_SAVE_additional_js_variables').focus();return false"
+"\">Additional Options</a> box below."
+msgstr ""
+"Використання меню AddToAny в Styler, ви можете налаштувати кольору меню "
+"Share/Save! Коли ви закінчите, не забудьте вставити згенерований код в <a "
+"href=\"#\" onclick=\"document."
+"getElementById('A2A_SHARE_SAVE_additional_js_variables').focus();return false"
+"\">додаткові опції</a> поле нижче."
+
+#: add-to-any.php:1075
+msgid "Open the AddToAny Menu Styler in a new window"
+msgstr "Відкрийте меню Styler AddToAny в новому вікні"
+
+#: add-to-any.php:1077
+msgid "Open Menu Styler"
+msgstr "Відкрити меню Styler"
+
+#: add-to-any.php:1082
+msgid "Menu Options"
+msgstr "Опції меню"
+
+#: add-to-any.php:1087
+msgid "Only show the menu when the user clicks the Share/Save button"
+msgstr "Тільки меню, коли користувач натискає Share/кнопку Зберегти"
+
+#: add-to-any.php:1092
+msgid "Show the title of the post (or page) within the menu"
+msgstr "Показати звання посаду (або сторінки) в меню"
+
+#: add-to-any.php:1097
+msgid "Additional Options"
+msgstr "Додаткові опції"
+
+#: add-to-any.php:1101
+msgid "Paste the code from AddToAny's Menu Styler in the box below!"
+msgstr "Вставте код з меню Styler AddToAny в поле нижче!"
+
+#: add-to-any.php:1105
+msgid ""
+"Below you can set special JavaScript variables to apply to each Share/Save "
+"menu."
+msgstr ""
+"Нижче ви можете встановити спеціальні змінні JavaScript, застосовувана до "
+"кожного меню Share/Save."
+
+#: add-to-any.php:1106
+msgid ""
+"Advanced users might want to explore AddToAny's <a href=\"http://www."
+"addtoany.com/buttons/customize/\" target=\"_blank\">additional options</a>."
+msgstr ""
+"Досвідчені користувачі, можливо, захочете вивчити AddToAny в <a href="
+"\"http://www.addtoany.com/buttons/customize/\" target=\"_blank\">додаткові "
+"опції</a> ."
+
+#: add-to-any.php:1112
+msgid ""
+"<strong>Note</strong>: If you're adding new code, be careful not to "
+"accidentally overwrite any previous code.</label>"
+msgstr ""
+"<strong>Примітка:</strong> Якщо ви хочете додати новий код, будьте обережні, "
+"щоб не перезаписати попередній код."
+
+#: add-to-any.php:1117
+msgid "Advanced Options"
+msgstr "Додаткові параметри"
+
+#: add-to-any.php:1122
+msgid "Use CSS stylesheet"
+msgstr "Використовуйте CSS стилів"
+
+#: add-to-any.php:1127
+msgid "Cache AddToAny locally with daily cache updates"
+msgstr "AddToAny Кеш локально з щоденними оновленнями кеша"
+
+#: add-to-any.php:1131
+msgid ""
+"Only consider for sites with frequently returning visitors. Since many "
+"visitors will have AddToAny cached in their browser already, serving "
+"AddToAny locally from your site will be slower for those visitors. Be sure "
+"to set far future cache/expires headers for image files in your "
+"<code>uploads/addtoany</code> directory."
+msgstr ""
+"Розглянути тільки для сайтів з часто повернулися відвідувачів. Оскільки "
+"багато відвідувачі матимуть AddToAny кешируются в браузері вже, виступаючої "
+"AddToAny локально з вашого сайту буде повільніше для тих відвідувачів. "
+"Обов'язково встановіть далеко майбутніх заголовки кешу/закінчується для "
+"файлів зображень в <code>uploads/addtoany</code> каталозі."
+
+#: add-to-any.php:1138
+msgid "Save Changes"
+msgstr "Зберегти зміни"
+
+#: add-to-any.php:1139
+msgid "Are you sure you want to delete all AddToAny options?"
+msgstr "Ви впевнені, що хочете видалити всі варіанти AddToAny?"
+
+#: add-to-any.php:1139
+msgid "Reset"
+msgstr "Скидання"
+
+#: add-to-any.php:1144
+msgid "Like this plugin?"
+msgstr "Як цей плагін?"
+
+#: add-to-any.php:1145
+msgid ""
+"<a href=\"http://wordpress.org/extend/plugins/add-to-any/\">Give it a good "
+"rating</a> on WordPress.org."
+msgstr ""
+"<a href=\"http://wordpress.org/extend/plugins/add-to-any/\">Дайте йому "
+"хороший рейтинг</a> на WordPress.org."
+
+#: add-to-any.php:1146
+msgid ""
+"<a href=\"http://www.addtoany.com/share_save?linkname=WordPress%20Share%20%2F"
+"%20Bookmark%20Plugin%20by%20AddToAny.com&amp;linkurl=http%3A%2F%2Fwordpress."
+"org%2Fextend%2Fplugins%2Fadd-to-any%2F\">Share it</a> with your friends."
+msgstr ""
+"<a href=\"http://www.addtoany.com/share_save?linkname=WordPress%20Share%20%2F"
+"%20Bookmark%20Plugin%20by%20AddToAny.com&linkurl=http%3A%2F%2Fwordpress.org"
+"%2Fextend%2Fplugins%2Fadd-to-any%2F\">Поділіться їм</a> з друзями."
+
+#: add-to-any.php:1148
+msgid "Need support?"
+msgstr "Потрібна допомога?"
+
+#: add-to-any.php:1149
+msgid ""
+"See the <a href=\"http://wordpress.org/extend/plugins/add-to-any/faq/"
+"\">FAQs</a>."
+msgstr ""
+"Див <a href=\"http://wordpress.org/extend/plugins/add-to-any/faq/\">часто "
+"задаються</a> ."
+
+#: add-to-any.php:1150
+msgid ""
+"Search the <a href=\"http://wordpress.org/tags/add-to-any\">support forums</"
+"a>."
+msgstr ""
+"Пошук по <a href=\"http://wordpress.org/tags/add-to-any\">форуми підтримки</"
+"a> ."
+
+#: add-to-any.php:1324
+msgid "Add/Remove Services"
+msgstr "Додати/Видалити Services"
+
+#: add-to-any.php:1385
+msgid "Share/Save"
+msgstr "Share/Save"
+
+#: add-to-any.php:1386
+msgid "AddToAny"
+msgstr "AddToAny"
