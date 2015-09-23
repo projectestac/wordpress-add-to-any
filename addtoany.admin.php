@@ -400,8 +400,36 @@ function A2A_SHARE_SAVE_options_page() {
 	<h1><?php _e( 'AddToAny Share Settings', 'add-to-any' ); ?></h1>
 	
 	<h2 class="nav-tab-wrapper">
-		<a href="<?php echo admin_url( 'options-general.php?page=add-to-any.php' ); ?>" class="nav-tab<?php if ( 'default' == $current_screen ) echo ' nav-tab-active'; ?>"><?php esc_html_e( 'Standard' ); ?></a>
-		<a href="<?php echo esc_url( add_query_arg( array( 'action' => 'floating' ), admin_url( 'options-general.php?page=add-to-any.php' ) ) ); ?>" class="nav-tab<?php if ( 'floating' == $current_screen ) echo ' nav-tab-active'; ?>"><?php esc_html_e( 'Floating' ); ?></a>
+<!--
+// XTEC ************ MODIFICAT - Added language translation
+// 2015.09.22 @nacho
+-->
+		<a href="<?php echo admin_url( 'options-general.php?page=add-to-any.php' ); ?>" class="nav-tab<?php if ( 'default' == $current_screen ) echo ' nav-tab-active'; ?>"><?php esc_attr_e( _e('Standard:', "add-to-any" ) );?></a>
+<!--
+//************ ORIGINAL
+/*
+		<a href="<?php //echo admin_url( 'options-general.php?page=add-to-any.php' ); ?>" class="nav-tab<?php //if ( 'default' == $current_screen ) echo ' nav-tab-active'; ?>"><?php //esc_html_e( "Standard" ); ?></a>
+//************ FI
+ -->
+ 
+ 
+<!--
+// XTEC ************ AFEGIT - Hide Floating Tab
+// 2015.09.22 @nacho
+-->
+		<?php if ( is_xtec_super_admin() ) {?>
+<!--
+//************ FI
+ -->
+				<a href="<?php echo esc_url( add_query_arg( array( 'action' => 'floating' ), admin_url( 'options-general.php?page=add-to-any.php' ) ) ); ?>" class="nav-tab<?php if ( 'floating' == $current_screen ) echo ' nav-tab-active'; ?>"><?php esc_html_e( 'Floating' ); ?></a>
+<!--
+// XTEC ************ AFEGIT - Hide Floating Tab
+// 2015.09.22 @nacho
+-->
+		<?php }?>
+<!--
+//************ FI
+ -->
 	</h2>
 
 	<form id="addtoany_admin_form" method="post" action="">
@@ -518,7 +546,19 @@ function A2A_SHARE_SAVE_options_page() {
 				<br>
 				<label>
 					<input name="A2A_SHARE_SAVE_button" value="TEXT" id="A2A_SHARE_SAVE_button_is_text" type="radio"<?php if ( isset( $options['button'] ) && 'TEXT' == $options['button'] ) echo ' checked="checked"'; ?> style="margin:9px 0;vertical-align:middle">
-					<span style="margin:0 9px;vertical-align:middle"><?php _e("Text only"); ?>:</span>
+<!--
+// XTEC ************ MODIFICAT - Added language translation
+// 2015.09.23 @nacho
+-->
+					<span style="margin:0 9px;vertical-align:middle"><?php _e("Text only", "add-to-any"); ?>:</span>
+<!--
+//************ ORIGINAL
+/*
+				<span style="margin:0 9px;vertical-align:middle"><?php //_e("Text only"); ?>:</span>
+*/
+//************ FI
+ --> 
+
 				</label>
 				<input name="A2A_SHARE_SAVE_button_text" type="text" class="code" size="50" onclick="document.getElementById('A2A_SHARE_SAVE_button_is_text').checked=true" style="vertical-align:middle;width:150px" value="<?php echo ( isset( $options['button_text'] ) && trim( '' != $options['button_text'] ) ) ? stripslashes($options['button_text']) : __('Share','add-to-any'); ?>" />
 				<br>
@@ -529,16 +569,34 @@ function A2A_SHARE_SAVE_options_page() {
 				
 			</fieldset></td>
 			</tr>
-
+<!--
+// XTEC ************ AFEGIT - Only show options for xtecadmin
+// 2015.09.22 @nacho
+-->
+		<?php if ( is_xtec_super_admin() ) {?>
+<!--
+//************ FI
+ --> 
 			<tr valign="top">
 			<th scope="row"><?php _e('Sharing Header', 'add-to-any'); ?></th>
 			<td><fieldset>
 				<label>
-					<input name="A2A_SHARE_SAVE_header" type="text" class="code" placeholder="<?php esc_attr_e( 'Share this:' ); ?>" size="50" value="<?php if ( isset( $options['header'] ) ) echo esc_attr( stripslashes( $options['header'] ) ); ?>" />
+<!--
+// XTEC ************ MODIFICAT - Added language translation
+// 2015.09.23 @nacho
+-->
+					<input name="A2A_SHARE_SAVE_header" type="text" class="code" placeholder="<?php esc_attr_e( _e('Share this:', "add-to-any" ) ); ?>" size="50" value="<?php if ( isset( $options['header'] ) ) echo esc_attr( stripslashes( $options['header'] ) ); ?>" />
+<!--
+//************ ORIGINAL
+/*
+					<input name="A2A_SHARE_SAVE_header" type="text" class="code" placeholder="<?php //esc_attr_e( 'Share this:' ); ?>" size="50" value="<?php //if ( isset( $options['header'] ) ) echo esc_attr( stripslashes( $options['header'] ) ); ?>" />
+<!--
+//************ FI
+ -->				
 				</label>
 			</fieldset></td>
 			</tr>
-			
+
 			<tr valign="top">
 			<th scope="row"><?php _e('Placement', 'add-to-any'); ?></th>
 			<td><fieldset>
@@ -603,7 +661,7 @@ function A2A_SHARE_SAVE_options_page() {
 				</div>
 			</fieldset></td>
 			</tr>
-
+			
 			<tr valign="top">
 			<th scope="row"><?php _e('Menu Options', 'add-to-any'); ?></th>
 			<td><fieldset>
@@ -672,6 +730,14 @@ function A2A_SHARE_SAVE_options_page() {
 				</p>
 			</fieldset></td>
 			</tr>
+<!-- 
+// XTEC ************ AFEGIT - End Only show options for xtecadmin
+// 2015.09.22 @nacho
+-->
+		<?php }?>
+<!--
+//************ FI
+-->
 		<?php endif; ?>
 		
 		</table>		
@@ -764,6 +830,15 @@ function A2A_SHARE_SAVE_options_page() {
 	
 	</form>
 	
+<!--
+// XTEC ************ AFEGIT - Hide unnecessary info
+// 2015.09.22 @nacho
+-->
+		<?php if(is_xtecadmin()) {?>
+<!--
+//************ FI
+ --> 
+	
 	<h2><?php _e('Like this plugin?','add-to-any'); ?></h2>
 	<p><?php _e('<a href="https://wordpress.org/support/view/plugin-reviews/add-to-any#postform" target="_blank">Give it a 5 star rating</a> on WordPress.org.','add-to-any'); ?></p>
 	<p><?php _e('<a href="https://www.addtoany.com/share_save#title=WordPress%20Share%20Plugin%20by%20AddToAny.com&amp;url=http%3A%2F%2Fwordpress.org%2Fplugins%2Fadd-to-any%2F">Share it</a> and follow <a href="https://www.addtoany.com/">AddToAny</a> on <a href="https://www.facebook.com/AddToAny" target="_blank">Facebook</a> &amp; <a href="https://twitter.com/AddToAny" target="_blank">Twitter</a>.','add-to-any'); ?></p>
@@ -771,6 +846,15 @@ function A2A_SHARE_SAVE_options_page() {
 	<h2><?php _e('Need support?','add-to-any'); ?></h2>
 	<p><?php _e('See the <a href="http://wordpress.org/extend/plugins/add-to-any/faq/">FAQs</a>.','add-to-any'); ?></p>
 	<p><?php _e('Search the <a href="http://wordpress.org/tags/add-to-any">support forums</a>.','add-to-any'); ?></p>
+	<!-- 
+// XTEC ************ AFEGIT - Hide unnecessary info
+// 2015.09.22 @nacho
+-->
+		<?php }?>
+<!--
+//************ FI
+-->
+	
 	</div>
 	
 	<script type="text/javascript" src="http<?php if ( is_ssl() ) echo 's'; ?>://static.addtoany.com/menu/page.js"></script>
