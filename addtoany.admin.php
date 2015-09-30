@@ -557,8 +557,7 @@ function A2A_SHARE_SAVE_options_page() {
 				<span style="margin:0 9px;vertical-align:middle"><?php //_e("Text only"); ?>:</span>
 */
 //************ FI
- --> 
-
+ -->
 				</label>
 				<input name="A2A_SHARE_SAVE_button_text" type="text" class="code" size="50" onclick="document.getElementById('A2A_SHARE_SAVE_button_is_text').checked=true" style="vertical-align:middle;width:150px" value="<?php echo ( isset( $options['button_text'] ) && trim( '' != $options['button_text'] ) ) ? stripslashes($options['button_text']) : __('Share','add-to-any'); ?>" />
 				<br>
@@ -592,7 +591,7 @@ function A2A_SHARE_SAVE_options_page() {
 					<input name="A2A_SHARE_SAVE_header" type="text" class="code" placeholder="<?php //esc_attr_e( 'Share this:' ); ?>" size="50" value="<?php //if ( isset( $options['header'] ) ) echo esc_attr( stripslashes( $options['header'] ) ); ?>" />
 <!--
 //************ FI
- -->				
+ -->
 				</label>
 			</fieldset></td>
 			</tr>
@@ -606,13 +605,28 @@ function A2A_SHARE_SAVE_options_page() {
 					<?php printf(__('Display at the %s of posts', 'add-to-any'), position_in_content( $options, true )); ?>
 				</label>
 				<br/>
+<!--
+// XTEC ************ MODIFICAT - Unmark by default option "Display at the XXX of posts on the front page "
+// 2015.09.23 @nacho
+-->
 				<label>
-					&nbsp; &nbsp; &nbsp; <input class="A2A_SHARE_SAVE_child_of_display_in_posts" name="A2A_SHARE_SAVE_display_in_posts_on_front_page" type="checkbox"<?php 
-						if ( ! isset( $options['display_in_posts_on_front_page'] ) || $options['display_in_posts_on_front_page'] != '-1' ) echo ' checked="checked"';
-						if ( isset( $options['display_in_posts'] ) && $options['display_in_posts'] == '-1' ) echo ' disabled="disabled"';
-						?> value="1"/>
+					&nbsp; &nbsp; &nbsp; <input class="A2A_SHARE_SAVE_child_of_display_in_posts" name="A2A_SHARE_SAVE_display_in_posts_on_front_page" type="checkbox" value="1"/>
 					<?php printf(__('Display at the %s of posts on the front page', 'add-to-any'), position_in_content( $options )); ?>
 				</label>
+<!--
+//************ ORIGINAL
+/*
+				<!-- <label>
+					&nbsp; &nbsp; &nbsp; <input class="A2A_SHARE_SAVE_child_of_display_in_posts" name="A2A_SHARE_SAVE_display_in_posts_on_front_page" type="checkbox"<?php 
+						//if ( ! isset( $options['display_in_posts_on_front_page'] ) || $options['display_in_posts_on_front_page'] != '-1' ) echo ' checked="checked"';
+						//if ( isset( $options['display_in_posts'] ) && $options['display_in_posts'] == '-1' ) echo ' disabled="disabled"';
+						?> value="1"/>
+					<?php //printf(__('Display at the %s of posts on the front page', 'add-to-any'), position_in_content( $options )); ?>
+				</label>
+				-->
+<!--
+//************ FI
+ -->					
 				<br/>
 				<label>
 					&nbsp; &nbsp; &nbsp; <input class="A2A_SHARE_SAVE_child_of_display_in_posts" name="A2A_SHARE_SAVE_display_in_posts_on_archive_pages" type="checkbox"<?php 
@@ -622,26 +636,53 @@ function A2A_SHARE_SAVE_options_page() {
 					<?php printf(__('Display at the %s of posts on archive pages', 'add-to-any'), position_in_content( $options )); ?>
 				</label>
 				<br/>
+<!--
+// XTEC ************ MODIFICAT - Unmark by default option "Display at the XXX of posts in the feed"
+// 2015.09.23 @nacho
+-->
 				<label>
-					&nbsp; &nbsp; &nbsp; <input class="A2A_SHARE_SAVE_child_of_display_in_posts" name="A2A_SHARE_SAVE_display_in_feed" type="checkbox"<?php 
-						if ( ! isset( $options['display_in_feed'] ) || $options['display_in_feed'] != '-1' ) echo ' checked="checked"'; 
-						if ( isset( $options['display_in_posts'] ) && $options['display_in_posts'] == '-1' ) echo ' disabled="disabled"';
-						?> value="1"/>
+					&nbsp; &nbsp; &nbsp; <input class="A2A_SHARE_SAVE_child_of_display_in_posts" name="A2A_SHARE_SAVE_display_in_feed" type="checkbox" value="1"/>
 					<?php printf(__('Display at the %s of posts in the feed', 'add-to-any'), position_in_content( $options )); ?>
 				</label>
-				<br/>
+<!--
+//************ ORIGINAL
+/*
 				<label>
-					<input name="A2A_SHARE_SAVE_display_in_excerpts" type="checkbox"<?php 
-						if ( ! isset( $options['display_in_excerpts'] ) || $options['display_in_excerpts'] != '-1' ) echo ' checked="checked"';
+					&nbsp; &nbsp; &nbsp; <input class="A2A_SHARE_SAVE_child_of_display_in_posts" name="A2A_SHARE_SAVE_display_in_feed" type="checkbox"<?php
+						//if ( ! isset( $options['display_in_feed'] ) || $options['display_in_feed'] != '-1' ) echo ' checked="checked"';
+						//if ( isset( $options['display_in_posts'] ) && $options['display_in_posts'] == '-1' ) echo ' disabled="disabled"';
 						?> value="1"/>
+					<?php //printf(__('Display at the %s of posts in the feed', 'add-to-any'), position_in_content( $options )); ?>
+				</label>
+<!--
+//************ FI
+ -->
+				<br/>
+<!--
+// XTEC ************ MODIFICAT - Unmark by default option "Display at the XXX of excerpts"
+// 2015.09.23 @nacho
+-->
+				<label>
+					<input name="A2A_SHARE_SAVE_display_in_excerpts" type="checkbox" value="1"/>
 					<?php printf(__('Display at the %s of excerpts', 'add-to-any'), position_in_content( $options, false )); ?>
 				</label>
+<!--
+//************ ORIGINAL
+/*
+				<label>
+					<input name="A2A_SHARE_SAVE_display_in_excerpts" type="checkbox"<?php 
+						//if ( ! isset( $options['display_in_excerpts'] ) || $options['display_in_excerpts'] != '-1' ) echo ' checked="checked"';
+						?> value="1"/>
+					<?php //printf(__('Display at the %s of excerpts', 'add-to-any'), position_in_content( $options, false )); ?>
+				</label>
+<!--
+//************ FI
+ -->
 				<br/>
 				<label>
 					<input name="A2A_SHARE_SAVE_display_in_pages" type="checkbox"<?php if ( ! isset( $options['display_in_pages'] ) || $options['display_in_pages'] != '-1' ) echo ' checked="checked"'; ?> value="1"/>
 					<?php printf(__('Display at the %s of pages', 'add-to-any'), position_in_content( $options, false )); ?>
-				</label>
-				
+				</label>				
 			<?php 
 				$custom_post_types = array_values( get_post_types( array( 'public' => true, '_builtin' => false ), 'objects' ) );
 				foreach ( $custom_post_types as $custom_post_type_obj ) :
@@ -649,10 +690,24 @@ function A2A_SHARE_SAVE_options_page() {
 					$placement_name = $custom_post_type_obj->name;
 			?>
 				<br/>
+<!--
+// XTEC ************ MODIFICAT - Unmark by default options "Display at the XXX of Forums/Themes/Answers/Documents/Google Calendars"
+// 2015.09.23 @nacho
+-->
 				<label>
-					<input name="A2A_SHARE_SAVE_display_in_cpt_<?php echo $placement_name; ?>" type="checkbox"<?php if ( ! isset( $options['display_in_cpt_' . $placement_name] ) || $options['display_in_cpt_' . $placement_name] != '-1' ) echo ' checked="checked"'; ?> value="1"/>
+					<input name="A2A_SHARE_SAVE_display_in_cpt_<?php echo $placement_name; ?>" type="checkbox" value="1"/>
 					<?php printf(__('Display at the %s of %s', 'add-to-any'), position_in_content( $options, false ), esc_html( $placement_label ) ); ?>
 				</label>
+<!--
+//************ ORIGINAL
+/*				
+				<label>
+					<input name="A2A_SHARE_SAVE_display_in_cpt_<?php //echo $placement_name; ?>" type="checkbox"<?php //if ( ! isset( $options['display_in_cpt_' . $placement_name] ) || $options['display_in_cpt_' . $placement_name] != '-1' ) echo ' checked="checked"'; ?> value="1"/>
+					<?php //printf(__('Display at the %s of %s', 'add-to-any'), position_in_content( $options, false ), esc_html( $placement_label ) ); ?>
+				</label>
+<!--
+//************ FI
+ -->
 			<?php endforeach; ?>
 				
 				<br/><br/>
@@ -821,15 +876,25 @@ function A2A_SHARE_SAVE_options_page() {
 		
 		<?php endif; ?>
 		
-		</table>
-		
-		<p class="submit">
+<!--
+// XTEC ************ AFEGIT - 
+// Creating hidden buttons to enable default options, this solved the error when the admin 
+// user press the save button the values of the checkboxes are saved unmarked
+// 2015.09.29 @nacho
+-->
+		<input type="hidden" id="A2A_SHARE_SAVE_display_in_posts" name="A2A_SHARE_SAVE_display_in_posts" value="1" checked="checked"/> 
+		<input type="hidden" id="A2A_SHARE_SAVE_child_of_display_in_posts" name="A2A_SHARE_SAVE_display_in_posts_on_archive_pages" value="1" checked="checked"/>
+		<input type="hidden" id="A2A_SHARE_SAVE_display_in_pages" name="A2A_SHARE_SAVE_display_in_pages" checked="checked" value="1"/>
+		<input type="hidden" id="A2A_SHARE_SAVE_inline_css" name="A2A_SHARE_SAVE_inline_css" checked="checked" value="1"/>
+<!--
+//************ FI
+ -->
+ 		<p class="submit">
 			<input class="button-primary" type="submit" name="Submit" value="<?php _e('Save Changes', 'add-to-any' ) ?>" />
 			<input id="A2A_SHARE_SAVE_reset_options" type="submit" name="Reset" onclick="return confirm('<?php _e('Are you sure you want to delete all AddToAny options?', 'add-to-any' ) ?>')" value="<?php _e('Reset', 'add-to-any' ) ?>" />
 		</p>
 	
-	</form>
-	
+	</form>	
 <!--
 // XTEC ************ AFEGIT - Hide unnecessary info
 // 2015.09.22 @nacho
@@ -837,8 +902,7 @@ function A2A_SHARE_SAVE_options_page() {
 		<?php if(is_xtecadmin()) {?>
 <!--
 //************ FI
- --> 
-	
+ -->	
 	<h2><?php _e('Like this plugin?','add-to-any'); ?></h2>
 	<p><?php _e('<a href="https://wordpress.org/support/view/plugin-reviews/add-to-any#postform" target="_blank">Give it a 5 star rating</a> on WordPress.org.','add-to-any'); ?></p>
 	<p><?php _e('<a href="https://www.addtoany.com/share_save#title=WordPress%20Share%20Plugin%20by%20AddToAny.com&amp;url=http%3A%2F%2Fwordpress.org%2Fplugins%2Fadd-to-any%2F">Share it</a> and follow <a href="https://www.addtoany.com/">AddToAny</a> on <a href="https://www.facebook.com/AddToAny" target="_blank">Facebook</a> &amp; <a href="https://twitter.com/AddToAny" target="_blank">Twitter</a>.','add-to-any'); ?></p>
@@ -853,8 +917,7 @@ function A2A_SHARE_SAVE_options_page() {
 		<?php }?>
 <!--
 //************ FI
--->
-	
+-->	
 	</div>
 	
 	<script type="text/javascript" src="http<?php if ( is_ssl() ) echo 's'; ?>://static.addtoany.com/menu/page.js"></script>
@@ -938,10 +1001,15 @@ function A2A_SHARE_SAVE_admin_head() {
 		
 		// Toggle child options of 'Display in posts'
 		jQuery('#A2A_SHARE_SAVE_display_in_posts').bind('change click', function(e){
+			// XTEC ************ ELIMINAT - Disable toggle child options on change
+			// 2015.09.23 @nacho						
+			/*
 			if (jQuery(this).is(':checked'))
 				jQuery('.A2A_SHARE_SAVE_child_of_display_in_posts').attr('checked', true).attr('disabled', false);
 			else 
 				jQuery('.A2A_SHARE_SAVE_child_of_display_in_posts').attr('checked', false).attr('disabled', true);
+			*/
+			//************ FI
 		});
 		
 		// Update button position labels/values universally in Placement section 
@@ -1228,8 +1296,6 @@ function A2A_SHARE_SAVE_admin_head() {
 }
 
 add_filter( 'admin_head', 'A2A_SHARE_SAVE_admin_head' );
-
-
 
 function A2A_SHARE_SAVE_scripts() {
 	wp_enqueue_script( 'jquery-ui-sortable' );
