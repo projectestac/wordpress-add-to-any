@@ -1053,8 +1053,18 @@ add_filter( 'admin_menu', 'A2A_SHARE_SAVE_add_menu_link' );
 
 function A2A_SHARE_SAVE_widgets_init() {
 	global $A2A_SHARE_SAVE_plugin_dir;
-	
+
+    // XTEC ************ MODIFICAT - Fixed white screen when logging through WSL
+    // 2015.10.07 @aginard
+
+        include_once( 'addtoany.widgets.php' );
+
+    //************ ORIGINAL
+    /*
 	include_once( $A2A_SHARE_SAVE_plugin_dir . '/addtoany.widgets.php' );
+    */
+    //************ FI
+        
 	register_widget( 'A2A_SHARE_SAVE_Widget' );
 	register_widget( 'A2A_Follow_Widget' );
 }
