@@ -162,6 +162,10 @@ $A2A_SHARE_SAVE_services = array(
 		"name" => "Google Bookmarks",
 		"icon" => "google",
 	),
+	"google_classroom" => array(
+		"name" => "Google Classroom",
+		"icon" => "google_classroom",
+	),
 	"google_gmail" => array(
 		"name" => "Google Gmail",
 		"icon" => "gmail",
@@ -306,6 +310,10 @@ $A2A_SHARE_SAVE_services = array(
 		"name" => "Slashdot",
 		"icon" => "slashdot",
 	),
+	"sms" => array(
+		"name" => "SMS",
+		"icon" => "sms",
+	),
 	"stumpedia" => array(
 		"name" => "Stumpedia",
 		"icon" => "stumpedia",
@@ -317,6 +325,10 @@ $A2A_SHARE_SAVE_services = array(
 	"symbaloo_feeds" => array(
 		"name" => "Symbaloo Feeds",
 		"icon" => "symbaloo",
+	),
+	"telegram" => array(
+		"name" => "Telegram",
+		"icon" => "telegram",
 	),
 	"tuenti" => array(
 		"name" => "Tuenti",
@@ -398,7 +410,7 @@ $A2A_FOLLOW_services = array(
 	),
 	'instagram' => array( 
 		'name' => 'Instagram', 
-		'href' => 'https://instagram.com/${id}',	
+		'href' => 'https://www.instagram.com/${id}',	
 		'icon' => 'instagram', 
 	),
 	'pinterest' => array( 
@@ -420,6 +432,11 @@ $A2A_FOLLOW_services = array(
 		'name' => 'Foursquare', 
 		'href' => 'https://foursquare.com/${id}',	
 		'icon' => 'foursquare', 
+	),
+	'github' => array( 
+		'name' => 'GitHub', 
+		'href' => 'https://github.com/${id}',	
+		'icon' => 'github', 
 	),
 	'google_plus' => array( 
 		'name' => 'Google+', 

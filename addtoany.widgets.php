@@ -76,7 +76,7 @@ class A2A_SHARE_SAVE_Widget extends WP_Widget {
 			<input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>" />
 		</p>
 		<p>
-			<a href="options-general.php?page=add-to-any.php"><?php _e('AddToAny Settings', 'add-to-any'); ?>...</a>
+			<a href="options-general.php?page=addtoany"><?php _e('AddToAny Settings', 'add-to-any'); ?>...</a>
 		</p>
 		<?php
 	}
@@ -186,7 +186,7 @@ class A2A_Follow_Widget extends WP_Widget {
 		</p>
 <?php endforeach; ?>
 		<p>
-			<a href="options-general.php?page=add-to-any.php"><?php _e('AddToAny Settings', 'add-to-any'); ?>...</a>
+			<a href="options-general.php?page=addtoany"><?php _e('AddToAny Settings', 'add-to-any'); ?>...</a>
 		</p>
 <?php
 	}
