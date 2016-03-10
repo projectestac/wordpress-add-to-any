@@ -421,8 +421,33 @@ function A2A_SHARE_SAVE_options_page() {
 	<h1><?php _e( 'AddToAny Share Settings', 'add-to-any' ); ?></h1>
 	
 	<h2 class="nav-tab-wrapper">
+<!--
+// XTEC ************ MODIFICAT - Added language translation
+// 2015.09.22 @nacho
+		<a href="<?php echo admin_url( 'options-general.php?page=add-to-any.php' ); ?>" class="nav-tab<?php if ( 'default' == $current_screen ) echo ' nav-tab-active'; ?>"><?php esc_attr_e( _e('Standard:', 'add-to-any' ) );?></a>
+//************ ORIGINAL
 		<a href="<?php echo admin_url( 'options-general.php?page=addtoany' ); ?>" class="nav-tab<?php if ( 'default' == $current_screen ) echo ' nav-tab-active'; ?>"><?php esc_html_e( 'Standard' ); ?></a>
+//************ FI
+ -->
+ 
+ 
+<!--
+// XTEC ************ AFEGIT - Hide Floating Tab
+// 2015.09.22 @nacho
+-->
+		<?php if ( is_xtec_super_admin() ) {?>
+<!--
+//************ FI
+ -->
 		<a href="<?php echo esc_url( add_query_arg( array( 'action' => 'floating' ), admin_url( 'options-general.php?page=addtoany' ) ) ); ?>" class="nav-tab<?php if ( 'floating' == $current_screen ) echo ' nav-tab-active'; ?>"><?php esc_html_e( 'Floating' ); ?></a>
+<!--
+// XTEC ************ AFEGIT - Hide Floating Tab
+// 2015.09.22 @nacho
+-->
+		<?php }?>
+<!--
+//************ FI
+ -->
 	</h2>
 
 	<form id="addtoany_admin_form" method="post" action="">
@@ -453,6 +478,21 @@ function A2A_SHARE_SAVE_options_page() {
 				</ul>
 				<p id="addtoany_services_info"><?php _e("Choose the services you want below. &nbsp;Click a chosen service again to remove. &nbsp;Reorder services by dragging and dropping as they appear above.", 'add-to-any'); ?></p>
 				<ul id="addtoany_services_selectable" class="addtoany_admin_list">
+					<li id="a2a_wp_facebook_like" class="addtoany_special_service addtoany_3p_button" title="Facebook Like button">
+						<span><img src="<?php echo $A2A_SHARE_SAVE_plugin_url_path.'/icons/facebook_like.png'; ?>" width="50" height="20" alt="Facebook Like" /></span>
+					</li>
+					<li id="a2a_wp_twitter_tweet" class="addtoany_special_service addtoany_3p_button" title="Twitter Tweet button">
+						<span><img src="<?php echo $A2A_SHARE_SAVE_plugin_url_path.'/icons/twitter_tweet.png'; ?>" width="55" height="20" alt="Twitter Tweet" /></span>
+					</li>
+					<li id="a2a_wp_google_plusone" class="addtoany_special_service addtoany_3p_button" title="Google +1 button">
+						<span><img src="<?php echo $A2A_SHARE_SAVE_plugin_url_path.'/icons/google_plusone.png'; ?>" width="32" height="20" alt="Google +1" /></span>
+					</li>
+					<li id="a2a_wp_google_plus_share" class="addtoany_special_service addtoany_3p_button" title="Google+ Share button">
+						<span><img src="<?php echo $A2A_SHARE_SAVE_plugin_url_path.'/icons/google_plus_share.png'; ?>" width="56" height="20" alt="Google+ Share" /></span>
+					</li>
+					<li id="a2a_wp_pinterest_pin" class="addtoany_special_service addtoany_3p_button" title="Pinterest Pin It button">
+						<span><img src="<?php echo $A2A_SHARE_SAVE_plugin_url_path.'/icons/pinterest_pin.png'; ?>" width="40" height="20" alt="Pinterest Pin It" /></span>
+					</li>
 				<?php
 					// Show all services
 					foreach ($A2A_SHARE_SAVE_services as $service_safe_name=>$site) { 
@@ -472,21 +512,6 @@ function A2A_SHARE_SAVE_options_page() {
 						</li>
 				<?php
 					} ?>
-					<li style="clear:left" id="a2a_wp_facebook_like" class="addtoany_special_service addtoany_3p_button" title="Facebook Like button">
-						<span><img src="<?php echo $A2A_SHARE_SAVE_plugin_url_path.'/icons/facebook_like.png'; ?>" width="50" height="20" alt="Facebook Like" /></span>
-					</li>
-					<li id="a2a_wp_twitter_tweet" class="addtoany_special_service addtoany_3p_button" title="Twitter Tweet button">
-						<span><img src="<?php echo $A2A_SHARE_SAVE_plugin_url_path.'/icons/twitter_tweet.png'; ?>" width="55" height="20" alt="Twitter Tweet" /></span>
-					</li>
-					<li id="a2a_wp_google_plusone" class="addtoany_special_service addtoany_3p_button" title="Google +1 button">
-						<span><img src="<?php echo $A2A_SHARE_SAVE_plugin_url_path.'/icons/google_plusone.png'; ?>" width="32" height="20" alt="Google +1" /></span>
-					</li>
-					<li id="a2a_wp_google_plus_share" class="addtoany_special_service addtoany_3p_button" title="Google+ Share button">
-						<span><img src="<?php echo $A2A_SHARE_SAVE_plugin_url_path.'/icons/google_plus_share.png'; ?>" width="56" height="20" alt="Google+ Share" /></span>
-					</li>
-					<li id="a2a_wp_pinterest_pin" class="addtoany_special_service addtoany_3p_button" title="Pinterest Pin It button">
-						<span><img src="<?php echo $A2A_SHARE_SAVE_plugin_url_path.'/icons/pinterest_pin.png'; ?>" width="40" height="20" alt="Pinterest Pin It" /></span>
-					</li>
 				</ul>
 			</fieldset></td>
 			</tr>
@@ -539,7 +564,14 @@ function A2A_SHARE_SAVE_options_page() {
 				<br>
 				<label>
 					<input name="A2A_SHARE_SAVE_button" value="TEXT" id="A2A_SHARE_SAVE_button_is_text" type="radio"<?php if ( isset( $options['button'] ) && 'TEXT' == $options['button'] ) echo ' checked="checked"'; ?> style="margin:9px 0;vertical-align:middle">
+<!--
+// XTEC ************ MODIFICAT - Added language translation
+// 2015.09.23 @nacho
+					<span style="margin:0 9px;vertical-align:middle"><?php _e("Text only", 'add-to-any'); ?>:</span>
+//************ ORIGINAL
 					<span style="margin:0 9px;vertical-align:middle"><?php _e("Text only"); ?>:</span>
+//************ FI
+ -->
 				</label>
 				<input name="A2A_SHARE_SAVE_button_text" type="text" class="code" size="50" onclick="document.getElementById('A2A_SHARE_SAVE_button_is_text').checked=true" style="vertical-align:middle;width:150px" value="<?php echo ( isset( $options['button_text'] ) && trim( '' != $options['button_text'] ) ) ? stripslashes($options['button_text']) : __('Share','add-to-any'); ?>" />
 				<br>
@@ -557,11 +589,26 @@ function A2A_SHARE_SAVE_options_page() {
 			</fieldset></td>
 			</tr>
 
+<!--
+// XTEC ************ AFEGIT - Only show options for xtecadmin
+// 2015.09.22 @nacho
+-->
+		<?php if ( is_xtec_super_admin() ) {?>
+<!--
+//************ FI
+ --> 
 			<tr valign="top">
 			<th scope="row"><?php _e('Sharing Header', 'add-to-any'); ?></th>
 			<td><fieldset id="addtoany_extra_section_sharing_header" class="addtoany_extra_section" role="region">
 				<label>
+<!--
+// XTEC ************ MODIFICAT - Added language translation
+// 2015.09.23 @nacho
+					<input name="A2A_SHARE_SAVE_header" type="text" class="code" placeholder="<?php esc_attr_e( _e('Share this:', "add-to-any" ) ); ?>" size="50" value="<?php if ( isset( $options['header'] ) ) echo esc_attr( stripslashes( $options['header'] ) ); ?>" />
+//************ ORIGINAL
 					<input name="A2A_SHARE_SAVE_header" type="text" class="code" placeholder="<?php esc_attr_e( 'Share this:' ); ?>" size="50" value="<?php if ( isset( $options['header'] ) ) echo esc_attr( stripslashes( $options['header'] ) ); ?>" />
+//************ FI
+ -->
 				</label>
 			</fieldset></td>
 			</tr>
@@ -575,6 +622,16 @@ function A2A_SHARE_SAVE_options_page() {
 					<?php printf(__('Display at the %s of posts', 'add-to-any'), position_in_content( $options, true )); ?>
 				</label>
 				<br/>
+<!--
+// XTEC ************ MODIFICAT - Unmark by default option "Display at the XXX of posts on the front page "
+// 2015.09.23 @nacho
+-->
+				<label>
+					&nbsp; &nbsp; &nbsp; <input class="A2A_SHARE_SAVE_child_of_display_in_posts" name="A2A_SHARE_SAVE_display_in_posts_on_front_page" type="checkbox" value="1"/>
+					<?php printf(__('Display at the %s of posts on the front page', 'add-to-any'), position_in_content( $options )); ?>
+				</label>
+<!--
+//************ ORIGINAL
 				<label>
 					&nbsp; &nbsp; &nbsp; <input class="A2A_SHARE_SAVE_child_of_display_in_posts" name="A2A_SHARE_SAVE_display_in_posts_on_front_page" type="checkbox"<?php 
 						if ( ! isset( $options['display_in_posts_on_front_page'] ) || $options['display_in_posts_on_front_page'] != '-1' ) echo ' checked="checked"';
@@ -582,6 +639,8 @@ function A2A_SHARE_SAVE_options_page() {
 						?> value="1"/>
 					<?php printf(__('Display at the %s of posts on the front page', 'add-to-any'), position_in_content( $options )); ?>
 				</label>
+//************ FI
+ -->					
 				<br/>
 				<label>
 					&nbsp; &nbsp; &nbsp; <input class="A2A_SHARE_SAVE_child_of_display_in_posts" name="A2A_SHARE_SAVE_display_in_posts_on_archive_pages" type="checkbox"<?php 
@@ -591,6 +650,16 @@ function A2A_SHARE_SAVE_options_page() {
 					<?php printf(__('Display at the %s of posts on archive pages', 'add-to-any'), position_in_content( $options )); ?>
 				</label>
 				<br/>
+<!--
+// XTEC ************ MODIFICAT - Unmark by default option "Display at the XXX of posts in the feed"
+// 2015.09.23 @nacho
+-->
+				<label>
+					&nbsp; &nbsp; &nbsp; <input class="A2A_SHARE_SAVE_child_of_display_in_posts" name="A2A_SHARE_SAVE_display_in_feed" type="checkbox" value="1"/>
+					<?php printf(__('Display at the %s of posts in the feed', 'add-to-any'), position_in_content( $options )); ?>
+				</label>
+<!--
+//************ ORIGINAL
 				<label>
 					&nbsp; &nbsp; &nbsp; <input class="A2A_SHARE_SAVE_child_of_display_in_posts" name="A2A_SHARE_SAVE_display_in_feed" type="checkbox"<?php 
 						if ( ! isset( $options['display_in_feed'] ) || $options['display_in_feed'] != '-1' ) echo ' checked="checked"'; 
@@ -598,13 +667,27 @@ function A2A_SHARE_SAVE_options_page() {
 						?> value="1"/>
 					<?php printf(__('Display at the %s of posts in the feed', 'add-to-any'), position_in_content( $options )); ?>
 				</label>
+//************ FI
+ -->
 				<br/>
+<!--
+// XTEC ************ MODIFICAT - Unmark by default option "Display at the XXX of excerpts"
+// 2015.09.23 @nacho
+-->
+				<label>
+					<input name="A2A_SHARE_SAVE_display_in_excerpts" type="checkbox" value="1"/>
+					<?php printf(__('Display at the %s of excerpts', 'add-to-any'), position_in_content( $options, false )); ?>
+				</label>
+<!--
+//************ ORIGINAL
 				<label>
 					<input name="A2A_SHARE_SAVE_display_in_excerpts" type="checkbox"<?php 
 						if ( ! isset( $options['display_in_excerpts'] ) || $options['display_in_excerpts'] != '-1' ) echo ' checked="checked"';
 						?> value="1"/>
 					<?php printf(__('Display at the %s of excerpts', 'add-to-any'), position_in_content( $options, false )); ?>
 				</label>
+//************ FI
+ -->
 				<br/>
 				<label>
 					<input name="A2A_SHARE_SAVE_display_in_pages" type="checkbox"<?php if ( ! isset( $options['display_in_pages'] ) || $options['display_in_pages'] != '-1' ) echo ' checked="checked"'; ?> value="1"/>
@@ -625,10 +708,22 @@ function A2A_SHARE_SAVE_options_page() {
 					$placement_name = $custom_post_type_obj->name;
 			?>
 				<br/>
+<!--
+// XTEC ************ MODIFICAT - Unmark by default options "Display at the XXX of Forums/Themes/Answers/Documents/Google Calendars"
+// 2015.09.23 @nacho
+-->
+				<label>
+					<input name="A2A_SHARE_SAVE_display_in_cpt_<?php echo $placement_name; ?>" type="checkbox" value="1"/>
+					<?php printf(__('Display at the %s of %s', 'add-to-any'), position_in_content( $options, false ), esc_html( $placement_label ) ); ?>
+				</label>
+<!--
+//************ ORIGINAL
 				<label>
 					<input name="A2A_SHARE_SAVE_display_in_cpt_<?php echo $placement_name; ?>" type="checkbox"<?php if ( ! isset( $options['display_in_cpt_' . $placement_name] ) || $options['display_in_cpt_' . $placement_name] != '-1' ) echo ' checked="checked"'; ?> value="1"/>
 					<?php printf(__('Display at the %s of %s', 'add-to-any'), position_in_content( $options, false ), esc_html( $placement_label ) ); ?>
 				</label>
+//************ FI
+ -->
 			<?php endforeach; ?>
 				
 				<br/><br/>
@@ -719,6 +814,14 @@ function A2A_SHARE_SAVE_options_page() {
 				</p>
 			</fieldset></td>
 			</tr>
+<!-- 
+// XTEC ************ AFEGIT - End Only show options for xtecadmin
+// 2015.09.22 @nacho
+-->
+		<?php }?>
+<!--
+//************ FI
+-->
 		<?php endif; ?>
 		
 		</table>		
@@ -801,7 +904,7 @@ function A2A_SHARE_SAVE_options_page() {
 		</table>
 		
 		<?php endif; ?>
-		
+
 		</table>
 		
 		<p class="submit">
@@ -811,6 +914,14 @@ function A2A_SHARE_SAVE_options_page() {
 	
 	</form>
 	
+<!--
+// XTEC ************ AFEGIT - Hide unnecessary info
+// 2015.09.22 @nacho
+-->
+		<?php if(is_xtecadmin()) {?>
+<!--
+//************ FI
+ -->	
 	<h2><?php _e('Like this plugin?','add-to-any'); ?></h2>
 	<p><?php _e('<a href="https://wordpress.org/support/view/plugin-reviews/add-to-any#postform" target="_blank">Give it a 5 star rating</a> on WordPress.org.','add-to-any'); ?></p>
 	<p><?php _e('<a href="https://www.addtoany.com/share_save#title=WordPress%20Share%20Plugin%20by%20AddToAny.com&amp;url=http%3A%2F%2Fwordpress.org%2Fplugins%2Fadd-to-any%2F">Share it</a> and follow <a href="https://www.addtoany.com/">AddToAny</a> on <a href="https://www.facebook.com/AddToAny" target="_blank">Facebook</a> &amp; <a href="https://twitter.com/AddToAny" target="_blank">Twitter</a>.','add-to-any'); ?></p>
@@ -818,6 +929,14 @@ function A2A_SHARE_SAVE_options_page() {
 	<h2><?php _e('Need support?','add-to-any'); ?></h2>
 	<p><?php _e('See the <a href="http://wordpress.org/extend/plugins/add-to-any/faq/">FAQs</a>.','add-to-any'); ?></p>
 	<p><?php _e('Search the <a href="http://wordpress.org/tags/add-to-any">support forums</a>.','add-to-any'); ?></p>
+<!-- 
+// XTEC ************ AFEGIT - Hide unnecessary info
+// 2015.09.22 @nacho
+-->
+		<?php }?>
+<!--
+//************ FI
+-->	
 	</div>
 	
 	<script src="http<?php if ( is_ssl() ) echo 's'; ?>://static.addtoany.com/menu/page.js"></script>
@@ -993,8 +1112,8 @@ function A2A_SHARE_SAVE_admin_head() {
 				}
 				
 				if (special_options_html.length > 0) {
-					configurable_html = '<span class="down_arrow"></span><br style="clear:both"/><div class="special_options">' + special_options_html + '</div>';
-				}
+				configurable_html = '<span class="down_arrow"></span><br style="clear:both"/><div class="special_options">' + special_options_html + '</div>';
+			}
 			}
 			
 			var icon_size = jQuery('input:radio[name=A2A_SHARE_SAVE_icon_size]:checked').val();
@@ -1075,7 +1194,7 @@ function A2A_SHARE_SAVE_admin_head() {
 				$active_services_quoted .= ',';
 			
 			// AddToAny counter enabled?
-			if ( in_array( $service, array( 'facebook', 'pinterest', 'linkedin', 'reddit' ) ) ) {
+			if ( in_array( $service, array( 'facebook', 'twitter', 'pinterest', 'linkedin', 'reddit' ) ) ) {
 				if ( isset( $_POST['addtoany_' . $service . '_show_count'] ) && $_POST['addtoany_' . $service . '_show_count'] == '1'
 					|| ! isset( $_POST['addtoany_' . $service . '_show_count'] )
 					&& isset( $options['special_' . $service . '_options'] )
@@ -1122,7 +1241,7 @@ function A2A_SHARE_SAVE_admin_head() {
 		
 		// Add/Remove Services button
 		jQuery('#addtoany_services_sortable .dummy:first').after('<li id="addtoany_show_services"><?php _e('Add/Remove Services', 'add-to-any'); ?> &#187;</li>');
-		jQuery('#addtoany_show_services').click(function(e) {
+		jQuery('#addtoany_show_services').click(function(e){
 			jQuery('#addtoany_services_selectable, #addtoany_services_info').slideDown('fast');
 			jQuery(this).fadeOut('fast');
 		});
@@ -1186,7 +1305,6 @@ function A2A_SHARE_SAVE_admin_head() {
 	li#addtoany_show_services{border:1px solid #DFDFDF;background-color:#FFF;cursor:pointer;margin-left:9px;}
 	li#addtoany_show_services:hover{border:1px solid #AAA;}
 	#addtoany_services_info{clear:left;display:none;margin:10px;}
-	
 	/* No outline during ARIA focus */
 	.addtoany_extra_section {
 		outline: 0;
