@@ -356,6 +356,24 @@ function A2A_SHARE_SAVE_options_page() {
 	}
 
 	$options = get_option( 'addtoany_options' );
+// XTEC ************ AFEGIT - Define default values
+// 2016.03.16 @sarjona
+	if (!isset($options['display_in_posts_on_front_page'])) {
+		$options['display_in_posts_on_front_page'] = -1;
+	}
+	if (!isset($options['display_in_posts_on_archive_pages'])) {
+		$options['display_in_posts_on_archive_pages'] = -1;
+	}
+	if (!isset($options['display_in_feed'])) {
+		$options['display_in_feed'] = -1;
+	}
+	if (!isset($options['display_in_excerpts'])) {
+		$options['display_in_excerpts'] = -1;
+	}
+	if (!isset($options['display_in_pages'])) {
+		$options['display_in_pages'] = -1;
+	}
+//************ FI
 	
 	function position_in_content( $options, $option_box = false ) {
 		
@@ -605,16 +623,6 @@ function A2A_SHARE_SAVE_options_page() {
 					<?php printf(__('Display at the %s of posts', 'add-to-any'), position_in_content( $options, true )); ?>
 				</label>
 				<br/>
-<!--
-// XTEC ************ MODIFICAT - Unmark by default option "Display at the XXX of posts on the front page "
-// 2015.09.23 @nacho
--->
-				<label>
-					&nbsp; &nbsp; &nbsp; <input class="A2A_SHARE_SAVE_child_of_display_in_posts" name="A2A_SHARE_SAVE_display_in_posts_on_front_page" type="checkbox" value="1"/>
-					<?php printf(__('Display at the %s of posts on the front page', 'add-to-any'), position_in_content( $options )); ?>
-				</label>
-<!--
-//************ ORIGINAL
 				<label>
 					&nbsp; &nbsp; &nbsp; <input class="A2A_SHARE_SAVE_child_of_display_in_posts" name="A2A_SHARE_SAVE_display_in_posts_on_front_page" type="checkbox"<?php 
 						if ( ! isset( $options['display_in_posts_on_front_page'] ) || $options['display_in_posts_on_front_page'] != '-1' ) echo ' checked="checked"';
@@ -622,8 +630,6 @@ function A2A_SHARE_SAVE_options_page() {
 						?> value="1"/>
 					<?php printf(__('Display at the %s of posts on the front page', 'add-to-any'), position_in_content( $options )); ?>
 				</label>
-//************ FI
- -->					
 				<br/>
 				<label>
 					&nbsp; &nbsp; &nbsp; <input class="A2A_SHARE_SAVE_child_of_display_in_posts" name="A2A_SHARE_SAVE_display_in_posts_on_archive_pages" type="checkbox"<?php 
@@ -633,16 +639,6 @@ function A2A_SHARE_SAVE_options_page() {
 					<?php printf(__('Display at the %s of posts on archive pages', 'add-to-any'), position_in_content( $options )); ?>
 				</label>
 				<br/>
-<!--
-// XTEC ************ MODIFICAT - Unmark by default option "Display at the XXX of posts in the feed"
-// 2015.09.23 @nacho
--->
-				<label>
-					&nbsp; &nbsp; &nbsp; <input class="A2A_SHARE_SAVE_child_of_display_in_posts" name="A2A_SHARE_SAVE_display_in_feed" type="checkbox" value="1"/>
-					<?php printf(__('Display at the %s of posts in the feed', 'add-to-any'), position_in_content( $options )); ?>
-				</label>
-<!--
-//************ ORIGINAL
 				<label>
 					&nbsp; &nbsp; &nbsp; <input class="A2A_SHARE_SAVE_child_of_display_in_posts" name="A2A_SHARE_SAVE_display_in_feed" type="checkbox"<?php 
 						if ( ! isset( $options['display_in_feed'] ) || $options['display_in_feed'] != '-1' ) echo ' checked="checked"'; 
@@ -650,27 +646,13 @@ function A2A_SHARE_SAVE_options_page() {
 						?> value="1"/>
 					<?php printf(__('Display at the %s of posts in the feed', 'add-to-any'), position_in_content( $options )); ?>
 				</label>
-//************ FI
- -->
 				<br/>
-<!--
-// XTEC ************ MODIFICAT - Unmark by default option "Display at the XXX of excerpts"
-// 2015.09.23 @nacho
--->
-				<label>
-					<input name="A2A_SHARE_SAVE_display_in_excerpts" type="checkbox" value="1"/>
-					<?php printf(__('Display at the %s of excerpts', 'add-to-any'), position_in_content( $options, false )); ?>
-				</label>
-<!--
-//************ ORIGINAL
 				<label>
 					<input name="A2A_SHARE_SAVE_display_in_excerpts" type="checkbox"<?php 
 						if ( ! isset( $options['display_in_excerpts'] ) || $options['display_in_excerpts'] != '-1' ) echo ' checked="checked"';
 						?> value="1"/>
 					<?php printf(__('Display at the %s of excerpts', 'add-to-any'), position_in_content( $options, false )); ?>
 				</label>
-//************ FI
- -->
 				<br/>
 				<label>
 					<input name="A2A_SHARE_SAVE_display_in_pages" type="checkbox"<?php if ( ! isset( $options['display_in_pages'] ) || $options['display_in_pages'] != '-1' ) echo ' checked="checked"'; ?> value="1"/>
