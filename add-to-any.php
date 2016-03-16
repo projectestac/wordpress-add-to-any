@@ -797,7 +797,14 @@ function A2A_SHARE_SAVE_add_to_content( $content ) {
 			// Search results posts (same as Archive page posts option)
 			( is_search() && isset( $options['display_in_posts_on_archive_pages'] ) && $options['display_in_posts_on_archive_pages'] == '-1' ) || 
 			// Excerpt (the_excerpt is the current filter)
+// XTEC ************ MODIFICAT - If not defined, not display in excerpt
+// 2016.03.16 @sarjona
+			( 'the_excerpt' == current_filter() && (!isset( $options['display_in_excerpts'] ) || $options['display_in_excerpts'] == '-1' )) ||
+//************ ORIGINAL
+/*
 			( 'the_excerpt' == current_filter() && isset( $options['display_in_excerpts'] ) && $options['display_in_excerpts'] == '-1' ) ||
+*/
+//************ FI
 			// Posts in feed
 			( $is_feed && isset( $options['display_in_feed'] ) && $options['display_in_feed'] == '-1' ) ||
 			
@@ -806,7 +813,14 @@ function A2A_SHARE_SAVE_add_to_content( $content ) {
 			
 			// Pages
 			// Individual pages
+// XTEC ************ MODIFICAT - If not defined, not display in pages
+// 2016.03.16 @sarjona
+			( is_page() && (!isset( $options['display_in_pages']) || $options['display_in_pages'] == '-1' )) ||
+//************ ORIGINAL
+/*
 			( is_page() && isset( $options['display_in_pages'] ) && $options['display_in_pages'] == '-1' ) ||
+*/
+//************ FI
 			// Attachment (media) pages
 			( is_attachment() && isset( $options['display_in_attachments'] ) && $options['display_in_attachments'] == '-1' ) ||
 			// <!--nosharesave--> legacy tag
