@@ -595,7 +595,9 @@ function A2A_SHARE_SAVE_options_page() {
 <!--
 // XTEC ************ MODIFICAT - Added language translation
 // 2015.09.23 @nacho
+-->
 					<span style="margin:0 9px;vertical-align:middle"><?php _e("Text only", 'add-to-any'); ?>:</span>
+<!--
 //************ ORIGINAL
 					<span style="margin:0 9px;vertical-align:middle"><?php _e("Text only"); ?>:</span>
 //************ FI
@@ -611,7 +613,16 @@ function A2A_SHARE_SAVE_options_page() {
 				<label>
 					<input id="A2A_SHARE_SAVE_button_show_count" name="A2A_SHARE_SAVE_button_show_count" type="checkbox"<?php 
 						if ( isset( $options['button_show_count'] ) && $options['button_show_count'] == '1' ) echo ' checked="checked"'; ?> value="1">
+<!--
+// XTEC ************ MODIFICAT - Added language translation
+// 2015.09.23 @nacho
+-->
+					<span style="margin-left:5px"><?php _e('Show count', 'add-to-any'); ?></span>
+<!--
+//************ ORIGINAL
 					<span style="margin-left:5px">Show count</span>
+//************ FI
+-->
 				</label>
 				
 			</fieldset></td>
