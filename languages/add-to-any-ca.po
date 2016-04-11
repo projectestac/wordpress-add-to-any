@@ -416,3 +416,8 @@ msgstr "Fes servir el CSS per defecte"
 #: addtoany.admin.php:691
 msgid "Only disable AddToAny's default stylesheet if you already have the necessary CSS code applied to your AddToAny buttons."
 msgstr ""
+
+# XTEC ************ AFEGIT - New strings for localization support
+# 2016.04.11 @sarjona
+msgid "Show count"
+msgstr "Mostra recompte"
