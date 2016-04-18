@@ -13,9 +13,22 @@ class A2A_SHARE_SAVE_Widget extends WP_Widget {
 	
 	/** constructor */
 	function __construct() {
-		$widget_ops = array( 'description' => 'Share buttons for sharing your content.' );
-		parent::__construct( '', 'AddToAny Share', $widget_ops );	
+		$widget_ops = array( 
+			'description' => 'Share buttons for sharing your content.',
+			'customize_selective_refresh' => true,
+		);
+		parent::__construct( '', 'AddToAny Share', $widget_ops );
+		
+		// Enqueue script if widget is active (appears in a sidebar) or if in Customizer preview.
+		// is_customize_preview() @since 4.0.0
+		if ( is_active_widget( false, false, $this->id_base ) || ( function_exists( 'is_customize_preview' ) && is_customize_preview() ) ) {
+			add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
+		}
 	}
+	
+    public function enqueue_scripts() {
+        wp_enqueue_script( 'addtoany-widget-init', plugins_url( 'addtoany.admin.js', __FILE__ ), array(), '0.1', true );
+    }
 	
 	/** Backwards compatibility for A2A_SHARE_SAVE_Widget::display(); usage */
 	public function display( $args = false ) {
@@ -92,9 +105,25 @@ class A2A_Follow_Widget extends WP_Widget {
 	
 	/** constructor */
 	function __construct() {
-		$widget_ops = array( 'description' => 'Follow buttons link to your social media.' );
+		$widget_ops = array( 
+			'description' => 'Follow buttons link to your social media.',
+			'customize_selective_refresh' => true,
+		);
 		parent::__construct( '', 'AddToAny Follow', $widget_ops );	
+		
+		// Enqueue script if widget is active (appears in a sidebar) or if in Customizer preview.
+		// is_customize_preview() @since 4.0.0
+		if ( is_active_widget( false, false, $this->id_base ) || ( function_exists( 'is_customize_preview' ) && is_customize_preview() ) ) {
+			add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
+		}
 	}
+	
+	/**
+	 * Enqueue a script with jQuery as a dependency.
+	 */
+    public function enqueue_scripts() {
+        wp_enqueue_script( 'addtoany-widget-init', plugins_url( 'addtoany.admin.js', __FILE__ ), array('jquery'), '0.1', true );
+    }
 
 	/**
 	 * @param array $args

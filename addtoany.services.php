@@ -190,6 +190,10 @@ $A2A_SHARE_SAVE_services = array(
 		"name" => "Kakao",
 		"icon" => "kakao",
 	),
+	"kik" => array(
+		"name" => "Kik",
+		"icon" => "kik",
+	),
 	"kindle_it" => array(
 		"name" => "Kindle It",
 		"icon" => "kindle",
@@ -306,6 +310,10 @@ $A2A_SHARE_SAVE_services = array(
 		"name" => "SiteJot",
 		"icon" => "sitejot",
 	),
+	"skype" => array(
+		"name" => "Skype",
+		"icon" => "skype",
+	),
 	"slashdot" => array(
 		"name" => "Slashdot",
 		"icon" => "slashdot",
@@ -346,6 +354,10 @@ $A2A_SHARE_SAVE_services = array(
 		"name" => "Viadeo",
 		"icon" => "viadeo",
 	),
+	"viber" => array(
+		"name" => "Viber",
+		"icon" => "viber",
+	),
 	"vk" => array(
 		"name" => "VK",
 		"icon" => "vk",
@@ -357,6 +369,10 @@ $A2A_SHARE_SAVE_services = array(
 	"webnews" => array(
 		"name" => "Webnews",
 		"icon" => "webnews",
+	),
+	"wechat" => array(
+		"name" => "WeChat",
+		"icon" => "wechat",
 	),
 	"wordpress" => array(
 		"name" => "WordPress",
@@ -398,6 +414,7 @@ $A2A_SHARE_SAVE_services = array(
 );
 
 $A2A_FOLLOW_services = array(
+	
 	'facebook' => array( 
 		'name' => 'Facebook', 
 		'href' => 'https://www.facebook.com/${id}',	
@@ -453,6 +470,11 @@ $A2A_FOLLOW_services = array(
 		'href' => 'https://www.linkedin.com/company/${id}',	
 		'icon' => 'linkedin', 
 	),
+	'snapchat' => array( 
+		'name' => 'Snapchat', 
+		'href' => 'https://www.snapchat.com/add/${id}',	
+		'icon' => 'snapchat', 
+	),
 	'tumblr' => array( 
 		'name' => 'Tumblr', 
 		'href' => 'http://${id}.tumblr.com',	
@@ -478,4 +500,5 @@ $A2A_FOLLOW_services = array(
 		'href' => 'http://www.example.com/feed/',
 		'icon' => 'feed', 
 	),
+	
 );

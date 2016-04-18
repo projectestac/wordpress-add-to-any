@@ -7,8 +7,22 @@ function A2A_SHARE_SAVE_add_meta_box() {
 	// get_post_types() only included in WP 2.9/3.0
 	$post_types = ( function_exists( 'get_post_types' ) ) ? get_post_types( array( 'public' => true ) ) : array( 'post', 'page' ) ;
 	
+	$options = get_option( 'addtoany_options' );
+	
 	$title = apply_filters( 'A2A_SHARE_SAVE_meta_box_title', __( 'AddToAny', 'add-to-any' ) );
 	foreach( $post_types as $post_type ) {
+		// If automatic placement is disabled for the post type
+		if (
+			'post' == $post_type && isset( $options['display_in_posts'] ) && $options['display_in_posts'] == '-1' ||
+			'page' == $post_type && isset( $options['display_in_pages'] ) && $options['display_in_pages'] == '-1' ||
+			// Custom post type
+			isset( $options['display_in_cpt_' . $post_type] ) && $options['display_in_cpt_' . $post_type] == '-1'
+		) {
+			// Skip current post type
+			continue;
+		}
+		
+		// Add meta box (unless we skipped this post type above)
 		add_meta_box( 'A2A_SHARE_SAVE_meta', $title, 'A2A_SHARE_SAVE_meta_box_content', $post_type, 'advanced', 'high' );
 	}
 }

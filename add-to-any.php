@@ -3,7 +3,7 @@
 Plugin Name: AddToAny Share Buttons
 Plugin URI: https://www.addtoany.com/
 Description: Share buttons for your pages including AddToAny's universal sharing button, Facebook, Twitter, Google+, Pinterest, WhatsApp and many more.  [<a href="options-general.php?page=addtoany">Settings</a>]
-Version: 1.6.14
+Version: 1.6.16
 Author: AddToAny
 Author URI: https://www.addtoany.com/
 Text Domain: add-to-any
@@ -202,6 +202,7 @@ function ADDTOANY_SHARE_SAVE_ICONS( $args = array() ) {
 	$args = wp_parse_args( $args, $defaults );
 	extract( $args );
 	
+	$https_or_http = is_ssl() ? 'https' : 'http';
 	$is_amp = function_exists( 'is_amp_endpoint' ) && is_amp_endpoint() ? true : false;
 	
 	// False if "icon_size" is set to '16', or no_small_icons arg is true
@@ -316,11 +317,17 @@ function ADDTOANY_SHARE_SAVE_ICONS( $args = array() ) {
 			$height_attr = isset( $service['icon_height'] ) ? ' height="' . $service['icon_height'] . '"' : ' height="16"';
 			$height_attr = $is_amp && isset( $icon_size ) ? ' height="' . $icon_size . '"' : $height_attr;
 			
-			$url = ( isset( $href ) ) ? $href : "http://www.addtoany.com/add_to/" . $safe_name . "?linkurl=" . $linkurl_enc . "&amp;linkname=" . $linkname_enc;
+			$url = ( isset( $href ) ) ? $href : $https_or_http . '://www.addtoany.com/add_to/' . $safe_name . '?linkurl=' . $linkurl_enc .'&amp;linkname=' . $linkname_enc;
 			$src = ( $icon_url ) ? $icon_url : $icons_dir . $icon . '.' . $icons_type;
 			$counter = ( $counter_enabled ) ? ' a2a_counter' : '';
 			$class_attr = ( $custom_service ) ? '' : ' class="a2a_button_' . $safe_name . $counter . '"';
 			$rel_nofollow = $is_follow ? '' : ' rel="nofollow"'; // ($is_follow indicates a Follow Kit. 'nofollow' is for search crawlers. Different things)
+			
+			if ( isset( $service['target'] ) ) {
+				$target_attr = empty( $service['target'] ) ? '' : ' target="' . $service['target'] . '"';
+			} else {
+				$target_attr = ' target="_blank"';
+			}
 			
 			// Set dimension attributes if using custom icons and dimension is specified
 			if ( isset( $custom_icons ) ) {
@@ -328,7 +335,7 @@ function ADDTOANY_SHARE_SAVE_ICONS( $args = array() ) {
 				$height_attr = ! empty( $icons_height ) ? ' height="' . $icons_height . '"' : '';
 			}
 			
-			$link = $html_wrap_open . "<a$class_attr href=\"$url\" title=\"$name\"$rel_nofollow target=\"_blank\">";
+			$link = $html_wrap_open . "<a$class_attr href=\"$url\" title=\"$name\"$rel_nofollow$target_attr>";
 			$link .= ( $large_icons && ! isset( $custom_icons ) && ! $custom_service ) ? "" : "<img src=\"$src\"" . $width_attr . $height_attr . " alt=\"$name\"/>";
 			$link .= "</a>" . $html_wrap_close;
 		}
@@ -752,12 +759,12 @@ function A2A_SHARE_SAVE_head_script() {
 		
 	$options = get_option( 'addtoany_options' );
 	
-	$http_or_https = ( is_ssl() ) ? 'https' : 'http';
+	$https_or_http = is_ssl() ? 'https' : 'http';
 
 	// Use local cache?
 	$cache = ( isset( $options['cache'] ) && '1' == $options['cache'] ) ? true : false;
 	$upload_dir = wp_upload_dir();
-	$static_server = ( $cache ) ? $upload_dir['baseurl'] . '/addtoany' : $http_or_https . '://static.addtoany.com/menu';
+	$static_server = ( $cache ) ? $upload_dir['baseurl'] . '/addtoany' : $https_or_http . '://static.addtoany.com/menu';
 	
 	// Enternal script call + initial JS + set-once variables
 	$additional_js = ( isset( $options['additional_js_variables'] ) ) ? $options['additional_js_variables'] : '' ;
