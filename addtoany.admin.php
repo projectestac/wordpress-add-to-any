@@ -370,13 +370,17 @@ function A2A_SHARE_SAVE_options_page() {
 	}
 
 	$options = get_option( 'addtoany_options' );
-// XTEC ************ AFEGIT - Define default values
+
+// XTEC ************ AFEGIT - Define default values. The xtecblock users default other options
 // 2016.03.16 @sarjona
-	if (!isset($options['display_in_posts_on_front_page'])) {
+// 2016.06.02 @xavinieto
+	if( is_xtec_super_admin() ){
+		if (!isset($options['display_in_posts_on_front_page'])) {
 		$options['display_in_posts_on_front_page'] = -1;
-	}
-	if (!isset($options['display_in_posts_on_archive_pages'])) {
-		$options['display_in_posts_on_archive_pages'] = -1;
+		}
+		if (!isset($options['display_in_posts_on_archive_pages'])) {
+			$options['display_in_posts_on_archive_pages'] = -1;
+		}
 	}
 	if (!isset($options['display_in_feed'])) {
 		$options['display_in_feed'] = -1;
@@ -439,12 +443,24 @@ function A2A_SHARE_SAVE_options_page() {
 <!--
 // XTEC ************ MODIFICAT - Added language translation
 // 2015.09.22 @nacho
+// 2016.02.03 @xavinieto
+
+		<?php if ( is_xtec_super_admin() ) { ?>
+
 		<a href="<?php echo admin_url( 'options-general.php?page=add-to-any.php' ); ?>" class="nav-tab<?php if ( 'default' == $current_screen ) echo ' nav-tab-active'; ?>"><?php esc_attr_e( _e('Standard:', 'add-to-any' ) );?></a>
-//************ ORIGINAL
+//************ ORIGINAL-->
 		<a href="<?php echo admin_url( 'options-general.php?page=addtoany' ); ?>" class="nav-tab<?php if ( 'default' == $current_screen ) echo ' nav-tab-active'; ?>"><?php esc_html_e( 'Standard' ); ?></a>
+<!--
 //************ FI
  -->
- 
+ <!--
+// XTEC ************ AFEGIT - Hide Floating Tab
+// 2015.09.22 @xavinieto
+-->
+		<?php } ?>
+<!--
+//************ FI
+ -->
  
 <!--
 // XTEC ************ AFEGIT - Hide Floating Tab
@@ -614,15 +630,14 @@ function A2A_SHARE_SAVE_options_page() {
 				
 			</fieldset></td>
 			</tr>
-
 <!--
 // XTEC ************ AFEGIT - Only show options for xtecadmin
-// 2015.09.22 @nacho
+// 2016.06.02 @xavinieto
 -->
-		<?php if ( is_xtec_super_admin() ) {?>
+			<?php if ( is_xtec_super_admin() ) {?>
 <!--
 //************ FI
- --> 
+ -->
 			<tr valign="top">
 			<th scope="row"><?php _e('Sharing Header', 'add-to-any'); ?></th>
 			<td><fieldset id="addtoany_extra_section_sharing_header" class="addtoany_extra_section" role="region">
@@ -638,7 +653,16 @@ function A2A_SHARE_SAVE_options_page() {
 				</label>
 			</fieldset></td>
 			</tr>
-			
+
+ <!--
+// XTEC ************ AFEGIT - Only show options for xtecadmin
+// 2016.06.02 @xavinieto
+-->
+			<?php } ?>
+<!--
+//************ FI
+ -->
+
 			<tr valign="top">
 			<th scope="row"><?php _e('Placement', 'add-to-any'); ?></th>
 			<td><fieldset>
@@ -655,6 +679,7 @@ function A2A_SHARE_SAVE_options_page() {
 						?> value="1"/>
 					<?php printf(__('Display at the %s of posts on the front page', 'add-to-any'), position_in_content( $options )); ?>
 				</label>
+
 				<br/>
 				<label>
 					&nbsp; &nbsp; &nbsp; <input class="A2A_SHARE_SAVE_child_of_display_in_posts" name="A2A_SHARE_SAVE_display_in_posts_on_archive_pages" type="checkbox"<?php 
@@ -663,6 +688,15 @@ function A2A_SHARE_SAVE_options_page() {
 						?> value="1"/>
 					<?php printf(__('Display at the %s of posts on archive pages', 'add-to-any'), position_in_content( $options )); ?>
 				</label>
+
+  <!--
+// XTEC ************ AFEGIT - Only show options for xtecadmin
+// 2016.06.02 @xavinieto
+-->
+				<?php if ( is_xtec_super_admin() ) {?>
+<!--
+//************ FI
+ -->
 				<br/>
 				<label>
 					&nbsp; &nbsp; &nbsp; <input class="A2A_SHARE_SAVE_child_of_display_in_posts" name="A2A_SHARE_SAVE_display_in_feed" type="checkbox"<?php 
@@ -678,12 +712,27 @@ function A2A_SHARE_SAVE_options_page() {
 						?> value="1"/>
 					<?php printf(__('Display at the %s of excerpts', 'add-to-any'), position_in_content( $options, false )); ?>
 				</label>
+<!--
+// XTEC ************ AFEGIT - Only show options for xtecadmin
+// 2016.06.02 @xavinieto
+-->
+			<?php } ?>
+<!--
+//************ FI
+ -->
 				<br/>
 				<label>
 					<input name="A2A_SHARE_SAVE_display_in_pages" type="checkbox"<?php if ( ! isset( $options['display_in_pages'] ) || $options['display_in_pages'] != '-1' ) echo ' checked="checked"'; ?> value="1"/>
 					<?php printf(__('Display at the %s of pages', 'add-to-any'), position_in_content( $options, false )); ?>
 				</label>
-				
+ <!--
+// XTEC ************ AFEGIT - Only show options for xtecadmin
+// 2016.06.02 @xavinieto
+-->
+			<?php if ( is_xtec_super_admin() ) {?>
+<!--
+//************ FI
+ -->
 			<?php 
 				$custom_post_types = array_values( get_post_types( array( 'public' => true, '_builtin' => false ), 'objects' ) );
 				foreach ( $custom_post_types as $custom_post_type_obj ) :
@@ -708,13 +757,32 @@ function A2A_SHARE_SAVE_options_page() {
 //************ FI
  -->
 			<?php endforeach; ?>
-				
-				<br/><br/>
+
+ 				<br/><br/>
 				<div class="setting-description">
 					<?php _e("See <a href=\"widgets.php\" title=\"Theme Widgets\">Widgets</a> and <a href=\"options-general.php?page=addtoany&action=floating\" title=\"AddToAny Floating Share Buttons\">Floating</a> for additional placement options. For advanced placement, see <a href=\"http://wordpress.org/plugins/add-to-any/faq/\">the FAQs</a>.", 'add-to-any'); ?>
 				</div>
+
+<!--
+// XTEC ************ AFEGIT - Only show options for xtecadmin
+// 2016.06.02 @xavinieto
+-->
+			<?php } ?>
+<!--
+//************ FI
+ -->
+
 			</fieldset></td>
 			</tr>
+
+<!--
+// XTEC ************ AFEGIT - Only show options for xtecadmin
+// 2016.06.02 @xavinieto
+-->
+			<?php if ( is_xtec_super_admin() ) {?>
+<!--
+//************ FI
+ -->
 
 			<tr valign="top">
 			<th scope="row"><?php _e('Menu Options', 'add-to-any'); ?></th>
@@ -802,14 +870,16 @@ function A2A_SHARE_SAVE_options_page() {
 				</p>
 			</fieldset></td>
 			</tr>
-<!-- 
-// XTEC ************ AFEGIT - End Only show options for xtecadmin
-// 2015.09.22 @nacho
+ <!--
+// XTEC ************ AFEGIT - Only show options for xtecadmin
+// 2016.06.02 @xavinieto
 -->
-		<?php }?>
+			<?php } else { ?>
+				<input name="A2A_SHARE_SAVE_inline_css" id="A2A_SHARE_SAVE_inline_css" type="hidden"<?php if ( ! isset( $options['inline_css'] ) || $options['inline_css'] != '-1' ) echo ' checked="checked"'; ?> value="1"/>
+			<?php } ?>
 <!--
 //************ FI
--->
+ -->
 		<?php endif; ?>
 		
 		</table>		
