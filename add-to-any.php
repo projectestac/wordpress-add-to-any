@@ -2,8 +2,8 @@
 /*
 Plugin Name: AddToAny Share Buttons
 Plugin URI: https://www.addtoany.com/
-Description: Share buttons for your pages including AddToAny's universal sharing button, Facebook, Twitter, Google+, Pinterest, WhatsApp and many more.  [<a href="options-general.php?page=addtoany">Settings</a>]
-Version: 1.6.16
+Description: Share buttons for your pages including AddToAny's universal sharing button, Facebook, Twitter, Google+, Pinterest, WhatsApp and many more.
+Version: 1.6.17
 Author: AddToAny
 Author URI: https://www.addtoany.com/
 Text Domain: add-to-any
@@ -42,15 +42,14 @@ function A2A_SHARE_SAVE_init() {
 }
 add_filter( 'init', 'A2A_SHARE_SAVE_init' );
 
-function A2A_SHARE_SAVE_link_vars( $linkname = false, $linkurl = false ) {
+function A2A_SHARE_SAVE_link_vars( $linkname = false, $linkurl = false, $linkmedia = false ) {
 	global $post;
 	
 	// Set linkname
 	if ( ! $linkname ) {
 		if ( isset( $post ) ) {
 			$linkname = html_entity_decode( strip_tags( get_the_title( $post->ID ) ), ENT_QUOTES, 'UTF-8' );
-		}
-		else {
+		} else {
 			$linkname = '';
 		}
 	}
@@ -61,15 +60,17 @@ function A2A_SHARE_SAVE_link_vars( $linkname = false, $linkurl = false ) {
 	if ( ! $linkurl ) {
 		if ( isset( $post ) ) {
 			$linkurl = get_permalink( $post->ID );
-		}
-		else {
+		} else {
 			$linkurl = '';
 		}
 	}
 	
 	$linkurl_enc = rawurlencode( $linkurl );
 	
-	return compact( 'linkname', 'linkname_enc', 'linkurl', 'linkurl_enc' );
+	// Set linkmedia (only applies to services that explicitly accept media; Pinterest does, most do not)
+	$linkmedia_enc = ! empty( $linkmedia ) ? rawurlencode( $linkmedia ) : false;
+	
+	return compact( 'linkname', 'linkname_enc', 'linkurl', 'linkurl_enc', 'linkmedia', 'linkmedia_enc' );
 }
 
 // Combine ADDTOANY_SHARE_SAVE_ICONS and ADDTOANY_SHARE_SAVE_BUTTON
@@ -178,16 +179,19 @@ function ADDTOANY_SHARE_SAVE_ICONS( $args = array() ) {
 	
 	$options = get_option( 'addtoany_options' );
 	
-	$linkname = ( isset( $args['linkname'] ) ) ? $args['linkname'] : FALSE;
-	$linkurl = ( isset( $args['linkurl'] ) ) ? $args['linkurl'] : FALSE;
+	$linkname = isset( $args['linkname'] ) ? $args['linkname'] : false;
+	$linkurl = isset( $args['linkurl'] ) ? $args['linkurl'] : false;
+	$linkmedia = isset( $args['linkmedia'] ) ? $args['linkmedia'] : false;
 	
-	$args = array_merge( $args, A2A_SHARE_SAVE_link_vars( $linkname, $linkurl ) ); // linkname_enc, etc.
+	$args = array_merge( $args, A2A_SHARE_SAVE_link_vars( $linkname, $linkurl, $linkmedia ) ); // linkname_enc, etc.
 	
 	$defaults = array(
 		'linkname'             => '',
 		'linkurl'              => '',
+		'linkmedia'            => '',
 		'linkname_enc'         => '',
 		'linkurl_enc'          => '',
+		'linkmedia_enc'        => '',
 		'output_later'         => false,
 		'html_container_open'  => '',
 		'html_container_close' => '',
@@ -359,17 +363,20 @@ function ADDTOANY_SHARE_SAVE_BUTTON( $args = array() ) {
 	
 	$options = get_option( 'addtoany_options' );
 	
-	$linkname = (isset($args['linkname'])) ? $args['linkname'] : false;
-	$linkurl = (isset($args['linkurl'])) ? $args['linkurl'] : false;
+	$linkname = isset( $args['linkname'] ) ? $args['linkname'] : false;
+	$linkurl = isset( $args['linkurl'] ) ? $args['linkurl'] : false;
+	$linkmedia = isset( $args['linkmedia'] ) ? $args['linkmedia'] : false;
 	$_addtoany_targets = ( isset( $_addtoany_targets ) ) ? $_addtoany_targets : array();
 
-	$args = array_merge($args, A2A_SHARE_SAVE_link_vars($linkname, $linkurl)); // linkname_enc, etc.
+	$args = array_merge($args, A2A_SHARE_SAVE_link_vars($linkname, $linkurl, $linkmedia)); // linkname_enc, etc.
 	
 	$defaults = array(
 		'linkname' => '',
 		'linkurl' => '',
+		'linkmedia' => '',
 		'linkname_enc' => '',
 		'linkurl_enc' => '',
+		'linkmedia_enc' => '',
 		'use_current_page' => false,
 		'output_later' => false,
 		'is_kit' => false,
@@ -483,8 +490,10 @@ function ADDTOANY_SHARE_SAVE_BUTTON( $args = array() ) {
 		} else {
 			// wp_json_encode available since 4.1
 			$linkname_sanitized = function_exists( 'wp_json_encode' ) ? wp_json_encode ( $linkname ) : json_encode( $linkname );
+			$linkmedia_optional = ! empty( $linkmedia ) ? ',media:"' . $linkmedia . '"' : '' ;
 			$button_config = "\n{title:". $linkname_sanitized . ','
-				. 'url:"' . $linkurl . '"}';
+				. 'url:"' . $linkurl . '"' 
+				. $linkmedia_optional . '}';
 			$_addtoany_targets[] = $button_config;
 		}
 		
@@ -541,10 +550,11 @@ function ADDTOANY_SHARE_SAVE_SPECIAL( $special_service_code, $args = array() ) {
 	
 	$options = get_option( 'addtoany_options' );
 	
-	$linkname = ( isset( $args['linkname'] ) ) ? $args['linkname'] : FALSE;
-	$linkurl = ( isset( $args['linkurl'] ) ) ? $args['linkurl'] : FALSE;
+	$linkname = ( isset( $args['linkname'] ) ) ? $args['linkname'] : false;
+	$linkurl = ( isset( $args['linkurl'] ) ) ? $args['linkurl'] : false;
+	$linkmedia = ( isset( $args['linkmedia'] ) ) ? $args['linkmedia'] : false;
 	
-	$args = array_merge( $args, A2A_SHARE_SAVE_link_vars( $linkname, $linkurl ) ); // linkname_enc, etc.
+	$args = array_merge( $args, A2A_SHARE_SAVE_link_vars( $linkname, $linkurl, $linkmedia ) ); // linkname_enc, etc.
 	extract( $args );
 	
 	$special_anchor_template = '<a class="a2a_button_%1$s addtoany_special_service"%2$s></a>';
@@ -577,6 +587,7 @@ function ADDTOANY_SHARE_SAVE_SPECIAL( $special_service_code, $args = array() ) {
 	elseif ( $special_service_code == 'pinterest_pin' ) {
 		$custom_attributes .= ( $options['special_pinterest_pin_options']['show_count'] == '1' ) ? '' : ' data-pin-config="none"';
 		$custom_attributes .= ' data-url="' . $linkurl . '"';
+		$custom_attributes .= ( ! empty( $linkmedia ) ) ? ' data-media="' . $linkmedia . '"' : '';
 		$special_html = sprintf( $special_anchor_template, $special_service_code, $custom_attributes );
 	}
 	
@@ -798,6 +809,7 @@ function A2A_SHARE_SAVE_head_script() {
 					. "target=targets[i];"
 					. "a2a_config.linkname=target.title;"
 					. "a2a_config.linkurl=target.url;"
+					. "a2a_config.linkmedia=target.media;"
 					. "if(el){"
 						. "a2a.init('page',{target:el});"
 						. "el.id='';" // Remove ID so AJAX can reuse the same ID
@@ -961,17 +973,19 @@ function A2A_SHARE_SAVE_shortcode( $attributes ) {
 	extract( shortcode_atts( array(
 		'url'     => 'something',
 		'title'   => 'something else',
+		'media'   => '',
 		'buttons' => '',
 	), $attributes ) );
 	
 	$linkname = isset( $attributes['title'] ) ? $attributes['title'] : false;
 	$linkurl = isset( $attributes['url'] ) ? $attributes['url'] : false;
+	$linkmedia = ! empty( $attributes['media'] ) ? $attributes['media'] : false;
 	$buttons = ! empty( $buttons ) ? explode ( ',', $buttons ) : array();
 	
 	$output_later = true;
 
 	return '<div class="addtoany_shortcode">'
-		. ADDTOANY_SHARE_SAVE_KIT( compact( 'linkname', 'linkurl', 'output_later', 'buttons' ) )
+		. ADDTOANY_SHARE_SAVE_KIT( compact( 'linkname', 'linkurl', 'linkmedia', 'output_later', 'buttons' ) )
 		. '</div>';
 }
 
