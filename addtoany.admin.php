@@ -632,16 +632,6 @@ function A2A_SHARE_SAVE_options_page() {
 			</tr>
 
 <!--
-// XTEC ************ AFEGIT - Only show options for xtecadmin or xtecblocs
-// 2015.09.22 @nacho
-// 2016.06.02 @xavinieto
--->
-		<?php if ( is_xtec_super_admin() || is_xtecblocs() ) {?>
-<!--
-//************ FI
- -->
-
-<!--
 // XTEC ************ AFEGIT - Only show options for xtecadmin
 // 2016.06.02 @xavinieto
 -->
@@ -890,14 +880,6 @@ function A2A_SHARE_SAVE_options_page() {
 //************ FI
  -->
 
-<!--
-// XTEC ************ AFEGIT - End Only show options for xtecadmin
-// 2015.09.22 @nacho
--->
-		<?php }?>
-<!--
-//************ FI
--->
 		<?php endif; ?>
 		
 		</table>		
@@ -980,20 +962,6 @@ function A2A_SHARE_SAVE_options_page() {
 		</table>
 		
 		<?php endif; ?>
-		
-<!--
-// XTEC ************ AFEGIT - 
-// Creating hidden buttons to enable default options, this solved the error when the admin 
-// user press the save button the values of the checkboxes are saved unmarked
-// 2015.09.29 @nacho
--->
-		<input type="hidden" id="A2A_SHARE_SAVE_display_in_posts" name="A2A_SHARE_SAVE_display_in_posts" value="1" checked="checked"/> 
-		<input type="hidden" id="A2A_SHARE_SAVE_child_of_display_in_posts" name="A2A_SHARE_SAVE_display_in_posts_on_archive_pages" value="1" checked="checked"/>
-		<input type="hidden" id="A2A_SHARE_SAVE_display_in_pages" name="A2A_SHARE_SAVE_display_in_pages" checked="checked" value="1"/>
-		<input type="hidden" id="A2A_SHARE_SAVE_inline_css" name="A2A_SHARE_SAVE_inline_css" checked="checked" value="1"/>
-<!--
-//************ FI
- -->
 		</table>
 		
 		<p class="submit">
@@ -1109,15 +1077,10 @@ function A2A_SHARE_SAVE_admin_head() {
 		
 		// Toggle child options of 'Display in posts'
 		jQuery('#A2A_SHARE_SAVE_display_in_posts').bind('change click', function(e){
-			// XTEC ************ ELIMINAT - Disable toggle child options on change
-			// 2015.09.23 @nacho						
-			/*
 			if (jQuery(this).is(':checked'))
 				jQuery('.A2A_SHARE_SAVE_child_of_display_in_posts').attr('checked', true).attr('disabled', false);
-			else 
+			else
 				jQuery('.A2A_SHARE_SAVE_child_of_display_in_posts').attr('checked', false).attr('disabled', true);
-			*/
-			//************ FI
 		});
 		
 		// Update button position labels/values universally in Placement section 
