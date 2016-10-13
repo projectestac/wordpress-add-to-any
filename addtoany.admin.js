@@ -6,14 +6,9 @@ jQuery( function() {
 	}
 	
 	function addtoany_init() {
-		if ( ! wpa2a )
-			return;
-		
-		if (wpa2a.script_ready)
-			wpa2a.init();
-		
-		// Load external script if not already called
-		wpa2a.script_load();
+		if ( window.a2a ) {
+			a2a.init_all( 'page' );
+		}
 	}
 	
 	// Init AddToAny when a partial is rendered.

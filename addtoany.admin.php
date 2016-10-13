@@ -67,6 +67,7 @@ function A2A_SHARE_SAVE_meta_box_save( $post_id ) {
 
 add_action( 'admin_init', 'A2A_SHARE_SAVE_add_meta_box' );
 add_action( 'save_post', 'A2A_SHARE_SAVE_meta_box_save' );
+add_action( 'edit_attachment', 'A2A_SHARE_SAVE_meta_box_save' );
 
 /**
  * Migrate old AddToAny options
@@ -270,6 +271,7 @@ function A2A_SHARE_SAVE_options_page() {
 			$new_options['display_in_excerpts'] = ( isset( $_POST['A2A_SHARE_SAVE_display_in_excerpts'] ) && $_POST['A2A_SHARE_SAVE_display_in_excerpts'] == '1' ) ? '1' : '-1';
 			$new_options['display_in_posts'] = ( isset( $_POST['A2A_SHARE_SAVE_display_in_posts'] ) && $_POST['A2A_SHARE_SAVE_display_in_posts'] == '1' ) ? '1' : '-1';
 			$new_options['display_in_pages'] = ( isset( $_POST['A2A_SHARE_SAVE_display_in_pages'] ) && $_POST['A2A_SHARE_SAVE_display_in_pages'] == '1' ) ? '1' : '-1';
+			$new_options['display_in_attachments'] = ( isset( $_POST['A2A_SHARE_SAVE_display_in_attachments'] ) && $_POST['A2A_SHARE_SAVE_display_in_attachments'] == '1' ) ? '1' : '-1';
 			$new_options['display_in_feed'] = ( isset( $_POST['A2A_SHARE_SAVE_display_in_feed'] ) && $_POST['A2A_SHARE_SAVE_display_in_feed'] == '1' ) ? '1' : '-1';
 			$new_options['show_title'] = ( isset( $_POST['A2A_SHARE_SAVE_show_title'] ) && $_POST['A2A_SHARE_SAVE_show_title'] == '1' ) ? '1' : '-1';
 			$new_options['onclick'] = ( isset( $_POST['A2A_SHARE_SAVE_onclick'] ) && $_POST['A2A_SHARE_SAVE_onclick'] == '1' ) ? '1' : '-1';
@@ -359,7 +361,7 @@ function A2A_SHARE_SAVE_options_page() {
 		update_option( 'addtoany_options', $new_options );
 		
 		?>
-		<div class="updated fade"><p><strong><?php _e( 'Settings saved.' ); ?></strong></p></div>
+		<div class="updated"><p><?php _e( 'Settings saved.' ); ?></p></div>
 		<?php
 		
 	} else if ( isset( $_POST['Reset'] ) ) {
@@ -607,6 +609,13 @@ function A2A_SHARE_SAVE_options_page() {
 					<input name="A2A_SHARE_SAVE_display_in_pages" type="checkbox"<?php if ( ! isset( $options['display_in_pages'] ) || $options['display_in_pages'] != '-1' ) echo ' checked="checked"'; ?> value="1"/>
 					<?php printf(__('Display at the %s of pages', 'add-to-any'), position_in_content( $options, false )); ?>
 				</label>
+				<br/>
+				<label>
+					<input name="A2A_SHARE_SAVE_display_in_attachments" type="checkbox"<?php 
+						if ( ! isset( $options['display_in_attachments'] ) || $options['display_in_attachments'] != '-1' ) echo ' checked="checked"';
+						?> value="1"/>
+					<?php printf(__('Display at the %s of media pages', 'add-to-any'), position_in_content( $options, false )); ?>
+				</label>
 				
 			<?php 
 				$custom_post_types = array_values( get_post_types( array( 'public' => true, '_builtin' => false ), 'objects' ) );
@@ -644,7 +653,7 @@ function A2A_SHARE_SAVE_options_page() {
 					<p><?php _e("You can use AddToAny's Menu Styler to customize the colors of your universal share menu. When you're done, be sure to paste the generated code in the <a href=\"#\" onclick=\"document.getElementById('A2A_SHARE_SAVE_additional_js_variables').focus();return false\">Additional JavaScript</a> box below.", 'add-to-any'); ?></p>
 				</label>
 				<p>
-					<a href="https://www.addtoany.com/buttons/share_save/menu_style/wordpress" class="button-secondary" title="<?php _e("Open the AddToAny Menu Styler in a new window", 'add-to-any'); ?>" target="_blank" onclick="document.getElementById('A2A_SHARE_SAVE_additional_js_variables').focus(); document.getElementById('A2A_SHARE_SAVE_menu_styler_note').style.display='';"><?php _e("Open Menu Styler", 'add-to-any'); ?></a>
+					<a href="https://www.addtoany.com/buttons/share/menu_style/wordpress" class="button-secondary" title="<?php _e("Open the AddToAny Menu Styler in a new window", 'add-to-any'); ?>" target="_blank" onclick="document.getElementById('A2A_SHARE_SAVE_additional_js_variables').focus(); document.getElementById('A2A_SHARE_SAVE_menu_styler_note').style.display='';"><?php _e("Open Menu Styler", 'add-to-any'); ?></a>
 				</p>
 			</fieldset></td>
 			</tr>
@@ -815,8 +824,11 @@ function A2A_SHARE_SAVE_options_page() {
 	<p><?php _e('Search the <a href="http://wordpress.org/tags/add-to-any">support forums</a>.','add-to-any'); ?></p>
 	</div>
 	
-	<script type="text/javascript" src="http<?php if ( is_ssl() ) echo 's'; ?>://static.addtoany.com/menu/page.js"></script>
-	<script type="text/javascript">if ( a2a && a2a.svg_css ) a2a.svg_css();</script>
+	<script src="http<?php if ( is_ssl() ) echo 's'; ?>://static.addtoany.com/menu/page.js"></script>
+	<script>
+	if ( window.a2a && a2a.svg_css ) a2a.svg_css();
+	jQuery(document).ready( function() { if ( ! window.a2a) jQuery('<div class="error"><p><strong>Something is preventing AddToAny from loading. Try disabling content blockers such as ad-blocking add-ons, or try another web browser.</strong></p></div>').insertBefore('.nav-tab-wrapper:eq(0)'); });	
+	</script>
 
 <?php
 

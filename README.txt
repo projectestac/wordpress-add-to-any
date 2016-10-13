@@ -2,8 +2,8 @@
 Contributors: micropat, addtoany
 Tags: AddToAny, sharing, share, social, share button, share buttons, share links, social icons, social media, media, marketing, bookmark, bookmarks, save, post, posts, page, pages, images, image, admin, analytics, statistics, stats, links, plugin, shortcode, sidebar, widget, responsive, email, e-mail, print, seo, button, amp, woocommerce, ecommerce, e-commerce, amazon, delicious, google, tumblr, linkedin, digg, reddit, facebook, facebook share, facebook like, like, twitter, twitter button, twitter share, tweet, tweet button, google plus, pinterest, pin, pin it, pinit, wanelo, buffer, stumbleupon, bitly, whatsapp, instagram, behance, flickr, foursquare, vimeo, youtube, feed, rss, addthis, sociable, share this, sharethis, shareaholic, icon, icons, vector, SVG, floating, floating buttons, wpml, wpmu, Add to Any
 Requires at least: 3.7
-Tested up to: 4.5
-Stable tag: 1.6.17
+Tested up to: 4.6
+Stable tag: 1.7
 
 Share buttons for WordPress including the AddToAny sharing button, Facebook, Twitter, Google+, Pinterest, WhatsApp, many more, and follow icons too.
 
@@ -35,13 +35,13 @@ AddToAny is the universal sharing platform, and AddToAny's plugin is the most po
 = Analytics Integration =
 
 * Automatic Google Analytics integration (<a href="https://www.addtoany.com/ext/google_analytics/">access guide</a>) for sharing analytics
-* Track shared links with bit.ly, awe.sm, goo.gl, and custom URL shorteners
+* Track shared links with bit.ly, goo.gl, and custom URL shorteners
 * Display share counts on posts and pages
 
 = WordPress Optimized =
 
 * Loads asynchronously so your content always loads before or in parallel with AddToAny
-* Supports theme features such as HTML5 & XHTML, widgets, infinite scroll, post formats
+* Supports theme features such as HTML5, widgets, infinite scroll, post formats
 * Supports multilingual sites and multisite networks
 * No signup, no login, no account necessary
 
@@ -73,8 +73,8 @@ This plugin always strives to be the best WordPress plugin for sharing. Developm
 
 See also:
 
-* The standard <a href="https://www.addtoany.com/buttons/for/website">share buttons</a> code
-* The universal <a href="https://www.addtoany.com/buttons/for/wordpress_com">share button for WordPress.com</a>
+* The <a href="https://www.addtoany.com/buttons/">share buttons</a> for all platforms
+* The <a href="https://www.addtoany.com/buttons/for/wordpress_com">share button for WordPress.com</a>
 
 <a href="https://www.addtoany.com/blog/">AddToAny Blog</a> | <a href="https://www.addtoany.com/privacy">Privacy Policy</a>
 
@@ -134,7 +134,7 @@ Facebook expects the Title, Description, and Thumbnail of a shared page to be de
 
 Use Facebook's <a href="https://developers.facebook.com/tools/debug/sharing/" target="_blank">Sharing Debugger</a> on your pages to see how Facebook reads your site. "Scrape Again" to test site changes and clear Facebook's cache of a page, or use the <a href="https://developers.facebook.com/tools/debug/sharing/batch/" target="_blank">Batch Invalidator</a> to purge Facebook's cache of multiple URLs.
 
-To change the title, description and/or image on Facebook, your theme's header file should be modified according to <a href="https://developers.facebook.com/docs/sharing/opengraph" target="_blank">Facebook's OpenGraph specification</a>. With WordPress, this can be accomplished with plugins such as the <a href="https://wordpress.org/plugins/wordpress-seo/">Yoast SEO</a> or the <a href="https://wordpress.org/plugins/all-in-one-seo-pack/">All in One SEO Pack</a>. Please see those plugins for details, and post in the WordPress or plugin author's forums for more support.
+To change the title, description and/or image on Facebook, your theme's header file should be modified according to <a href="https://developers.facebook.com/docs/sharing/opengraph" target="_blank">Facebook's OpenGraph specification</a>. With WordPress, this can be accomplished with plugins such as <a href="https://wordpress.org/plugins/wordpress-seo/">Yoast SEO</a> or the Social Meta feature of the <a href="https://wordpress.org/plugins/all-in-one-seo-pack/">All in One SEO Pack</a>. Please see those plugins for details, and post in the WordPress or plugin author's forums for more support.
 
 For more technical information on setting your pages up for Facebook sharing, see "Sharing Best Practices for Websites" in <a href="https://developers.facebook.com/docs/sharing/best-practices">Facebook's documentation</a>.
 
@@ -186,6 +186,19 @@ To share a specific image or video to certain services that accept arbitrary med
 		'linkmedia' => 'https://www.example.com/media/picture.jpg',
 		'linkname'  => 'Example Page',
 		'linkurl'   => 'https://www.example.com/page.html',
+	) );
+} ?>`
+
+= How can I place the follow buttons in a specific area of my site? =
+
+See the [supported follow services](https://www.addtoany.com/buttons/customize/follow_buttons) for service code names, then place this example code in your theme's file(s) where you want the follow buttons to appear:
+`<?php if ( function_exists( 'ADDTOANY_FOLLOW_KIT' ) ) {
+	ADDTOANY_FOLLOW_KIT( array(
+		'buttons' => array(
+			'facebook'  => array( 'id' => 'zuck' ),
+			'instagram' => array( 'id' => 'kevin' ),
+			'twitter'   => array( 'id' => 'jack' ),
+		),
 	) );
 } ?>`
 
@@ -290,22 +303,17 @@ The Google+ Share Button width can be changed using CSS code, for instance: `.a2
 
 = Does the plugin output W3C valid code? =
 
-Yes, this plugin outputs 100% W3C valid HTML5 & XHTML and W3C valid CSS 3 by default.
-
-If you use the Facebook Like, Twitter Tweet or Google +1 buttons in an HTML5 theme, note that the button iframes use the `scrolling` attribute, which is valid XHTML but the attribute has been deprecated in HTML5. It's needed to prevent scrollbars from appearing over the Like, Tweet, and +1 buttons inside of the iframes.
-
-Regardless of circumstances for passing W3C tests, the plugin will always output semantically valid and robot-readable code, so publishers do not have to worry about search engine crawler errors due to invalid code. Both <a href="https://en.wikipedia.org/wiki/Web_standards">web standards</a> and <a href="https://en.wikipedia.org/wiki/Cross-browser">cross-browser</a> compatibility are taken seriously.
+Yes, this plugin outputs 100% W3C valid HTML5 and W3C valid CSS 3 by default.
 
 = How can I load the buttons after content insertion with AJAX and infinite scroll? =
 
 Fire the standard `post-load` event to have the plugin initiate AddToAny buttons:
 `jQuery( 'body' ).trigger( 'post-load' );`
 
-A few prerequisites:
+A couple prerequisites:
 
  * The request has an `HTTP_X_REQUESTED_WITH` header set to `xmlhttprequest`
  * `jQuery` available
- * AddToAny `<script>` blocks in the response need to execute, so don't use jQuery's `load` method *with a selector expression*. Selector expression usage with that method will cause `<script>` blocks in the response <a href="https://api.jquery.com/load/#script-execution">to be stripped out</a>
 
 = Why does the menu appear behind embedded objects (like Flash)? =
 
@@ -325,6 +333,22 @@ Upload (or move) the `add-to-any` plugin directory into the `/wp-content/mu-plug
 5. Settings panel
 
 == Changelog ==
+
+= 1.7 =
+* Simplify AddToAny asynchronous loading method
+* Use HTML5 data attributes for AddToAny instances
+* Remove old script block in footer
+* Increase support for AJAX loading by listening for the `post-load` event on non-AJAX requests
+* AddToAny readiness check in AddToAny settings
+* Add placement option for media pages in AddToAny settings
+* Handle "Show sharing buttons" option for media when updating from the WordPress editor
+* Add Copy Link button
+* Add Facebook Messenger share button
+* Add Trello share button
+* Update a few packaged icons
+
+= 1.6.18 =
+* Fix default icon size
 
 = 1.6.17 =
 * New `media` attribute for sharing a specific image or video to the few services that accept arbitrary media (Pinterest, Yummly)

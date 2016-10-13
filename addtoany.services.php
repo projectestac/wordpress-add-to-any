@@ -106,6 +106,10 @@ $A2A_SHARE_SAVE_services = array(
 		"name" => "CiteULike",
 		"icon" => "citeulike",
 	),
+	"copy_link" => array(
+		"name" => "Copy Link",
+		"icon" => "link",
+	),
 	"delicious" => array(
 		"name" => "Delicious",
 		"icon" => "delicious",
@@ -145,6 +149,10 @@ $A2A_SHARE_SAVE_services = array(
 	"evernote" => array(
 		"name" => "Evernote",
 		"icon" => "evernote",
+	),
+	"facebook_messenger" => array(
+		"name" => "Facebook Messenger",
+		"icon" => "facebook_messenger",
 	),
 	"fark" => array(
 		"name" => "Fark",
@@ -337,6 +345,10 @@ $A2A_SHARE_SAVE_services = array(
 	"telegram" => array(
 		"name" => "Telegram",
 		"icon" => "telegram",
+	),
+	"trello" => array(
+		"name" => "Trello",
+		"icon" => "trello",
 	),
 	"tuenti" => array(
 		"name" => "Tuenti",
