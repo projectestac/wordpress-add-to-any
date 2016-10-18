@@ -1103,3 +1103,31 @@ function A2A_SHARE_SAVE_actlinks( $links, $file ) {
 }
 
 add_filter( 'plugin_action_links', 'A2A_SHARE_SAVE_actlinks', 10, 2 );
+
+// XTEC *********** AFEGIT Open Graph Protocol to metadata facebook share
+// 2016.10.11 @xaviernietosanchez
+function add_opengraph_doctype( $output ) {
+    return $output . 'xmlns:og="http://ogp.me/ns#" xmlns:fb="http://www.facebook.com/2008/fbml"';
+}
+add_filter('language_attributes', 'add_opengraph_doctype');
+// Add information Open Graph
+function insert_fb_in_head() {
+    global $post;
+    if ( ! is_singular() ) { return; } //Si no es un post o página
+    echo '<meta property="og:title" content="' . get_the_title() . '"/>';
+    echo '<meta property="og:type" content="article"/>';
+    echo '<meta property="og:url" content="' . get_permalink() . '"/>';
+    $FbDescription = wp_strip_all_tags($post->post_content);
+    if( strlen( $FbDescription ) > 200 ){
+    	$FbDescription = substr($FbDescription,0,200).'...';
+    }
+    echo '<meta property="og:description" content="' . $FbDescription . '"/>';
+    if ( has_post_thumbnail( $post->ID ) ) {
+        $thumbnail_src = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'full' );
+        echo '<meta property="og:image" content="' . esc_attr( $thumbnail_src[0] ) . '"/>';
+        echo '<meta property="og:image:width" content="' . esc_attr( $thumbnail_src[1] ) . '"/>';
+        echo '<meta property="og:image:height" content="' . esc_attr( $thumbnail_src[2] ) . '"/>';
+    }
+}
+add_action( 'wp_head', 'insert_fb_in_head', 1 );
+//************ FI
