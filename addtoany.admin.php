@@ -738,14 +738,8 @@ function A2A_SHARE_SAVE_options_page() {
 					<?php printf(__('Display at the %s of pages', 'add-to-any'), position_in_content( $options, false )); ?>
 				</label>
 				<br/>
-				<label>
-					<input name="A2A_SHARE_SAVE_display_in_attachments" type="checkbox"<?php 
-						if ( ! isset( $options['display_in_attachments'] ) || $options['display_in_attachments'] != '-1' ) echo ' checked="checked"';
-						?> value="1"/>
-					<?php printf(__('Display at the %s of media pages', 'add-to-any'), position_in_content( $options, false )); ?>
-				</label>
 
- <!--
+<!--
 // XTEC ************ AFEGIT - Only show options for xtecadmin
 // 2016.06.02 @xavinieto
 -->
@@ -753,8 +747,14 @@ function A2A_SHARE_SAVE_options_page() {
 <!--
 //************ FI
  -->
-				
-			<?php 
+
+				<label>
+					<input name="A2A_SHARE_SAVE_display_in_attachments" type="checkbox"<?php 
+						if ( ! isset( $options['display_in_attachments'] ) || $options['display_in_attachments'] != '-1' ) echo ' checked="checked"';
+						?> value="1"/>
+					<?php printf(__('Display at the %s of media pages', 'add-to-any'), position_in_content( $options, false )); ?>
+				</label>
+			<?php
 				$custom_post_types = array_values( get_post_types( array( 'public' => true, '_builtin' => false ), 'objects' ) );
 				foreach ( $custom_post_types as $custom_post_type_obj ) :
 					$placement_label = $custom_post_type_obj->labels->name;
