@@ -3,7 +3,7 @@
 Plugin Name: AddToAny Share Buttons
 Plugin URI: https://www.addtoany.com/
 Description: Share buttons for your pages including AddToAny's universal sharing button, Facebook, Twitter, Google+, Pinterest, WhatsApp and many more.
-Version: 1.7
+Version: 1.7.1
 Author: AddToAny
 Author URI: https://www.addtoany.com/
 Text Domain: add-to-any
@@ -42,12 +42,14 @@ function A2A_SHARE_SAVE_init() {
 }
 add_filter( 'init', 'A2A_SHARE_SAVE_init' );
 
-function A2A_SHARE_SAVE_link_vars( $linkname = false, $linkurl = false, $linkmedia = false ) {
+function A2A_SHARE_SAVE_link_vars( $linkname = false, $linkurl = false, $linkmedia = false, $use_current_page = false ) {
 	global $post;
 	
 	// Set linkname
 	if ( ! $linkname ) {
-		if ( isset( $post ) ) {
+		if ( $use_current_page ) {
+			$linkname = is_home() || is_front_page() ? get_bloginfo( 'name' ) : rtrim( wp_title( '', false, 'right' ) );
+		} elseif ( isset( $post ) ) {
 			$linkname = html_entity_decode( strip_tags( get_the_title( $post->ID ) ), ENT_QUOTES, 'UTF-8' );
 		} else {
 			$linkname = '';
@@ -58,7 +60,9 @@ function A2A_SHARE_SAVE_link_vars( $linkname = false, $linkurl = false, $linkmed
 	
 	// Set linkurl
 	if ( ! $linkurl ) {
-		if ( isset( $post ) ) {
+		if ( $use_current_page ) {
+			$linkurl = esc_url_raw ( ( is_ssl() ? 'https://' : 'http://' ) . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] );
+		} elseif ( isset( $post ) ) {
 			$linkurl = get_permalink( $post->ID );
 		} else {
 			$linkurl = '';
@@ -80,13 +84,13 @@ function ADDTOANY_SHARE_SAVE_KIT( $args = array() ) {
 	$linkname = isset( $args['linkname'] ) ? $args['linkname'] : false;
 	$linkurl = isset( $args['linkurl'] ) ? $args['linkurl'] : false;
 	$linkmedia = isset( $args['linkmedia'] ) ? $args['linkmedia'] : false;
+	$use_current_page = isset( $args['use_current_page'] ) ? $args['use_current_page'] : false;
 	
-	$args = array_merge( $args, A2A_SHARE_SAVE_link_vars( $linkname, $linkurl, $linkmedia ) ); // linkname_enc, etc.
+	$args = array_merge( $args, A2A_SHARE_SAVE_link_vars( $linkname, $linkurl, $linkmedia, $use_current_page ) ); // linkname_enc, etc.
 	
 	$defaults = array(
 		'output_later'     => false,
 		'icon_size'        => isset( $options['icon_size'] ) ? $options['icon_size'] : '32',
-		'use_current_page' => false,
 	);
 	
 	
@@ -719,7 +723,6 @@ function A2A_SHARE_SAVE_head_script() {
 	$additional_js = ( isset( $options['additional_js_variables'] ) ) ? $options['additional_js_variables'] : '' ;
 	$script_configs = ( ( $cache ) ? "\n" . 'a2a_config.static_server="' . $static_server . '";' : '' )
 		. ( ( isset( $options['onclick'] ) && '1' == $options['onclick'] ) ? "\n" . 'a2a_config.onclick=1;' : '' )
-		. ( ( isset( $options['show_title'] ) && '1' == $options['show_title'] ) ? "\n" . 'a2a_config.show_title=1;' : '' )
 		. ( ( $additional_js ) ? "\n" . stripslashes( $additional_js ) : '' );
 	$A2A_SHARE_SAVE_external_script_called = true;
 	

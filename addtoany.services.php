@@ -138,6 +138,14 @@ $A2A_SHARE_SAVE_services = array(
 		"name" => "Diigo",
 		"icon" => "diigo",
 	),
+	"douban" => array(
+		"name" => "Douban",
+		"icon" => "douban",
+	),
+	"draugiem" => array(
+		"name" => "Draugiem",
+		"icon" => "draugiem",
+	),
 	"dzone" => array(
 		"name" => "DZone",
 		"icon" => "dzone",

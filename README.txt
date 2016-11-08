@@ -1,9 +1,9 @@
 === AddToAny Share Buttons ===
 Contributors: micropat, addtoany
-Tags: AddToAny, sharing, share, social, share button, share buttons, share links, social icons, social media, media, marketing, bookmark, bookmarks, save, post, posts, page, pages, images, image, admin, analytics, statistics, stats, links, plugin, shortcode, sidebar, widget, responsive, email, e-mail, print, seo, button, amp, woocommerce, ecommerce, e-commerce, amazon, delicious, google, tumblr, linkedin, digg, reddit, facebook, facebook share, facebook like, like, twitter, twitter button, twitter share, tweet, tweet button, google plus, pinterest, pin, pin it, pinit, wanelo, buffer, stumbleupon, bitly, whatsapp, instagram, behance, flickr, foursquare, vimeo, youtube, feed, rss, addthis, sociable, share this, sharethis, shareaholic, icon, icons, vector, SVG, floating, floating buttons, wpml, wpmu, Add to Any
+Tags: AddToAny, share, sharing, social, share button, share buttons, share links, social media, media, marketing, post, posts, page, pages, images, image, admin, analytics, stats, links, plugin, shortcode, sidebar, widget, responsive, email, seo, button, woocommerce, ecommerce, e-commerce, amazon, google, linkedin, reddit, facebook, like, twitter, tweet, google plus, pinterest, whatsapp, instagram, flickr, vimeo, youtube, feed, rss, addthis, share this, sharethis, icons, floating, wpml
 Requires at least: 3.7
 Tested up to: 4.6
-Stable tag: 1.7
+Stable tag: 1.7.1
 
 Share buttons for WordPress including the AddToAny sharing button, Facebook, Twitter, Google+, Pinterest, WhatsApp, many more, and follow icons too.
 
@@ -24,7 +24,7 @@ AddToAny is the universal sharing platform, and AddToAny's plugin is the most po
 * 3rd party buttons include the Facebook Like Button, Twitter Tweet Button, Pinterest Pin It Button, Google+ Share Button and Google +1 Button
 * Universal email sharing makes it easy to share via Gmail, Yahoo! Mail, Outlook.com (Hotmail), AOL Mail, and any other web and native apps
 
-<a href="https://www.addtoany.com/" title="Sharing buttons">Share Buttons</a> demo
+<a href="https://www.addtoany.com/">Share Buttons</a> demo
 
 = Custom Placement =
 * Before content, after content, or before & after content
@@ -35,7 +35,7 @@ AddToAny is the universal sharing platform, and AddToAny's plugin is the most po
 = Analytics Integration =
 
 * Automatic Google Analytics integration (<a href="https://www.addtoany.com/ext/google_analytics/">access guide</a>) for sharing analytics
-* Track shared links with bit.ly, goo.gl, and custom URL shorteners
+* Track shared links with Bitly, Google URL Shortener, and custom URL shorteners
 * Display share counts on posts and pages
 
 = WordPress Optimized =
@@ -62,7 +62,7 @@ AddToAny is the universal sharing platform, and AddToAny's plugin is the most po
 
 = Wide Support =
 
-* Over 9 years of active development
+* Over 10 years of development
 * Over 5 million downloads
 * Translated into dozens of languages
 * Ongoing support from the community
@@ -174,8 +174,8 @@ To share the current URL and title (detected on the client-side):
 To hardcode the shared current URL and modify the title (server-side):
 `<?php if ( function_exists( 'ADDTOANY_SHARE_SAVE_KIT' ) ) { 
 	ADDTOANY_SHARE_SAVE_KIT( array( 
-		'linkname' => ( is_home() ? get_bloginfo( 'description' ) : wp_title( '', false ) ),
-		'linkurl'  => ( is_ssl() ? 'https://' : 'http://' ) . $_SERVER["HTTP_HOST"] . $_SERVER['REQUEST_URI'],
+		'linkname' => is_home() ? get_bloginfo( 'description' ) : wp_title( '', false ),
+		'linkurl'  => esc_url_raw( ( is_ssl() ? 'https://' : 'http://' ) . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] ),
 	) );
 } ?>`
 
@@ -333,6 +333,13 @@ Upload (or move) the `add-to-any` plugin directory into the `/wp-content/mu-plug
 5. Settings panel
 
 == Changelog ==
+
+= 1.7.1 =
+* Fix floating share buttons fallback so that the current page is shared by default
+* Show meta box ("Show sharing buttons") below the WordPress editor when a floating share bar is enabled
+* Remove deprecated option that displayed the title in the mini menu
+* Add Douban share button
+* Add Draugiem share button
 
 = 1.7 =
 * Simplify AddToAny asynchronous loading method
