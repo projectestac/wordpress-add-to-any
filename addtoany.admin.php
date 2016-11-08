@@ -11,19 +11,21 @@ function A2A_SHARE_SAVE_add_meta_box() {
 	
 	$title = apply_filters( 'A2A_SHARE_SAVE_meta_box_title', __( 'AddToAny', 'add-to-any' ) );
 	foreach( $post_types as $post_type ) {
-		// If automatic placement is disabled for the post type
 		if (
-			'post' == $post_type && isset( $options['display_in_posts'] ) && $options['display_in_posts'] == '-1' ||
-			'page' == $post_type && isset( $options['display_in_pages'] ) && $options['display_in_pages'] == '-1' ||
-			// Custom post type
-			isset( $options['display_in_cpt_' . $post_type] ) && $options['display_in_cpt_' . $post_type] == '-1'
+			// If automatic placement is enabled
+			// for either floating bar
+			isset( $options['floating_vertical'] ) && 'none' != $options['floating_vertical'] ||
+			isset( $options['floating_horizontal'] ) && 'none' != $options['floating_horizontal'] ||
+			// for standard buttons in posts
+			'post' == $post_type && isset( $options['display_in_posts'] ) && $options['display_in_posts'] != '-1' ||
+			// for standard buttons in pages
+			'page' == $post_type && isset( $options['display_in_pages'] ) && $options['display_in_pages'] != '-1' ||
+			// for standard buttons in a custom post type
+			isset( $options['display_in_cpt_' . $post_type] ) && $options['display_in_cpt_' . $post_type] != '-1'
 		) {
-			// Skip current post type
-			continue;
+			// Add meta box
+			add_meta_box( 'A2A_SHARE_SAVE_meta', $title, 'A2A_SHARE_SAVE_meta_box_content', $post_type, 'advanced', 'high' );
 		}
-		
-		// Add meta box (unless we skipped this post type above)
-		add_meta_box( 'A2A_SHARE_SAVE_meta', $title, 'A2A_SHARE_SAVE_meta_box_content', $post_type, 'advanced', 'high' );
 	}
 }
 
@@ -82,7 +84,6 @@ function A2A_SHARE_SAVE_migrate_options() {
 		'display_in_posts' => '1',
 		'display_in_pages' => '1',
 		'display_in_feed' => '1',
-		'show_title' => '-1',
 		'onclick' => '-1',
 		'button' => 'A2A_SVG_32',
 		'button_custom' => '',
@@ -114,6 +115,7 @@ function A2A_SHARE_SAVE_migrate_options() {
 	$deprecated_options = array(
 		'button_opens_new_window',
 		'hide_embeds',
+		'show_title',
 	);
 	
 	foreach ( $deprecated_options as $option_name ) {
@@ -273,7 +275,6 @@ function A2A_SHARE_SAVE_options_page() {
 			$new_options['display_in_pages'] = ( isset( $_POST['A2A_SHARE_SAVE_display_in_pages'] ) && $_POST['A2A_SHARE_SAVE_display_in_pages'] == '1' ) ? '1' : '-1';
 			$new_options['display_in_attachments'] = ( isset( $_POST['A2A_SHARE_SAVE_display_in_attachments'] ) && $_POST['A2A_SHARE_SAVE_display_in_attachments'] == '1' ) ? '1' : '-1';
 			$new_options['display_in_feed'] = ( isset( $_POST['A2A_SHARE_SAVE_display_in_feed'] ) && $_POST['A2A_SHARE_SAVE_display_in_feed'] == '1' ) ? '1' : '-1';
-			$new_options['show_title'] = ( isset( $_POST['A2A_SHARE_SAVE_show_title'] ) && $_POST['A2A_SHARE_SAVE_show_title'] == '1' ) ? '1' : '-1';
 			$new_options['onclick'] = ( isset( $_POST['A2A_SHARE_SAVE_onclick'] ) && $_POST['A2A_SHARE_SAVE_onclick'] == '1' ) ? '1' : '-1';
 			$new_options['icon_size'] = ( isset( $_POST['A2A_SHARE_SAVE_icon_size'] ) ) ? $_POST['A2A_SHARE_SAVE_icon_size'] : '';
 			$new_options['button'] = ( isset( $_POST['A2A_SHARE_SAVE_button'] ) ) ? $_POST['A2A_SHARE_SAVE_button'] : '';
@@ -643,11 +644,6 @@ function A2A_SHARE_SAVE_options_page() {
 				<label>
 					<input name="A2A_SHARE_SAVE_onclick" type="checkbox"<?php if ( isset( $options['onclick'] ) && $options['onclick'] == '1' ) echo ' checked="checked"'; ?> value="1"/>
 					<?php _e('Only show the universal share menu when the user <em>clicks</em> the universal share button', 'add-to-any'); ?>
-				</label>
-				<br />
-				<label>
-					<input name="A2A_SHARE_SAVE_show_title" type="checkbox"<?php if ( isset( $options['show_title'] ) && $options['show_title'] == '1' ) echo ' checked="checked"'; ?> value="1"/>
-					<?php _e('Show the title of the page within the universal share menu', 'add-to-any'); ?>
 				</label>
 				<label>
 					<p><?php _e("You can use AddToAny's Menu Styler to customize the colors of your universal share menu. When you're done, be sure to paste the generated code in the <a href=\"#\" onclick=\"document.getElementById('A2A_SHARE_SAVE_additional_js_variables').focus();return false\">Additional JavaScript</a> box below.", 'add-to-any'); ?></p>
