@@ -3,7 +3,7 @@
 Plugin Name: AddToAny Share Buttons
 Plugin URI: https://www.addtoany.com/
 Description: Share buttons for your pages including AddToAny's universal sharing button, Facebook, Twitter, Google+, Pinterest, WhatsApp and many more.
-Version: 1.7.1
+Version: 1.7.2
 Author: AddToAny
 Author URI: https://www.addtoany.com/
 Text Domain: add-to-any
@@ -114,7 +114,7 @@ function ADDTOANY_SHARE_SAVE_KIT( $args = array() ) {
 	$kit_style = '';
 	
 	// Add additional classNames to .a2a_kit
-	if ( isset( $args['kit_additional_classes'] ) ) {
+	if ( ! empty( $args['kit_additional_classes'] ) ) {
 		// Append space and className(s)
 		$kit_additional_classes .= ' ' . $args['kit_additional_classes'];
 	}
@@ -392,6 +392,8 @@ function ADDTOANY_SHARE_SAVE_BUTTON( $args = array() ) {
 		'html_container_close' => '',
 		'html_wrap_open' => '',
 		'html_wrap_close' => '',
+		'html_content' => '',
+		'button_additional_classes' => '',
 		'icon_size'	=> isset( $options['icon_size'] ) ? $options['icon_size'] : '32',
 		'no_small_icons' => false,
 		'no_universal_button' => false,
@@ -442,6 +444,9 @@ function ADDTOANY_SHARE_SAVE_BUTTON( $args = array() ) {
 			$button_text	= ( isset( $options['button_text'] ) ) ? stripslashes( $options['button_text'] ) : 'Share' ;
 		}
 		
+		// Add additional classNames to .a2a_dd
+		$button_additional_classes = ! empty( $args['button_additional_classes'] ) ? ' ' . $args['button_additional_classes'] : '';
+		
 		$style = '';
 		
 		if ( isset( $button_fname ) && ( $button_fname == 'favicon.png' || $button_fname == 'share_16_16.png' ) ) {
@@ -454,7 +459,9 @@ function ADDTOANY_SHARE_SAVE_BUTTON( $args = array() ) {
 			}
 		}
 		
-		if ( isset( $button_text ) && ( ! isset( $button_fname) || ! $button_fname || $button_fname == 'favicon.png' || $button_fname == 'share_16_16.png' ) ) {
+		if ( ! empty( $html_content ) ) {
+			$button = $html_content;
+		} elseif ( isset( $button_text ) && ( ! isset( $button_fname) || ! $button_fname || $button_fname == 'favicon.png' || $button_fname == 'share_16_16.png' ) ) {
 			$button = $button_text;
 		} else {
 			$style = '';
@@ -465,7 +472,7 @@ function ADDTOANY_SHARE_SAVE_BUTTON( $args = array() ) {
 			$button_class .= ' a2a_counter';
 		}
 		
-		$button_html = $html_container_open . $html_wrap_open . '<a class="a2a_dd' . $button_class . ' addtoany_share_save" href="https://www.addtoany.com/share' .$button_href_querystring . '"'
+		$button_html = $html_container_open . $html_wrap_open . '<a class="a2a_dd' . $button_class . $button_additional_classes . ' addtoany_share_save" href="https://www.addtoany.com/share' .$button_href_querystring . '"'
 			. $button_data_url . $button_data_title . $button_data_media . $style . $button_target
 			. '>' . $button . '</a>';
 	
@@ -895,7 +902,7 @@ function A2A_SHARE_SAVE_stylesheet() {
 	// Use stylesheet?
 	if ( ! isset( $options['inline_css'] ) || $options['inline_css'] != '-1' && ! is_admin() ) {
 	
-		wp_enqueue_style( 'A2A_SHARE_SAVE', $A2A_SHARE_SAVE_plugin_url_path . '/addtoany.min.css', false, '1.12' );
+		wp_enqueue_style( 'A2A_SHARE_SAVE', $A2A_SHARE_SAVE_plugin_url_path . '/addtoany.min.css', false, '1.13' );
 	
 		// wp_add_inline_style requires WP 3.3+
 		if ( '3.3' <= get_bloginfo( 'version' ) ) {

@@ -1,9 +1,9 @@
 === AddToAny Share Buttons ===
 Contributors: micropat, addtoany
-Tags: AddToAny, share, sharing, social, share button, share buttons, share links, social media, media, marketing, post, posts, page, pages, images, image, admin, analytics, stats, links, plugin, shortcode, sidebar, widget, responsive, email, seo, button, woocommerce, ecommerce, e-commerce, amazon, google, linkedin, reddit, facebook, like, twitter, tweet, google plus, pinterest, whatsapp, instagram, flickr, vimeo, youtube, feed, rss, addthis, share this, sharethis, icons, floating, wpml
+Tags: AddToAny, share, sharing, social, share button, share buttons, social media, media, marketing, images, image, links, shortcode, widget, email, seo, button, woocommerce, ecommerce, e-commerce, amazon, google, linkedin, reddit, facebook, like, twitter, google plus, pinterest, whatsapp, instagram, vimeo, youtube, feed, addthis, share this, sharethis, icons, floating, wpml
 Requires at least: 3.7
-Tested up to: 4.6
-Stable tag: 1.7.1
+Tested up to: 4.7
+Stable tag: 1.7.2
 
 Share buttons for WordPress including the AddToAny sharing button, Facebook, Twitter, Google+, Pinterest, WhatsApp, many more, and follow icons too.
 
@@ -63,7 +63,7 @@ AddToAny is the universal sharing platform, and AddToAny's plugin is the most po
 = Wide Support =
 
 * Over 10 years of development
-* Over 5 million downloads
+* Over 5.5 million downloads
 * Translated into dozens of languages
 * Ongoing support from the community
 
@@ -333,6 +333,10 @@ Upload (or move) the `add-to-any` plugin directory into the `/wp-content/mu-plug
 5. Settings panel
 
 == Changelog ==
+
+= 1.7.2 =
+* Accept arguments in universal button template tag for additional classes and HTML contents
+* Override box shadow on buttons in some themes such as the new Twenty Seventeen default theme in WordPress 4.7
 
 = 1.7.1 =
 * Fix floating share buttons fallback so that the current page is shared by default
