@@ -1,9 +1,9 @@
 === AddToAny Share Buttons ===
 Contributors: micropat, addtoany
-Tags: AddToAny, share, sharing, social, share button, share buttons, social media, media, marketing, images, image, links, shortcode, widget, email, seo, button, woocommerce, ecommerce, e-commerce, amazon, google, linkedin, reddit, facebook, like, twitter, google plus, pinterest, whatsapp, instagram, vimeo, youtube, feed, addthis, share this, sharethis, icons, floating, wpml
+Tags: AddToAny, share, sharing, social, share button, share buttons, social media, media, marketing, links, email, seo, woocommerce, ecommerce, google, linkedin, reddit, facebook, like, twitter, pinterest, whatsapp, instagram, youtube, addthis, share this, sharethis, feed, icons
 Requires at least: 3.7
 Tested up to: 4.7
-Stable tag: 1.7.2
+Stable tag: 1.7.4
 
 Share buttons for WordPress including the AddToAny sharing button, Facebook, Twitter, Google+, Pinterest, WhatsApp, many more, and follow icons too.
 
@@ -63,7 +63,7 @@ AddToAny is the universal sharing platform, and AddToAny's plugin is the most po
 = Wide Support =
 
 * Over 10 years of development
-* Over 5.5 million downloads
+* Over 5.6 million downloads
 * Translated into dozens of languages
 * Ongoing support from the community
 
@@ -114,9 +114,9 @@ Something on your own device/browser/connection is likely filtering out major so
 
 Try another web browser, device, and/or Internet connection to see if the buttons appear. Tools like browserling.com or browserstack.com will give you an idea of what other people are seeing. The usual cause for this uncommon issue is 3rd party browser add-on software that blocks ads and optionally filters out major social buttons. Some security apps and Internet connections have an option to filter social buttons. Usually a social filter option is disabled by default, but if you find that some software is inappropriately filtering AddToAny buttons, <a href="https://www.addtoany.com/contact/">let AddToAny know</a>.
 
-= Is there a shortcode for sharing? =
+= What is the shortcode for sharing? =
 
-Yes, you can place your sharing buttons exactly where you want them by inserting the following shortcode in a post or page:
+You can place your share buttons exactly where you want them by inserting the following shortcode:
 `[addtoany]`
 
 Customize the shared URL like so:
@@ -333,6 +333,16 @@ Upload (or move) the `add-to-any` plugin directory into the `/wp-content/mu-plug
 5. Settings panel
 
 == Changelog ==
+
+= 1.7.4 =
+* Fix custom/secondary contexts check when the WP query object is unavailable
+
+= 1.7.3 =
+* Add icon size options for the floating share buttons
+* Replace packaged PNG icons with SVG icons
+* Update services in AddToAny settings
+* Update standard placement to prevent the share buttons from automatically appearing in custom/secondary contexts
+* Set feed URL & title in AddToAny Follow widgets using HTML5 data attributes
 
 = 1.7.2 =
 * Accept arguments in universal button template tag for additional classes and HTML contents
@@ -589,7 +599,7 @@ Upload (or move) the `add-to-any` plugin directory into the `/wp-content/mu-plug
 * Point to additional placement options and information
 * Remove old placement instructions for hardcoding
 * Remove old error reporting suppression in admin
-* Ukrainian translation (by Michael Yunat, http://getvoip.com)
+* Ukrainian translation (by Michael Yunat)
 
 = 1.3.2 =
 * Avoid loading button script in admin, especially for visual editor plugins
