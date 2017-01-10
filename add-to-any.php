@@ -3,7 +3,7 @@
 Plugin Name: AddToAny Share Buttons
 Plugin URI: https://www.addtoany.com/
 Description: Share buttons for your pages including AddToAny's universal sharing button, Facebook, Twitter, Google+, Pinterest, WhatsApp and many more.
-Version: 1.7.2
+Version: 1.7.4
 Author: AddToAny
 Author URI: https://www.addtoany.com/
 Text Domain: add-to-any
@@ -129,14 +129,8 @@ function ADDTOANY_SHARE_SAVE_KIT( $args = array() ) {
 			// Use height (if specified) for .a2a_kit_size_## class name to size default service counters
 			$icon_size_classname = isset( $options['custom_icons_height'] ) ? ' a2a_kit_size_' . $options['custom_icons_height'] : '';
 		}
-	// a2a_kit_size_32 if no icon size, or no_small_icons arg is true
-	} elseif ( empty( $icon_size ) || isset( $args['no_small_icons'] ) && true == $args['no_small_icons'] ) {
-		$icon_size_classname = ' a2a_kit_size_32';
-	// a2a_kit_size_16
-	} elseif ( $icon_size == '16' ) {
-		$icon_size_classname = '';
-	// a2a_kit_size_## custom icon size
-	} elseif ( ! empty( $icon_size ) ) {
+	// a2a_kit_size_## icon size
+	} else {
 		$icon_size_classname = ' a2a_kit_size_' . $icon_size;
 	}
 	
@@ -218,12 +212,8 @@ function ADDTOANY_SHARE_SAVE_ICONS( $args = array() ) {
 	$https_or_http = is_ssl() ? 'https' : 'http';
 	$is_amp = function_exists( 'is_amp_endpoint' ) && is_amp_endpoint() ? true : false;
 	
-	// False if "icon_size" is set to '16', or no_small_icons arg is true
-	$large_icons = ( $icon_size == '16' 
-		&& ( ! isset( $no_small_icons ) || false == $no_small_icons )
-	) ? false : true;
-	// False if AMP endpoint
-	$large_icons = $is_amp ? false : $large_icons;
+	// Large icons except for AMP endpoint
+	$large_icons = $is_amp ? false : true;
 	
 	// Directory of either custom icons or the packaged icons
 	if ( isset( $options['custom_icons'] ) && $options['custom_icons'] == 'url' && isset( $options['custom_icons_url'] ) ) {
@@ -581,11 +571,12 @@ if ( ! function_exists( 'A2A_menu_locale' ) ) {
 function ADDTOANY_FOLLOW_KIT( $args = array() ) {
 	// Args are passed on to ADDTOANY_SHARE_SAVE_KIT
 	$defaults = array(
+		'buttons' => array(),
 		'linkname' => '',
 		'linkurl' => '',
 		'linkname_enc' => '',
 		'linkurl_enc' => '',
-		'use_current_page' => true,
+		'use_current_page' => false,
 		'output_later' => false,
 		'is_follow' => true,
 		'is_kit' => true,
@@ -601,6 +592,13 @@ function ADDTOANY_FOLLOW_KIT( $args = array() ) {
 	
 	// Add a2a_follow className to Kit classes
 	$args['kit_additional_classes'] = 'a2a_follow';
+	
+	// If $args['buttons']['feed']['id'] is set
+	$buttons = $args['buttons'];
+	if ( ! empty( $buttons['feed'] ) && ! empty( $buttons['feed']['id'] ) ) {
+		$args['linkurl'] = $buttons['feed']['id'];
+		$args['linkname'] = get_bloginfo( 'name' );
+	}
 	
 	$follow_html = ADDTOANY_SHARE_SAVE_KIT( $args );
 	
@@ -667,6 +665,8 @@ function ADDTOANY_SHARE_SAVE_FLOATING( $args = array() ) {
 			$position = ( isset( $options['floating_vertical_position'] ) ) ? $options['floating_vertical_position'] . 'px' : '100px';
 			// Left or right offset
 			$offset = ( isset( $options['floating_vertical_offset'] ) ) ? $options['floating_vertical_offset'] . 'px' : '0px';
+			// Icon size
+			$args['icon_size'] = ( isset( $options['floating_vertical_icon_size'] ) ) ? $options['floating_vertical_icon_size'] : '32';
 		
 			// Add a2a_vertical_style className to Kit classes
 			$args['kit_additional_classes'] = 'a2a_floating_style a2a_vertical_style';
@@ -687,6 +687,8 @@ function ADDTOANY_SHARE_SAVE_FLOATING( $args = array() ) {
 			$position = ( isset( $options['floating_horizontal_position'] ) ) ? $options['floating_horizontal_position'] . 'px' : '0px';
 			// Bottom offset
 			$offset = ( isset( $options['floating_horizontal_offset'] ) ) ? $options['floating_horizontal_offset'] . 'px' : '0px';
+			// Icon size
+			$args['icon_size'] = ( isset( $options['floating_horizontal_icon_size'] ) ) ? $options['floating_horizontal_icon_size'] : '32';
 
 			// Add a2a_default_style className to Kit classes
 			$args['kit_additional_classes'] = 'a2a_floating_style a2a_default_style';
@@ -764,6 +766,12 @@ add_action( 'wp_footer', 'A2A_SHARE_SAVE_footer_script' );
 
 function A2A_SHARE_SAVE_add_to_content( $content ) {
 	global $wp_current_filter;
+	
+	// Bail if not in the loop
+	if ( ! in_the_loop() ) {
+		// Return early
+		return $content;
+	}
 	
 	// Don't add to get_the_excerpt because it's too early and strips tags (adding to the_excerpt is allowed)
 	if ( in_array( 'get_the_excerpt', (array) $wp_current_filter ) ) {
@@ -866,8 +874,15 @@ function A2A_SHARE_SAVE_add_to_content( $content ) {
 	return $content;
 }
 
-add_filter( 'the_content', 'A2A_SHARE_SAVE_add_to_content', 98 );
-add_filter( 'the_excerpt', 'A2A_SHARE_SAVE_add_to_content', 98 );
+
+function A2A_SHARE_SAVE_pre_get_posts( $query ) {
+	if ( $query->is_main_query() ) {
+		add_filter( 'the_content', 'A2A_SHARE_SAVE_add_to_content', 98 );
+		add_filter( 'the_excerpt', 'A2A_SHARE_SAVE_add_to_content', 98 );	
+	}
+}
+
+add_action( 'pre_get_posts', 'A2A_SHARE_SAVE_pre_get_posts' );
 
 
 // [addtoany url="http://example.com/page.html" title="Some Example Page"]
