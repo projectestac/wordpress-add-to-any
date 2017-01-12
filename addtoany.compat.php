@@ -38,3 +38,8 @@ function addtoany_amp_additional_css_styles( $amp_template ) {
 	}
 	<?php
 }
+
+function addtoany_amp_icons_css( $amp_template ) {
+	global $A2A_SHARE_SAVE_amp_icons_css;
+	echo $A2A_SHARE_SAVE_amp_icons_css;
+}
