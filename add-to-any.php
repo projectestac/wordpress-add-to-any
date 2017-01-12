@@ -3,7 +3,7 @@
 Plugin Name: AddToAny Share Buttons
 Plugin URI: https://www.addtoany.com/
 Description: Share buttons for your pages including AddToAny's universal sharing button, Facebook, Twitter, Google+, Pinterest, WhatsApp and many more.
-Version: 1.7.4
+Version: 1.7.7
 Author: AddToAny
 Author URI: https://www.addtoany.com/
 Text Domain: add-to-any
@@ -12,7 +12,8 @@ Domain Path: /languages
 
 // Explicitly globalize to support bootstrapped WordPress
 global $A2A_locale, $A2A_FOLLOW_services,
-	$A2A_SHARE_SAVE_plugin_basename, $A2A_SHARE_SAVE_options, $A2A_SHARE_SAVE_plugin_dir, $A2A_SHARE_SAVE_plugin_url_path, $A2A_SHARE_SAVE_services;
+	$A2A_SHARE_SAVE_plugin_basename, $A2A_SHARE_SAVE_options, $A2A_SHARE_SAVE_plugin_dir, $A2A_SHARE_SAVE_plugin_url_path, 
+	$A2A_SHARE_SAVE_services, $A2A_SHARE_SAVE_amp_icons_css;
 
 $A2A_SHARE_SAVE_plugin_basename = plugin_basename( dirname( __FILE__ ) );
 $A2A_SHARE_SAVE_plugin_dir = untrailingslashit( plugin_dir_path( __FILE__ ) );
@@ -178,7 +179,8 @@ function ADDTOANY_SHARE_SAVE_ICONS( $args = array() ) {
 	
 	global $A2A_SHARE_SAVE_plugin_url_path, 
 		$A2A_SHARE_SAVE_services,
-		$A2A_FOLLOW_services;
+		$A2A_FOLLOW_services,
+		$A2A_SHARE_SAVE_amp_icons_css;
 	
 	$options = get_option( 'addtoany_options' );
 	
@@ -211,6 +213,7 @@ function ADDTOANY_SHARE_SAVE_ICONS( $args = array() ) {
 	
 	$https_or_http = is_ssl() ? 'https' : 'http';
 	$is_amp = function_exists( 'is_amp_endpoint' ) && is_amp_endpoint() ? true : false;
+	$amp_css = '.a2a_dd img{background-color:#0166FF;}';
 	
 	// Large icons except for AMP endpoint
 	$large_icons = $is_amp ? false : true;
@@ -320,6 +323,8 @@ function ADDTOANY_SHARE_SAVE_ICONS( $args = array() ) {
 			$height_attr = isset( $service['icon_height'] ) ? ' height="' . $service['icon_height'] . '"' : ' height="16"';
 			$height_attr = $is_amp && ! empty( $icon_size ) ? ' height="' . $icon_size . '"' : $height_attr;
 			
+			$amp_css .= $is_amp && ! empty( $service['color'] ) ? '.a2a_button_' . $safe_name . ' img{background-color:#' . $service['color'] . ';}' : '';
+			
 			$url = ( isset( $href ) ) ? $href : $https_or_http . '://www.addtoany.com/add_to/' . $safe_name . '?linkurl=' . $linkurl_enc .'&amp;linkname=' . $linkname_enc;
 			$src = ( $icon_url ) ? $icon_url : $icons_dir . $icon . '.' . $icons_type;
 			$counter = ( $counter_enabled ) ? ' a2a_counter' : '';
@@ -347,6 +352,11 @@ function ADDTOANY_SHARE_SAVE_ICONS( $args = array() ) {
 	}
 	
 	$ind_html .= $html_container_close;
+	
+	if ( $is_amp ) {
+		$A2A_SHARE_SAVE_amp_icons_css = $amp_css;
+		add_action( 'amp_post_template_css', 'addtoany_amp_icons_css' );
+	}
 	
 	if ( true == $output_later )
 		return $ind_html;
@@ -766,12 +776,6 @@ add_action( 'wp_footer', 'A2A_SHARE_SAVE_footer_script' );
 
 function A2A_SHARE_SAVE_add_to_content( $content ) {
 	global $wp_current_filter;
-	
-	// Bail if not in the loop
-	if ( ! in_the_loop() ) {
-		// Return early
-		return $content;
-	}
 	
 	// Don't add to get_the_excerpt because it's too early and strips tags (adding to the_excerpt is allowed)
 	if ( in_array( 'get_the_excerpt', (array) $wp_current_filter ) ) {

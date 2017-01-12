@@ -3,7 +3,7 @@ Contributors: micropat, addtoany
 Tags: AddToAny, share, sharing, social, share button, share buttons, social media, media, marketing, links, email, seo, woocommerce, ecommerce, google, linkedin, reddit, facebook, like, twitter, pinterest, whatsapp, instagram, youtube, addthis, share this, sharethis, feed, icons
 Requires at least: 3.7
 Tested up to: 4.7
-Stable tag: 1.7.4
+Stable tag: 1.7.7
 
 Share buttons for WordPress including the AddToAny sharing button, Facebook, Twitter, Google+, Pinterest, WhatsApp, many more, and follow icons too.
 
@@ -333,6 +333,18 @@ Upload (or move) the `add-to-any` plugin directory into the `/wp-content/mu-plug
 5. Settings panel
 
 == Changelog ==
+
+= 1.7.7 =
+* Resolve syntax issue with [out-of-date PHP versions](https://secure.php.net/eol.php) below PHP 5.3
+
+= 1.7.6 =
+* Skip background colors on AMP icons for [out-of-date PHP versions](https://secure.php.net/eol.php) below PHP 5.3
+
+= 1.7.5 =
+* Add background colors to share buttons on [AMP](https://wordpress.org/plugins/amp/) (Accelerated Mobile Pages) to support new AddToAny SVG icons
+* Fix AMP issue from `in_the_loop` check in 1.7.3
+* Remove `in_the_loop` context check because AMP doesn't use the loop
+* Use packaged AddToAny icon in admin (thanks xaviernieto)
 
 = 1.7.4 =
 * Fix custom/secondary contexts check when the WP query object is unavailable

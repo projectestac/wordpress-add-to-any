@@ -507,7 +507,7 @@ function A2A_SHARE_SAVE_options_page() {
 				<div class="addtoany_icon_size_large">
 					<label class="addtoany_override a2a_kit_size_32">
 						<input name="A2A_SHARE_SAVE_button" value="A2A_SVG_32" type="radio"<?php if ( ! isset( $options['button'] ) || 'A2A_SVG_32' == $options['button'] ) echo ' checked="checked"'; ?> style="margin:9px 0;vertical-align:middle">
-						<span class="a2a_svg a2a_s_a2a" onclick="this.parentNode.firstChild.checked=true" style="margin-left:9px"></span>
+						<img src="<?php echo $A2A_SHARE_SAVE_plugin_url_path.'/icons/a2a.svg'; ?>" width="32" height="32" alt="AddToAny" onclick="this.parentNode.firstChild.checked=true" />
 					</label>
 					<br>
 				</div>
@@ -1197,12 +1197,17 @@ function A2A_SHARE_SAVE_admin_head() {
 		}
 	}
 	
-	.a2a_kit_size_32.addtoany_override .a2a_svg { 
+	.a2a_kit_size_32.addtoany_override .a2a_svg,
+	.a2a_kit_size_32.addtoany_override img { 
 		border-radius: 4px;
 		display:inline-block;
 		height: 32px;
 		vertical-align:middle;
 		width: 32px;
+	}
+	.a2a_kit_size_32.addtoany_override img {
+		background-color: #0166FF;
+		margin-left: 9px;
 	}
 	
 	#A2A_SHARE_SAVE_reset_options{color:red;margin-left: 15px;}
