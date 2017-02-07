@@ -40,7 +40,14 @@ function A2A_SHARE_SAVE_init() {
 	
 	load_plugin_textdomain( 'add-to-any', false, $A2A_SHARE_SAVE_plugin_basename . '/languages/' );
 }
+// XTEC ************ MODIFICAT - Add language support before the class to instantiate
+// 2017.02.07 @xaviernietosanchez
+add_filter( 'plugins_loaded', 'A2A_SHARE_SAVE_init' );
+// ************ ORIGINAL
+/*
 add_filter( 'init', 'A2A_SHARE_SAVE_init' );
+*/
+// ************ FI
 
 function A2A_SHARE_SAVE_link_vars( $linkname = false, $linkurl = false, $linkmedia = false, $use_current_page = false ) {
 	global $post;
