@@ -1167,10 +1167,22 @@ function A2A_SHARE_SAVE_admin_head() {
 				if ('facebook_like' == this_service_name) {
 					if (service_options[this_service_name] && service_options[this_service_name].verb)
 						checked = ' selected="selected"';
+
+					// XTEC ************ MODIFICAT - Add support language
+					// 2017.02.08 @xaviernietosanchez
+					special_options_html = '<select id="' + this_service.attr('id') + '_verb" name="' + this_service.attr('id') + '_verb">'
+						+ '<option value="like"><?php _e('Like','add-to-any'); ?></option>'
+						+ '<option' + checked + ' value="recommend">Recommend</option>'
+						+ '</select>';
+					// ************ ORIGINAL
+					/*
 					special_options_html = '<select id="' + this_service.attr('id') + '_verb" name="' + this_service.attr('id') + '_verb">'
 						+ '<option value="like">Like</option>'
 						+ '<option' + checked + ' value="recommend">Recommend</option>'
 						+ '</select>';
+					*/
+					// ************ FI
+
 				} else if ('twitter_tweet' == this_service_name) {
 					// twitter_tweet doesn't provide counts anymore
 				} else {
@@ -1178,7 +1190,16 @@ function A2A_SHARE_SAVE_admin_head() {
 					if (service_options[this_service_name] && service_options[this_service_name].show_count) {
 						checked = ' checked="checked"';
 					}
+
+					// XTEC ************ MODIFICAT - Add support language
+					// 2017.02.08 @xaviernietosanchez
+					special_options_html = '<label><input' + checked + ' id="' + this_service.attr('id') + '_show_count" name="' + this_service.attr('id') + '_show_count" type="checkbox" value="1"> <?php _e('Show count','add-to-any'); ?></label>';
+					// ************ ORIGINAL
+					/*
 					special_options_html = '<label><input' + checked + ' id="' + this_service.attr('id') + '_show_count" name="' + this_service.attr('id') + '_show_count" type="checkbox" value="1"> Show count</label>';
+					*/
+					// ************ FI
+
 				}
 				
 				if (special_options_html.length > 0) {
