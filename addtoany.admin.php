@@ -4,8 +4,7 @@
  * Post options
  */
 function A2A_SHARE_SAVE_add_meta_box() {
-	// get_post_types() only included in WP 2.9/3.0
-	$post_types = ( function_exists( 'get_post_types' ) ) ? get_post_types( array( 'public' => true ) ) : array( 'post', 'page' ) ;
+	$post_types = get_post_types( array( 'public' => true ) );
 	
 	$options = get_option( 'addtoany_options' );
 	
@@ -17,11 +16,11 @@ function A2A_SHARE_SAVE_add_meta_box() {
 			isset( $options['floating_vertical'] ) && 'none' != $options['floating_vertical'] ||
 			isset( $options['floating_horizontal'] ) && 'none' != $options['floating_horizontal'] ||
 			// for standard buttons in posts
-			'post' == $post_type && isset( $options['display_in_posts'] ) && $options['display_in_posts'] != '-1' ||
+			'post' == $post_type && ( ! isset( $options['display_in_posts'] ) || $options['display_in_posts'] != '-1' ) ||
 			// for standard buttons in pages
-			'page' == $post_type && isset( $options['display_in_pages'] ) && $options['display_in_pages'] != '-1' ||
+			'page' == $post_type && ( ! isset( $options['display_in_pages'] ) || $options['display_in_pages'] != '-1' ) ||
 			// for standard buttons in a custom post type
-			isset( $options['display_in_cpt_' . $post_type] ) && $options['display_in_cpt_' . $post_type] != '-1'
+			! isset( $options['display_in_cpt_' . $post_type] ) || $options['display_in_cpt_' . $post_type] != '-1'
 		) {
 			// Add meta box
 			add_meta_box( 'A2A_SHARE_SAVE_meta', $title, 'A2A_SHARE_SAVE_meta_box_content', $post_type, 'advanced', 'high' );
@@ -643,7 +642,7 @@ function A2A_SHARE_SAVE_options_page() {
 				
 				<br/><br/>
 				<div class="setting-description">
-					<?php _e("See <a href=\"widgets.php\" title=\"Theme Widgets\">Widgets</a> and <a href=\"options-general.php?page=addtoany&action=floating\" title=\"AddToAny Floating Share Buttons\">Floating</a> for additional placement options. For advanced placement, see <a href=\"http://wordpress.org/plugins/add-to-any/faq/\">the FAQs</a>.", 'add-to-any'); ?>
+					<?php _e("See <a href=\"widgets.php\" title=\"Theme Widgets\">Widgets</a> and <a href=\"options-general.php?page=addtoany&action=floating\" title=\"AddToAny Floating Share Buttons\">Floating</a> for additional placement options. For advanced placement, see <a href=\"https://wordpress.org/plugins/add-to-any/faq/\">the FAQs</a>.", 'add-to-any'); ?>
 				</div>
 			</fieldset></td>
 			</tr>
@@ -834,12 +833,12 @@ function A2A_SHARE_SAVE_options_page() {
 	</form>
 	
 	<h2><?php _e('Like this plugin?','add-to-any'); ?></h2>
-	<p><?php _e('<a href="https://wordpress.org/support/view/plugin-reviews/add-to-any#postform" target="_blank">Give it a 5 star rating</a> on WordPress.org.','add-to-any'); ?></p>
-	<p><?php _e('<a href="https://www.addtoany.com/share_save#title=WordPress%20Share%20Plugin%20by%20AddToAny.com&amp;url=http%3A%2F%2Fwordpress.org%2Fplugins%2Fadd-to-any%2F">Share it</a> and follow <a href="https://www.addtoany.com/">AddToAny</a> on <a href="https://www.facebook.com/AddToAny" target="_blank">Facebook</a> &amp; <a href="https://twitter.com/AddToAny" target="_blank">Twitter</a>.','add-to-any'); ?></p>
+	<p><?php _e('<a href="https://wordpress.org/support/plugin/add-to-any/reviews/#new-post" target="_blank">Give it a 5 star rating</a> on WordPress.org.','add-to-any'); ?></p>
+	<p><?php _e('<a href="https://www.addtoany.com/share#title=WordPress%20Share%20Plugin%20by%20AddToAny.com&amp;url=https%3A%2F%2Fwordpress.org%2Fplugins%2Fadd-to-any%2F">Share it</a> and follow <a href="https://www.addtoany.com/">AddToAny</a> on <a href="https://www.facebook.com/AddToAny" target="_blank">Facebook</a> &amp; <a href="https://twitter.com/AddToAny" target="_blank">Twitter</a>.','add-to-any'); ?></p>
 	
 	<h2><?php _e('Need support?','add-to-any'); ?></h2>
-	<p><?php _e('See the <a href="http://wordpress.org/extend/plugins/add-to-any/faq/">FAQs</a>.','add-to-any'); ?></p>
-	<p><?php _e('Search the <a href="http://wordpress.org/tags/add-to-any">support forums</a>.','add-to-any'); ?></p>
+	<p><?php _e('See the <a href="https://wordpress.org/plugins/add-to-any/faq/">FAQs</a>.','add-to-any'); ?></p>
+	<p><?php _e('Search the <a href="https://wordpress.org/support/plugin/add-to-any">support forums</a>.','add-to-any'); ?></p>
 	</div>
 	
 	<script src="http<?php if ( is_ssl() ) echo 's'; ?>://static.addtoany.com/menu/page.js"></script>

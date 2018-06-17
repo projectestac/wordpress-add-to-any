@@ -3,7 +3,7 @@
 Plugin Name: AddToAny Share Buttons
 Plugin URI: https://www.addtoany.com/
 Description: Share buttons for your pages including AddToAny's universal sharing button, Facebook, Twitter, Google+, Pinterest, WhatsApp and many more.
-Version: 1.7.7
+Version: 1.7.9
 Author: AddToAny
 Author URI: https://www.addtoany.com/
 Text Domain: add-to-any
@@ -278,11 +278,14 @@ function ADDTOANY_SHARE_SAVE_ICONS( $args = array() ) {
 			// If Follow kit and HREF specified
 			if ( $is_follow && isset( $service['href'] ) ) {
 				$follow_id = $buttons[ $active_service ]['id'];
-				if ( 'feed' == $safe_name ) {
-					// For "feed" service, stored ID value is actually the URL
+				$is_url = in_array( parse_url( $follow_id, PHP_URL_SCHEME ), array( 'http', 'https' ) );
+				
+				// If it's a URL instead of a service ID
+				if ( $is_url ) {
+					// Just use the given URL instead of the URL template
 					$href = $follow_id;
 				} else {
-					// For all other services, replace
+					// Replace the ID placeholder in the URL template
 					$href = str_replace( '${id}', $follow_id, $service['href'] );
 				}
 				$href = ( 'feed' == $safe_name ) ? $follow_id : $href;
@@ -601,7 +604,7 @@ function ADDTOANY_FOLLOW_KIT( $args = array() ) {
 	$args = wp_parse_args( $args, $defaults );
 	
 	// Add a2a_follow className to Kit classes
-	$args['kit_additional_classes'] = 'a2a_follow';
+	$args['kit_additional_classes'] = trim( $args['kit_additional_classes'] . ' a2a_follow' );
 	
 	// If $args['buttons']['feed']['id'] is set
 	$buttons = $args['buttons'];
@@ -679,7 +682,7 @@ function ADDTOANY_SHARE_SAVE_FLOATING( $args = array() ) {
 			$args['icon_size'] = ( isset( $options['floating_vertical_icon_size'] ) ) ? $options['floating_vertical_icon_size'] : '32';
 		
 			// Add a2a_vertical_style className to Kit classes
-			$args['kit_additional_classes'] = 'a2a_floating_style a2a_vertical_style';
+			$args['kit_additional_classes'] = trim( $args['kit_additional_classes'] . ' a2a_floating_style a2a_vertical_style' );
 			
 			// Add declarations to Kit style attribute
 			if ( 'left_docked' === $vertical_type ) {
@@ -701,7 +704,7 @@ function ADDTOANY_SHARE_SAVE_FLOATING( $args = array() ) {
 			$args['icon_size'] = ( isset( $options['floating_horizontal_icon_size'] ) ) ? $options['floating_horizontal_icon_size'] : '32';
 
 			// Add a2a_default_style className to Kit classes
-			$args['kit_additional_classes'] = 'a2a_floating_style a2a_default_style';
+			$args['kit_additional_classes'] = trim( $args['kit_additional_classes'] . ' a2a_floating_style a2a_default_style' );
 			
 			// Add declarations to Kit style attribute
 			if ( 'left_docked' === $horizontal_type ) {
@@ -889,19 +892,19 @@ function A2A_SHARE_SAVE_pre_get_posts( $query ) {
 add_action( 'pre_get_posts', 'A2A_SHARE_SAVE_pre_get_posts' );
 
 
-// [addtoany url="http://example.com/page.html" title="Some Example Page"]
+// [addtoany url="https://www.example.com/page.html" title="Example Page"]
 function A2A_SHARE_SAVE_shortcode( $attributes ) {
-	extract( shortcode_atts( array(
-		'url'     => 'something',
-		'title'   => 'something else',
+	$attributes = shortcode_atts( array(
+		'url'     => '',
+		'title'   => '',
 		'media'   => '',
 		'buttons' => '',
-	), $attributes ) );
+	), $attributes, 'addtoany' );
 	
-	$linkname = isset( $attributes['title'] ) ? $attributes['title'] : false;
-	$linkurl = isset( $attributes['url'] ) ? $attributes['url'] : false;
+	$linkname =  ! empty( $attributes['title'] ) ? $attributes['title'] : false;
+	$linkurl =  ! empty( $attributes['url'] ) ? $attributes['url'] : false;
 	$linkmedia = ! empty( $attributes['media'] ) ? $attributes['media'] : false;
-	$buttons = ! empty( $buttons ) ? explode ( ',', $buttons ) : array();
+	$buttons = ! empty( $buttons ) ? explode( ',', $buttons ) : array();
 	
 	$output_later = true;
 

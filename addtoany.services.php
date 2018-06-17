@@ -337,6 +337,11 @@ $A2A_SHARE_SAVE_services = array(
 		"icon" => "outlook_com",
 		"color" => "0072C6",
 	),
+	"papaly" => array(
+		"name" => "Papaly",
+		"icon" => "papaly",
+		"color" => "3AC0F6",
+	),
 	"pinboard" => array(
 		"name" => "Pinboard",
 		"icon" => "pinboard",
@@ -386,6 +391,11 @@ $A2A_SHARE_SAVE_services = array(
 		"name" => "Rediff MyPage",
 		"icon" => "rediff",
 		"color" => "D20000",
+	),
+	"refind" => array(
+		"name" => "Refind",
+		"icon" => "refind",
+		"color" => "1492ef",
 	),
 	"renren" => array(
 		"name" => "Renren",
