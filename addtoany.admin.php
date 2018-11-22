@@ -1171,7 +1171,7 @@ function A2A_SHARE_SAVE_admin_head() {
 					// XTEC ************ MODIFICAT - Add support language
 					// 2017.02.08 @xaviernietosanchez
 					special_options_html = '<select id="' + this_service.attr('id') + '_verb" name="' + this_service.attr('id') + '_verb">'
-						+ '<option value="like"><?php _e('Like','add-to-any'); ?></option>'
+						+ '<option value="like"><?php esc_html_e('Like','add-to-any'); ?></option>'
 						+ '<option' + checked + ' value="recommend">Recommend</option>'
 						+ '</select>';
 					// ************ ORIGINAL
