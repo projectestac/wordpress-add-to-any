@@ -19,9 +19,9 @@ class A2A_SHARE_SAVE_Widget extends WP_Widget {
 		);
 		parent::__construct( '', 'AddToAny Share', $widget_ops );
 		
-		// Enqueue script if widget is active (appears in a sidebar) or if in Customizer preview.
+		// Enqueue script if in Customizer preview.
 		// is_customize_preview() @since 4.0.0
-		if ( is_active_widget( false, false, $this->id_base ) || ( function_exists( 'is_customize_preview' ) && is_customize_preview() ) ) {
+		if ( function_exists( 'is_customize_preview' ) && is_customize_preview() ) {
 			add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
 		}
 	}
@@ -40,9 +40,6 @@ class A2A_SHARE_SAVE_Widget extends WP_Widget {
 	 * @param array $instance
 	 */
 	public function widget( $args = array(), $instance ) {
-	
-		global $A2A_SHARE_SAVE_plugin_url_path;
-		
 		$defaults = array(
 			'before_widget' => '',
 			'after_widget' => '',
@@ -51,20 +48,19 @@ class A2A_SHARE_SAVE_Widget extends WP_Widget {
 		);
 		
 		$args = wp_parse_args( $args, $defaults );
-		extract( $args );
 		
-		echo $before_widget;
+		echo $args['before_widget'];
 		
 		if ( isset( $instance ) && ! empty( $instance['title'] ) ) {
 			$title = apply_filters( 'widget_title', $instance['title'] );
-			echo $before_title . $title . $after_title;
+			echo $args['before_title'] . $title . $args['after_title'];
 		}
 		
 		ADDTOANY_SHARE_SAVE_KIT( array(
 			"use_current_page" => true,
 		) );
 
-		echo $after_widget;
+		echo $args['after_widget'];
 	}
 	
 	/**
@@ -74,7 +70,7 @@ class A2A_SHARE_SAVE_Widget extends WP_Widget {
 	 */
 	public function update( $new_instance, $old_instance ) {
 		$instance = $old_instance;
-		$instance['title'] = strip_tags( $new_instance['title'] );
+		$instance['title'] = sanitize_text_field( $new_instance['title'] );
 		return $instance;
 	}
 	
@@ -86,7 +82,7 @@ class A2A_SHARE_SAVE_Widget extends WP_Widget {
 		?>
 		<p>
 			<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title:' ); ?></label> 
-			<input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>" />
+			<input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php esc_attr_e( $title ); ?>" />
 		</p>
 		<p>
 			<a href="options-general.php?page=addtoany"><?php _e('AddToAny Settings', 'add-to-any'); ?>...</a>
@@ -111,9 +107,9 @@ class A2A_Follow_Widget extends WP_Widget {
 		);
 		parent::__construct( '', 'AddToAny Follow', $widget_ops );	
 		
-		// Enqueue script if widget is active (appears in a sidebar) or if in Customizer preview.
+		// Enqueue script if in Customizer preview.
 		// is_customize_preview() @since 4.0.0
-		if ( is_active_widget( false, false, $this->id_base ) || ( function_exists( 'is_customize_preview' ) && is_customize_preview() ) ) {
+		if ( function_exists( 'is_customize_preview' ) && is_customize_preview() ) {
 			add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
 		}
 	}
@@ -130,9 +126,6 @@ class A2A_Follow_Widget extends WP_Widget {
 	 * @param array $instance
 	 */
 	public function widget( $args = array(), $instance ) {
-	
-		global $A2A_SHARE_SAVE_plugin_url_path;
-		
 		$defaults = array(
 			'before_widget' => '',
 			'after_widget' => '',
@@ -141,13 +134,14 @@ class A2A_Follow_Widget extends WP_Widget {
 		);
 		
 		$args = wp_parse_args( $args, $defaults );
-		extract( $args );
 		
-		echo $before_widget;
+		echo $args['before_widget'];
 		
-		if ( isset( $instance ) && ! empty( $instance['title'] ) ) {
+		$instance = is_array( $instance ) ? $instance : array();
+		
+		if ( ! empty( $instance['title'] ) ) {
 			$title = apply_filters( 'widget_title', $instance['title'] );
-			echo $before_title . $title . $after_title;
+			echo $args['before_title'] . $title . $args['after_title'];
 		}
 		
 		$active_services = array();
@@ -164,9 +158,10 @@ class A2A_Follow_Widget extends WP_Widget {
 		
 		ADDTOANY_FOLLOW_KIT( array(
 			'buttons' => $active_services,
+			'icon_size' => ! empty( $instance['icon_size'] ) ? $instance['icon_size'] : '32',
 		) );
 
-		echo $after_widget;
+		echo $args['after_widget'];
 	}
 	
 	/**
@@ -175,15 +170,16 @@ class A2A_Follow_Widget extends WP_Widget {
 	 * @return array
 	 */
 	public function update( $new_instance, $old_instance ) {
-		$instance = $old_instance;
-		$instance['title'] = strip_tags( $new_instance['title'] );
+		$instance = (array) $old_instance;
+		$instance['title'] = sanitize_text_field( $new_instance['title'] );
+		$instance['icon_size'] = sanitize_text_field( $new_instance['icon_size'] );
 		
 		// Accept service IDs
 		$services = $this->get_follow_services();
 		foreach ( $services as $code => $service ) {
 			$code_id = $code . '_id';
 			if ( isset( $new_instance[ $code_id ] ) ) {
-				$instance[ $code_id ] = strip_tags( $new_instance[ $code_id ] );
+				$instance[ $code_id ] = sanitize_text_field( $new_instance[ $code_id ] );
 			}
 		}
 		
@@ -194,13 +190,30 @@ class A2A_Follow_Widget extends WP_Widget {
 	 * @param array $instance
 	 */
 	public function form( $instance ) {
+		$instance = is_array( $instance ) ? $instance : array();
+		$options = get_option( 'addtoany_options', array() );
 		$services = $this->get_follow_services();
 		
-		$title = isset( $instance ) && ! empty( $instance['title'] ) ? __( $instance['title'] ) : '';
+		$title = ! empty( $instance['title'] ) ? __( $instance['title'] ) : '';
+		
+		if ( ! empty( $instance['icon_size'] ) ) {
+			$icon_size = $instance['icon_size'];
+		} elseif ( ! empty( $options['icon_size'] ) ) {
+			// Fallback to standard icon size if saved
+			$icon_size = $options['icon_size'];
+		} else {
+			$icon_size = '32';
+		}
+		
 		?>
 		<p>
 			<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title:' ); ?></label> 
-			<input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>" />
+			<input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php esc_attr_e( $title ); ?>" />
+		</p>
+		<p>
+			<label for="<?php echo $this->get_field_id( 'icon_size' ); ?>"><?php _e( 'Icon Size:', 'add-to-any' ); ?></label>
+			<input class="widefat" id="<?php echo $this->get_field_id( 'icon_size' ); ?>" name="<?php echo $this->get_field_name( 'icon_size' ); ?>" type="number" max="300" min="10" maxlength="3" step="2" oninput="if(this.value.length > 3) this.value=this.value.slice(0, 3)" placeholder="32" value="<?php esc_attr_e( $icon_size ); ?>">
+			<small>Pixels</small>
 		</p>
 <?php foreach ( $services as $code => $service ) : 
 		$code_id = $code . '_id';
@@ -209,7 +222,7 @@ class A2A_Follow_Widget extends WP_Widget {
 ?>
 		<p>
 			<label for="<?php echo $this->get_field_id( $code_id ); ?>"><?php echo $label_text; ?></label>
-			<input class="widefat" id="<?php echo $this->get_field_id( $code_id ); ?>" name="<?php echo $this->get_field_name( $code_id ); ?>" type="text" value="<?php echo esc_attr( $id_value ); ?>">
+			<input class="widefat" id="<?php echo $this->get_field_id( $code_id ); ?>" name="<?php echo $this->get_field_name( $code_id ); ?>" type="text" value="<?php esc_attr_e( $id_value ); ?>">
 			<br>
 			<small><?php echo str_replace( '${id}', '<u>ID</u>', $service['href'] ); ?></small>
 		</p>
