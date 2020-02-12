@@ -25,6 +25,7 @@ function addtoany_excerpt_remove() {
 /**
  * Load AMP (Accelerated Mobile Pages) compatibility functions
  */
+
 add_action( 'amp_post_template_css', 'addtoany_amp_additional_css_styles' );
 
 function addtoany_amp_additional_css_styles( $amp_template ) {
@@ -39,9 +40,20 @@ function addtoany_amp_additional_css_styles( $amp_template ) {
 	<?php
 }
 
-function addtoany_amp_icons_css( $amp_template ) {
-	global $A2A_SHARE_SAVE_amp_icons_css;
-	echo $A2A_SHARE_SAVE_amp_icons_css;
+/**
+ * Change the priority of standard buttons in content to work around a
+ * Jetpack ~v7.8 Related Posts bug that removes content added to AMP posts 
+ * if the content's filter has a priority number greater than 40.
+ */
+add_action( 'wp_loaded', 'addtoany_priority_for_amp_jetpack' );
+
+function addtoany_priority_for_amp_jetpack() {
+	// If the AMP plugin is enabled, the Jetpack plugin is enabled,
+	// and Jetpack's Related Posts module is enabled
+	if ( class_exists( 'AMP_Autoloader' ) && class_exists( 'Jetpack' ) && Jetpack::is_module_active( 'related-posts' ) ) {
+		// Change priority to 20
+		add_filter( 'addtoany_content_priority', function() { return 20; } );
+	}
 }
 
 /**

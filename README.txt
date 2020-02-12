@@ -2,15 +2,15 @@
 Contributors: micropat, addtoany
 Tags: buttons, share, icons, social media, share buttons, sharing, share button, media, social, marketing, links, email, seo, woocommerce, google, linkedin, reddit, facebook, twitter, pinterest, whatsapp, instagram, youtube, share this, sharethis, feed
 Requires at least: 3.7
-Tested up to: 5.1
-Requires PHP: 5.2
-Stable tag: 1.7.34
+Tested up to: 5.3
+Requires PHP: 5.6
+Stable tag: 1.7.39
 
-Share buttons for WordPress including the AddToAny sharing button, Facebook, Twitter, Google+, Pinterest, WhatsApp, many more, and follow icons too.
+Share buttons for WordPress including the AddToAny sharing button, Facebook, Twitter, WhatsApp, Pinterest, Reddit, many more, and follow icons too.
 
 == Description ==
 
-The AddToAny Share Buttons plugin for WordPress increases traffic & engagement by helping people share your posts and pages to any service. Services include Facebook, Twitter, Pinterest, Google, WhatsApp, LinkedIn, Tumblr, Reddit, and over 100 more sharing and social media sites & apps.
+The AddToAny Share Buttons plugin for WordPress increases traffic & engagement by helping people share your posts and pages to any service. Services include Facebook, Twitter, Pinterest, WhatsApp, LinkedIn, Tumblr, Reddit, WeChat, and over 100 more sharing and social media sites & apps.
 
 AddToAny is the home of universal sharing, and the AddToAny plugin is the most popular share plugin for WordPress, making sites social media ready since 2006.
 
@@ -19,11 +19,11 @@ AddToAny is the home of universal sharing, and the AddToAny plugin is the most p
 * [**Standard**](https://www.addtoany.com/buttons/customize/wordpress/standalone_services) share buttons — share each piece of content
 * [**Floating**](https://www.addtoany.com/buttons/customize/wordpress/floating_share_buttons) share buttons — responsive & customizable, vertical & horizontal
 * **Counters** — fast & official [share counts](https://www.addtoany.com/buttons/customize/wordpress/share_counters) in the same style
-* **Follow** buttons** — [social media links](https://www.addtoany.com/buttons/customize/wordpress/follow_buttons) to your Instagram, YouTube, Snapchat
+* **Follow** buttons — [social media links](https://www.addtoany.com/buttons/customize/wordpress/follow_buttons) to your Instagram, YouTube, Snapchat
 * **Image** sharing buttons - share buttons for [sharing images](https://www.addtoany.com/buttons/customize/wordpress/image_sharing)
 * **Vector** share buttons & follow buttons — [custom color](https://www.addtoany.com/buttons/customize/wordpress/icon_color) SVG icons
 * **Custom** share icons — use your own if you prefer
-* Official buttons including the Facebook Like Button, Twitter Tweet Button, Pinterest Save Button, Google+ Share Button and Google +1 Button
+* Official buttons including the Facebook Like Button, Twitter Tweet Button, Pinterest Save Button, and LinkedIn Share Button
 * Universal email sharing makes it easy to share via Gmail, Yahoo Mail, Outlook.com (Hotmail), AOL Mail, and any other web or native apps
 
 = Custom Placement & Appearance =
@@ -304,17 +304,13 @@ add_filter( 'addtoany_sharing_disabled', 'addtoany_disable_sharing_on_my_custom_
 
 Go to Settings > AddToAny > Floating > select "Attach to content" then input the CSS selector(s) that match the HTML element you want to attach to.
 
-= Why does the Facebook Like Button, Pinterest Pin It Button, Google+ Share Button, or Google +1 Button have so much whitespace to the right of it? =
+= Why does the Facebook Like Button or Pinterest Pin It Button have so much whitespace to the right of it? =
 
 The minimum width for the Facebook Like Button is 90 pixels. This is required to display the total number of Likes to the right of the button.  See Facebook's <a href="https://developers.facebook.com/docs/plugins/like-button">Like Button documentation</a> for details
 
 It's not recommended, but you can change the width of the Facebook Like Button using CSS code, for instance: `.a2a_button_facebook_like { width:50px !important; }`
 
 The Pinterest Pin It Button with 'show count' enabled is 76 pixels. You can change the width using CSS code, for instance: `.a2a_button_pinterest_pin { width:90px !important; }`
-
-The Google +1 Button with 'show count' enabled is 90 pixels. You can change the width using CSS code, for instance: `.a2a_button_google_plusone { width:65px !important; }`
-
-The Google+ Share Button width can be changed using CSS code, for instance: `.a2a_button_google_plus_share { width:57px !important; }`
 
 = Is AddToAny GDPR compatible? =
 
@@ -349,6 +345,24 @@ Upload (or move) the `add-to-any` plugin directory into the `/wp-content/mu-plug
 5. Settings for Floating Share Bars
 
 == Changelog ==
+
+= 1.7.39 =
+* Fix AMP version of the AddToAny universal icon
+* Enable the `addtoany_content_priority` filter hook to modify the priority of standard placement in content
+* Add a workaround for a bug in Jetpack's Related Posts on AMP pages that prevents some added content from loading
+* Bump minimum PHP version to 5.6
+
+= 1.7.38 =
+* Update AMP support for compatibility with AMP's standard mode
+
+= 1.7.37 =
+* Harden option to toggle standard sharing placement on pages and the "page" post type
+
+= 1.7.36 =
+* Apply the "Show sharing buttons" option to the floating vertical bar when Placement is set to "Attach to content"
+
+= 1.7.35 =
+* Remove Google+ because Google [shut down Google+](https://support.google.com/plus/answer/9195133)
 
 = 1.7.34 =
 * Add MeWe

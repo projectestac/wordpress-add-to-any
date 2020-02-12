@@ -397,12 +397,6 @@ function A2A_SHARE_SAVE_options_page() {
 			$new_options['special_twitter_tweet_options'] = array(
 				'show_count' => '-1' // Twitter doesn't provide counts anymore
 			);
-			$new_options['special_google_plusone_options'] = array(
-				'show_count' => '-1' // Google+ doesn't provide counts anymore
-			);
-			$new_options['special_google_plus_share_options'] = array(
-				'show_count' => '-1' // Google+ doesn't provide counts anymore
-			);
 			$new_options['special_pinterest_pin_options'] = array(
 				'show_count' => ( ( isset( $_POST['addtoany_pinterest_pin_show_count'] ) && $_POST['addtoany_pinterest_pin_show_count'] == '1' ) ? '1' : '-1' )
 			);
@@ -509,12 +503,6 @@ function A2A_SHARE_SAVE_options_page() {
 					</li>
 					<li id="a2a_wp_twitter_tweet" class="addtoany_special_service addtoany_3p_button" title="Twitter Tweet button">
 						<img src="<?php echo $A2A_SHARE_SAVE_plugin_url.'/icons/twitter_tweet_2x.png'; ?>" width="122" height="40" alt="Twitter Tweet" />
-					</li>
-					<li id="a2a_wp_google_plusone" class="addtoany_special_service addtoany_3p_button" title="Google +1 button">
-						<img src="<?php echo $A2A_SHARE_SAVE_plugin_url.'/icons/google_plusone_2x.png'; ?>" width="64" height="40" alt="Google +1" />
-					</li>
-					<li id="a2a_wp_google_plus_share" class="addtoany_special_service addtoany_3p_button" title="Google+ Share button">
-						<img src="<?php echo $A2A_SHARE_SAVE_plugin_url.'/icons/google_plus_share_2x.png'; ?>" width="113" height="40" alt="Google+ Share" />
 					</li>
 					<li id="a2a_wp_pinterest_pin" class="addtoany_special_service addtoany_3p_button" title="Pinterest Pin It button">
 						<img src="<?php echo $A2A_SHARE_SAVE_plugin_url.'/icons/pinterest_pin_2x.png'; ?>" width="80" height="40" alt="Pinterest Pin It" />
@@ -1026,7 +1014,7 @@ function A2A_SHARE_SAVE_admin_head() {
 				jQuery('#addtoany_services_sortable').find('.dummy').hide();
 			
 			// If special service that has special options
-			if ( this_service_is_special && jQuery.inArray( this_service_name, ['twitter_tweet', 'google_plusone', 'google_plus_share'] ) === -1 ) {
+			if ( this_service_is_special && -1 === jQuery.inArray( this_service_name, ['twitter_tweet'] ) ) {
 				// Common "Show count" for facebook, pinterest, pinterest_pin, etc.
 				if (service_options[this_service_name] && service_options[this_service_name].show_count) {
 					checked = ' checked="checked"';

@@ -12,11 +12,6 @@ $A2A_SHARE_SAVE_services = array(
 		"icon" => "twitter",
 		"color" => "55ACEE",
 	),
-	"google_plus" => array(
-		"name" => "Google+",
-		"icon" => "google_plus",
-		"color" => "DD4B39",
-	),
 	"pinterest" => array(
 		"name" => "Pinterest",
 		"icon" => "pinterest",
@@ -539,12 +534,6 @@ $A2A_FOLLOW_services = array(
 		'href' => 'https://github.com/${id}',	
 		'icon' => 'github',
 		'color' => '2A2A2A',
-	),
-	'google_plus' => array( 
-		'name' => 'Google+', 
-		'href' => 'https://plus.google.com/${id}',	
-		'icon' => 'google_plus',
-		'color' => 'DD4B39',
 	),
 	'linkedin' => array( 
 		'name' => 'LinkedIn', 
