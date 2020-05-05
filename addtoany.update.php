@@ -1,7 +1,7 @@
 <?php
 	
 /**
- * Migrate old AddToAny options
+ * Migrate old AddToAny options.
  */
 function addtoany_update_options() {
 	
@@ -16,7 +16,7 @@ function addtoany_update_options() {
 	
 	// If old button enabled
 	if ( ! empty( $options_old['button'] ) && in_array( $options_old['button'], $old_buttons) ) {
-		// Switch to custom button URL
+		// Switch to custom button URL.
 		$options_new['button'] = 'CUSTOM';
 		$options_new['button_custom'] = 'https://static.addtoany.com/buttons/' . current( explode( '|', $options_old['button'] ) );
 	}

@@ -11,7 +11,7 @@
  */
 class A2A_SHARE_SAVE_Widget extends WP_Widget {
 	
-	/** constructor */
+	/** Constructor */
 	function __construct() {
 		$widget_ops = array( 
 			'description' => 'Share buttons for sharing your content.',
@@ -30,7 +30,7 @@ class A2A_SHARE_SAVE_Widget extends WP_Widget {
         wp_enqueue_script( 'addtoany-widget-init', plugins_url( 'addtoany.admin.js', __FILE__ ), array(), '0.1', true );
     }
 	
-	/** Backwards compatibility for A2A_SHARE_SAVE_Widget::display(); usage */
+	/** Backwards compatibility for A2A_SHARE_SAVE_Widget::display(); usage. */
 	public function display( $args = false ) {
 		self::widget( $args, NULL );
 	}
@@ -99,7 +99,7 @@ class A2A_SHARE_SAVE_Widget extends WP_Widget {
  */
 class A2A_Follow_Widget extends WP_Widget {
 	
-	/** constructor */
+	/** Constructor */
 	function __construct() {
 		$widget_ops = array( 
 			'description' => 'Follow buttons link to your social media.',
@@ -146,12 +146,12 @@ class A2A_Follow_Widget extends WP_Widget {
 		
 		$active_services = array();
 		
-		// See which services have IDs set
+		// See which services have IDs set.
 		$services = $this->get_follow_services();
 		foreach ( $services as $code => $service ) {
 			$code_id = $code . '_id';
 			if ( ! empty( $instance[ $code_id ] ) ) {
-				// Set ID value
+				// Set ID value.
 				$active_services[ $code ] = array( 'id' => $instance[ $code_id ] );
 			}
 		}
@@ -174,7 +174,7 @@ class A2A_Follow_Widget extends WP_Widget {
 		$instance['title'] = sanitize_text_field( $new_instance['title'] );
 		$instance['icon_size'] = sanitize_text_field( $new_instance['icon_size'] );
 		
-		// Accept service IDs
+		// Accept service IDs.
 		$services = $this->get_follow_services();
 		foreach ( $services as $code => $service ) {
 			$code_id = $code . '_id';
@@ -199,7 +199,7 @@ class A2A_Follow_Widget extends WP_Widget {
 		if ( ! empty( $instance['icon_size'] ) ) {
 			$icon_size = $instance['icon_size'];
 		} elseif ( ! empty( $options['icon_size'] ) ) {
-			// Fallback to standard icon size if saved
+			// Fallback to standard icon size if saved.
 			$icon_size = $options['icon_size'];
 		} else {
 			$icon_size = '32';
