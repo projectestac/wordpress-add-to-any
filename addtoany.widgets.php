@@ -13,11 +13,23 @@ class A2A_SHARE_SAVE_Widget extends WP_Widget {
 	
 	/** Constructor */
 	function __construct() {
+
+		// XTEC ************ MODIFICAT - Add translate support
+		// 2017.02.06 @xaviernietosanchez
+		$widget_ops = array( 
+ 			'description' => __('Share buttons for sharing your content.','add-to-any'),
+ 			'customize_selective_refresh' => true,
+ 		);
+ 		parent::__construct( '', __('AddToAny Share','add-to-any'), $widget_ops );
+ 		// ************ ORIGINAL
+ 		/*
 		$widget_ops = array( 
 			'description' => 'Share buttons for sharing your content.',
 			'customize_selective_refresh' => true,
 		);
 		parent::__construct( '', 'AddToAny Share', $widget_ops );
+		*/
+ 		// ************ FI
 		
 		// Enqueue script if in Customizer preview.
 		// is_customize_preview() @since 4.0.0
@@ -101,11 +113,23 @@ class A2A_Follow_Widget extends WP_Widget {
 	
 	/** Constructor */
 	function __construct() {
+
+		// XTEC ************ MODIFICAT - Add translate support
+ 		// 2017.02.06 @xaviernietosanchez
+ 		$widget_ops = array(
+ 			'description' => __('Follow buttons link to your social media.','add-to-any'),
+ 			'customize_selective_refresh' => true,
+ 		);
+ 		parent::__construct( '', __('AddToAny Follow','add-to-any'), $widget_ops );
+ 		// ************ ORIGINAL
+ 		/*
 		$widget_ops = array( 
 			'description' => 'Follow buttons link to your social media.',
 			'customize_selective_refresh' => true,
 		);
 		parent::__construct( '', 'AddToAny Follow', $widget_ops );	
+		*/
+		// ************ FI
 		
 		// Enqueue script if in Customizer preview.
 		// is_customize_preview() @since 4.0.0
