@@ -466,7 +466,7 @@ Upload (or move) the `add-to-any` plugin directory into the `/wp-content/mu-plug
  * If needed, you can disable the default stylesheet using `add_action( 'wp_enqueue_scripts', function() { wp_dequeue_style( 'addtoany' ); }, 21 );`
 * Remove menu style button in admin
 * Use Italian language pack (thanks truttle, blogforum)
-* Use Spanish language pack (thanks Luis Rull, Juan Ramón Navas, Yan Arlex)
+* Use Spanish language pack (thanks Luis Rull, Yan Arlex)
 
 = 1.7.21 =
 * Fix simplified initial `a2a_config` JS so overlays are not enabled by default
