@@ -2,9 +2,9 @@
 Contributors: micropat, addtoany
 Tags: buttons, share, icons, social media, share buttons, sharing, share button, media, social, marketing, links, email, seo, woocommerce, google, linkedin, reddit, facebook, twitter, pinterest, whatsapp, instagram, youtube, share this, sharethis, feed
 Requires at least: 3.7
-Tested up to: 5.4
+Tested up to: 5.7
 Requires PHP: 5.6
-Stable tag: 1.7.40
+Stable tag: 1.7.44
 
 Share buttons for WordPress including the AddToAny sharing button, Facebook, Twitter, WhatsApp, Pinterest, Reddit, many more, and follow icons too.
 
@@ -63,7 +63,7 @@ AddToAny is the home of universal sharing, and the AddToAny plugin is the most p
 = Wide Support =
 
 * Over 10 years of development
-* Over 10 million downloads
+* Over 12 million downloads
 * Translated into dozens of languages
 * Ongoing support from the community
 
@@ -345,6 +345,23 @@ Upload (or move) the `add-to-any` plugin directory into the `/wp-content/mu-plug
 5. Settings for Floating Share Bars
 
 == Changelog ==
+
+= 1.7.44 =
+* Update the Print service to support AMP (thanks andrei0x309)
+* Enable the `addtoany_icons_bg_color` filter hook to programmatically change the color of icons
+ * The `addtoany_icons_bg_color` filter only applies to the standard share buttons on AMP in this release
+ * A future release will apply the filter globally on all pages
+
+= 1.7.43 =
+* Update the vertical floating bar's "Attach to content" option to check whether content exists before attaching
+
+= 1.7.42 =
+* Update the "Show sharing buttons" meta box to not display in the WordPress editor when automatic placement is disabled for the current post type
+
+= 1.7.41 =
+* Update Facebook icon color
+* Update CSS to automatically set left and right margins for standard placement in content
+* Fix alignment in the default Twenty Twenty theme
 
 = 1.7.40 =
 * Require PHP 5.3 as a bare minimum for compatibility features

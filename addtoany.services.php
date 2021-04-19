@@ -5,7 +5,7 @@ $A2A_SHARE_SAVE_services = array(
 	"facebook" => array(
 		"name" => "Facebook",
 		"icon" => "facebook",
-		"color" => "3B5998",
+		"color" => "1877F2",
 	),
 	"twitter" => array(
 		"name" => "Twitter",
@@ -222,11 +222,6 @@ $A2A_SHARE_SAVE_services = array(
 		"icon" => "kik",
 		"color" => "2A2A2A",
 	),
-	"kindle_it" => array(
-		"name" => "Kindle It",
-		"icon" => "kindle",
-		"color" => "2A2A2A",
-	),
 	"known" => array(
 		"name" => "Known",
 		"icon" => "known",
@@ -336,6 +331,11 @@ $A2A_SHARE_SAVE_services = array(
 		"name" => "Pusha",
 		"icon" => "pusha",
 		"color" => "0072B8",
+	),
+	"kindle_it" => array(
+		"name" => "Push to Kindle",
+		"icon" => "kindle",
+		"color" => "2A2A2A",
 	),
 	"qzone" => array(
 		"name" => "Qzone",

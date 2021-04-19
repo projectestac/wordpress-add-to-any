@@ -2,8 +2,8 @@
 /**
  * Plugin Name: AddToAny Share Buttons
  * Plugin URI: https://www.addtoany.com/
- * Description: Share buttons for your pages including AddToAny's universal sharing button, Facebook, Twitter, Google+, Pinterest, WhatsApp and many more.
- * Version: 1.7.40
+ * Description: Share buttons for your pages including AddToAny's universal sharing button, Facebook, Twitter, LinkedIn, Pinterest, WhatsApp and many more.
+ * Version: 1.7.44
  * Author: AddToAny
  * Author URI: https://www.addtoany.com/
  * Text Domain: add-to-any
@@ -223,6 +223,9 @@ function ADDTOANY_SHARE_SAVE_ICONS( $args = array() ) {
 	
 	// Use large icons except for AMP.
 	$large_icons = $is_amp ? false : true;
+
+	// Make the color of the icons extensible, primariliy for AMP use cases.
+	$icon_bg_color_filtered = apply_filters( 'addtoany_icons_bg_color', '' );
 	
 	// Directory of either custom icons or the packaged icons
 	if ( isset( $options['custom_icons'] ) && $options['custom_icons'] == 'url' && isset( $options['custom_icons_url'] ) ) {
@@ -332,7 +335,9 @@ function ADDTOANY_SHARE_SAVE_ICONS( $args = array() ) {
 			$height_attr = isset( $service['icon_height'] ) ? ' height="' . esc_attr( $service['icon_height'] ) . '"' : ' height="16"';
 			$height_attr = $is_amp && ! empty( $args['icon_size'] ) ? ' height="' . esc_attr( $args['icon_size'] ) . '"' : $height_attr;
 			
-			$img_style_attr = $is_amp && ! empty( $service['color'] ) ? ' style="background-color:#' . esc_attr( $service['color'] ) . ';"' : '';
+			$img_style_attr_bg_color = ! empty( $service['color'] ) ? '#' . $service['color'] : '';
+			$img_style_attr_bg_color = ! empty( $icon_bg_color_filtered ) ? $icon_bg_color_filtered : $img_style_attr_bg_color;
+			$img_style_attr = $is_amp && ! empty( $img_style_attr_bg_color ) ? ' style="background-color:' . esc_attr( $img_style_attr_bg_color ) . ';"' : '';
 			
 			$url = isset( $href ) ? $href : 'https://www.addtoany.com/add_to/' . $code_name . '?linkurl=' . $args['linkurl_enc'] .'&amp;linkname=' . $args['linkname_enc'];
 			$src = $icon_url ? $icon_url : $icons_dir . $icon . '.' . $icons_type;
@@ -355,13 +360,21 @@ function ADDTOANY_SHARE_SAVE_ICONS( $args = array() ) {
 			$rel_attr = $args['is_follow'] ? $rel_noopener_only : ' rel="nofollow' . $rel_noopener . '"'; // ($args['is_follow'] indicates a Follow Kit. 'nofollow' is for search crawlers. Different things)
 			$rel_attr = $args['basic_html'] ? '' : $rel_attr;
 
+			// Use AMP's "print" action.
+			if ( $is_amp && 'print' === $code_name ) {
+				$amp_on_attr = 'on="tap:AMP.print()"';
+				$href_attr = '#';
+			} else {
+				$amp_on_attr = '';
+			}
+
 			// Set dimension attributes if using custom icons and dimension is specified.
 			if ( isset( $custom_icons ) ) {
 				$width_attr = ! empty( $icons_width ) ? ' width="' . $icons_width . '"' : '';
 				$height_attr = ! empty( $icons_height ) ? ' height="' . $icons_height . '"' : '';
 			}
 			
-			$link = $args['html_wrap_open'] . "<a$class_attr$href_attr$title_attr$rel_attr$target_attr>";
+			$link = $args['html_wrap_open'] . "<a$class_attr$href_attr$title_attr$rel_attr$target_attr$amp_on_attr>";
 			$link .= ( $large_icons && ! isset( $custom_icons ) && ! $custom_service ) ? '' : '<img' . $img_style_attr . ' src="' . esc_attr( $src ) . '"' . $width_attr . $height_attr . ' alt="' . esc_attr( $name ) . '">';
 			$link .= "</a>" . $args['html_wrap_close'];
 		}
@@ -409,6 +422,8 @@ function ADDTOANY_SHARE_SAVE_BUTTON( $args = array() ) {
 	
 	$is_feed = is_feed();
 	$is_amp = function_exists( 'is_amp_endpoint' ) && is_amp_endpoint() ? true : false;
+	// Make the color of the icons extensible, primariliy for AMP use cases.
+	$icon_bg_color_filtered = apply_filters( 'addtoany_icons_bg_color', '#0166ff' );
 	$button_class = '';
 	$button_data_media = $args['is_kit'] || empty( $args['linkmedia'] ) ? '' : ' data-a2a-media="' . esc_attr( $args['linkmedia'] ) . '"';
 	$button_data_title = $args['is_kit'] || empty( $args['linkname'] ) ? '' : ' data-a2a-title="' . esc_attr( $args['linkname'] ) . '"';
@@ -437,7 +452,7 @@ function ADDTOANY_SHARE_SAVE_BUTTON( $args = array() ) {
 				$button_src    = 'https://static.addtoany.com/buttons/a2a.svg';
 				$button_width  = ! empty( $args['icon_size'] ) ? ' width="' . $args['icon_size'] .'"'  : ' width="32"';
 				$button_height = ! empty( $args['icon_size'] ) ? ' height="' . $args['icon_size'] .'"'  : ' height="32"';
-				$button_style  = $is_amp ? ' style="background-color:#0166ff"' : '';
+				$button_style  = ! empty( $icon_bg_color_filtered ) ? ' style="background-color:' . esc_attr( $icon_bg_color_filtered ) . '"' : '';
 			}
 		}
 		
@@ -820,14 +835,15 @@ function A2A_SHARE_SAVE_head_script() {
 				. 'ready: function(){'
 					. 'var d=document;'
 					. 'function a(){'
-						. 'var e=d.createElement("div");'
+						. 'var c,e=d.createElement("div");'
 						. 'e.innerHTML=' . wp_json_encode( ADDTOANY_SHARE_SAVE_FLOATING( array( 
 							'output_later' => true,
 							'basic_html' => true,
 							'kit_style' => $floating_js_kit_style,
 							'vertical_type' => true,
 						) ) ) . ';'
-						. 'd.querySelector(' . wp_json_encode( stripslashes( $options['floating_vertical_attached_to'] ) ) . ').appendChild(e.firstChild);'
+						. 'c=d.querySelector(' . wp_json_encode( stripslashes( $options['floating_vertical_attached_to'] ) ) . ');'
+						. 'if(c)c.appendChild(e.firstChild);'
 						. 'a2a.init("page");'
 					. '}'
 					. 'if("loading"!==d.readyState)a();else d.addEventListener("DOMContentLoaded",a,false);'

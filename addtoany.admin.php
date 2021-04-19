@@ -5,11 +5,13 @@
  */
 function A2A_SHARE_SAVE_add_meta_box() {
 	$post_types = get_post_types( array( 'public' => true ) );
-	
+	$post_types_not_builtin = get_post_types( array( 'public' => true, '_builtin' => false ) );
 	$options = get_option( 'addtoany_options', array() );
-	
 	$title = apply_filters( 'A2A_SHARE_SAVE_meta_box_title', __( 'AddToAny', 'add-to-any' ) );
+	
 	foreach( $post_types as $post_type ) {
+		$is_cpt = in_array( $post_type, $post_types_not_builtin );
+		
 		if (
 			// If automatic placement is enabled
 			// for either floating bar
@@ -20,7 +22,7 @@ function A2A_SHARE_SAVE_add_meta_box() {
 			// for standard buttons in pages
 			'page' == $post_type && ( ! isset( $options['display_in_pages'] ) || $options['display_in_pages'] != '-1' ) ||
 			// for standard buttons in a custom post type
-			! isset( $options['display_in_cpt_' . $post_type] ) || $options['display_in_cpt_' . $post_type] != '-1'
+			$is_cpt && ( ! isset( $options['display_in_cpt_' . $post_type] ) || $options['display_in_cpt_' . $post_type] != '-1' )
 		) {
 			// Add meta box
 			add_meta_box( 'A2A_SHARE_SAVE_meta', $title, 'A2A_SHARE_SAVE_meta_box_content', $post_type, 'side', 'default' );
