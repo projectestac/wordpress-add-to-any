@@ -1297,7 +1297,7 @@ add_filter( 'plugin_action_links', 'A2A_SHARE_SAVE_actlinks', 10, 2 );
 // XTEC *********** AFEGIT Open Graph Protocol to metadata facebook share
 // 2016.10.11 @xaviernietosanchez
 function add_opengraph_doctype( $output ) {
-    return $output . ' xmlns:og="http://ogp.me/ns#" xmlns:fb="http://www.facebook.com/2008/fbml"';
+    return $output . ' prefix="og: https://ogp.me/ns#"';
 }
 add_filter('language_attributes', 'add_opengraph_doctype');
 
