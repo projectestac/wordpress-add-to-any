@@ -39,7 +39,7 @@ class A2A_SHARE_SAVE_Widget extends WP_Widget {
 	 * @param array $args
 	 * @param array $instance
 	 */
-	public function widget( $args = array(), $instance ) {
+	public function widget( $args, $instance ) {
 		$defaults = array(
 			'before_widget' => '',
 			'after_widget' => '',
@@ -81,8 +81,8 @@ class A2A_SHARE_SAVE_Widget extends WP_Widget {
 		$title = isset( $instance ) && ! empty( $instance['title'] ) ? __( $instance['title'] ) : '';
 		?>
 		<p>
-			<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title:' ); ?></label> 
-			<input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php esc_attr_e( $title ); ?>" />
+			<label for="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>"><?php _e( 'Title:' ); ?></label> 
+			<input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'title' ) ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>" />
 		</p>
 		<p>
 			<a href="options-general.php?page=addtoany"><?php _e('AddToAny Settings', 'add-to-any'); ?>...</a>
@@ -125,7 +125,7 @@ class A2A_Follow_Widget extends WP_Widget {
 	 * @param array $args
 	 * @param array $instance
 	 */
-	public function widget( $args = array(), $instance ) {
+	public function widget( $args, $instance ) {
 		$defaults = array(
 			'before_widget' => '',
 			'after_widget' => '',
@@ -207,24 +207,24 @@ class A2A_Follow_Widget extends WP_Widget {
 		
 		?>
 		<p>
-			<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title:' ); ?></label> 
-			<input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php esc_attr_e( $title ); ?>" />
+			<label for="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>"><?php _e( 'Title:' ); ?></label> 
+			<input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'title' ) ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>" />
 		</p>
 		<p>
-			<label for="<?php echo $this->get_field_id( 'icon_size' ); ?>"><?php _e( 'Icon Size:', 'add-to-any' ); ?></label>
-			<input class="widefat" id="<?php echo $this->get_field_id( 'icon_size' ); ?>" name="<?php echo $this->get_field_name( 'icon_size' ); ?>" type="number" max="300" min="10" maxlength="3" step="2" oninput="if(this.value.length > 3) this.value=this.value.slice(0, 3)" placeholder="32" value="<?php esc_attr_e( $icon_size ); ?>">
+			<label for="<?php echo esc_attr( $this->get_field_id( 'icon_size' ) ); ?>"><?php _e( 'Icon Size:', 'add-to-any' ); ?></label>
+			<input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'icon_size' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'icon_size' ) ); ?>" type="number" max="300" min="10" maxlength="3" step="2" oninput="if(this.value.length > 3) this.value=this.value.slice(0, 3)" placeholder="32" value="<?php echo esc_attr( $icon_size ); ?>">
 			<small>Pixels</small>
 		</p>
 <?php foreach ( $services as $code => $service ) : 
 		$code_id = $code . '_id';
+		$id_accepted = false !== strpos( $service['href'], '${id}' );
 		$id_value = ! empty( $instance[ $code_id ] ) ? $instance[ $code_id ] : '';
-		$label_text = 'feed' == $code ? sprintf( __('%s URL:'), $service['name'] ) : sprintf( __('%s ID:'), $service['name'] );
+		$label_text = $id_accepted ? sprintf( __('%s ID:'), $service['name'] ) : sprintf( __('%s URL:'), $service['name'] );
 ?>
 		<p>
-			<label for="<?php echo $this->get_field_id( $code_id ); ?>"><?php echo $label_text; ?></label>
-			<input class="widefat" id="<?php echo $this->get_field_id( $code_id ); ?>" name="<?php echo $this->get_field_name( $code_id ); ?>" type="text" value="<?php esc_attr_e( $id_value ); ?>">
-			<br>
-			<small><?php echo str_replace( '${id}', '<u>ID</u>', $service['href'] ); ?></small>
+			<label for="<?php echo esc_attr( $this->get_field_id( $code_id ) ); ?>"><?php echo esc_attr( $label_text ); ?></label>
+			<input class="widefat" id="<?php echo esc_attr( $this->get_field_id( $code_id ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( $code_id ) ); ?>" type="text" value="<?php echo esc_attr( $id_value ); ?>">
+			<small><?php echo wp_kses_post( str_replace( '${id}', '<u>ID</u>', $service['href'] ) ); ?></small>
 		</p>
 <?php endforeach; ?>
 		<p>

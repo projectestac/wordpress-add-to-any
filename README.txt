@@ -1,16 +1,16 @@
 === AddToAny Share Buttons ===
 Contributors: micropat, addtoany
 Tags: buttons, share, icons, social media, share buttons, sharing, share button, media, social, marketing, links, email, seo, woocommerce, google, linkedin, reddit, facebook, twitter, pinterest, whatsapp, instagram, youtube, share this, sharethis, feed
-Requires at least: 3.7
-Tested up to: 5.7
+Requires at least: 4.5
+Tested up to: 6.3
 Requires PHP: 5.6
-Stable tag: 1.7.44
+Stable tag: 1.8.8
 
-Share buttons for WordPress including the AddToAny sharing button, Facebook, Twitter, WhatsApp, Pinterest, Reddit, many more, and follow icons too.
+Share buttons for WordPress including the AddToAny button, Facebook, Twitter, WhatsApp, Pinterest, Reddit, Threads, many more, and follow icons too.
 
 == Description ==
 
-The AddToAny Share Buttons plugin for WordPress increases traffic & engagement by helping people share your posts and pages to any service. Services include Facebook, Twitter, Pinterest, WhatsApp, LinkedIn, Tumblr, Reddit, WeChat, and over 100 more sharing and social media sites & apps.
+The AddToAny Share Buttons plugin for WordPress increases traffic & engagement by helping people share your posts and pages to any service. Services include Facebook, Twitter, Threads, Pinterest, WhatsApp, LinkedIn, Mastodon, Tumblr, Reddit, WeChat, and many more sharing and social media sites & apps.
 
 AddToAny is the home of universal sharing, and the AddToAny plugin is the most popular share plugin for WordPress, making sites social media ready since 2006.
 
@@ -19,7 +19,7 @@ AddToAny is the home of universal sharing, and the AddToAny plugin is the most p
 * [**Standard**](https://www.addtoany.com/buttons/customize/wordpress/standalone_services) share buttons — share each piece of content
 * [**Floating**](https://www.addtoany.com/buttons/customize/wordpress/floating_share_buttons) share buttons — responsive & customizable, vertical & horizontal
 * **Counters** — fast & official [share counts](https://www.addtoany.com/buttons/customize/wordpress/share_counters) in the same style
-* **Follow** buttons — [social media links](https://www.addtoany.com/buttons/customize/wordpress/follow_buttons) to your Instagram, YouTube, Snapchat
+* **Follow** buttons — [social media links](https://www.addtoany.com/buttons/customize/wordpress/follow_buttons) to your Instagram, YouTube, Discord, Snapchat
 * **Image** sharing buttons - share buttons for [sharing images](https://www.addtoany.com/buttons/customize/wordpress/image_sharing)
 * **Vector** share buttons & follow buttons — [custom color](https://www.addtoany.com/buttons/customize/wordpress/icon_color) SVG icons
 * **Custom** share icons — use your own if you prefer
@@ -63,7 +63,7 @@ AddToAny is the home of universal sharing, and the AddToAny plugin is the most p
 = Wide Support =
 
 * Over 10 years of development
-* Over 12 million downloads
+* Over 15 million downloads
 * Translated into dozens of languages
 * Ongoing support from the community
 
@@ -304,21 +304,9 @@ add_filter( 'addtoany_sharing_disabled', 'addtoany_disable_sharing_on_my_custom_
 
 Go to Settings > AddToAny > Floating > select "Attach to content" then input the CSS selector(s) that match the HTML element you want to attach to.
 
-= Why does the Facebook Like Button or Pinterest Pin It Button have so much whitespace to the right of it? =
-
-The minimum width for the Facebook Like Button is 90 pixels. This is required to display the total number of Likes to the right of the button.  See Facebook's <a href="https://developers.facebook.com/docs/plugins/like-button">Like Button documentation</a> for details
-
-It's not recommended, but you can change the width of the Facebook Like Button using CSS code, for instance: `.a2a_button_facebook_like { width:50px !important; }`
-
-The Pinterest Pin It Button with 'show count' enabled is 76 pixels. You can change the width using CSS code, for instance: `.a2a_button_pinterest_pin { width:90px !important; }`
-
 = Is AddToAny GDPR compatible? =
 
 Yes, AddToAny is [GDPR compatible by default](https://www.addtoany.com/buttons/faq/#gdpr).
-
-= Does the plugin output W3C valid code? =
-
-Yes, this plugin outputs 100% W3C valid HTML5 and W3C valid CSS 3 by default.
 
 = How can I load the buttons after content insertion with Ajax and infinite scroll? =
 
@@ -345,6 +333,88 @@ Upload (or move) the `add-to-any` plugin directory into the `/wp-content/mu-plug
 5. Settings for Floating Share Bars
 
 == Changelog ==
+
+= 1.8.8 =
+* Add Google Translate share button
+* Add Google Maps follow button
+* Add Yelp follow button
+* Add X follow button
+* Add X share button
+
+= 1.8.7 =
+* Add Threads share button (early support as a standalone share button)
+ * Threads doesn't offer a sharing endpoint for the web yet, but:
+ * You can enable the Threads share button early, and the button will appear once Threads' sharing endpoint is available on the web
+ * Users can use the AddToAny share button on mobile to share to the native Threads app
+* Add Threads follow button
+* Add TikTok follow button
+* Support for the proposed WP Consent API from the `wp-consent-api` plugin
+* Support for the Complianz plugin
+* Disable official buttons (Facebook Like, etc.) for visitors unless `marketing` consent is given when using a supported consent plugin
+* Prevent layout effects from disabled or unsupported services
+
+= 1.8.6 =
+* Add Microsoft Teams share button
+* Apply the `addtoany_sharing_disabled` filter to apply to non-singular posts too
+* Remove deprecated option for displaying the universal menu on click instead of on mouse hover
+ * The new default is to display the menu on click
+ * You can [configure](https://www.addtoany.com/buttons/customize/wordpress/on_hover) the menu to display on hover like the old default
+
+= 1.8.5 =
+* The `addtoany_script_disabled` hook now additionally disables the plugin's local JS & CSS
+* Update AddToAny core load detection in admin
+* Remove Google Bookmarks (discontinued by Google)
+* Remove other discontinued services
+
+= 1.8.4 =
+* Update admin for jQuery UI 1.13.0 in WordPress 5.9
+
+= 1.8.3 =
+* Update AMP support
+* Update vertical floating share buttons bar for AMP pages
+ * Supports "Left docked" or "Right docked" placement options
+* Update horizontal floating share buttons bar for AMP pages
+ * Full width layout overrides placement options
+* Add round corners to AMP share buttons in content
+* Skip plugin scripts on AMP pages
+
+= 1.8.2 =
+* Update AddToAny core script loading
+* Rename enqueued `addtoany` scripts to `addtoany-core` and `addtoany-jquery`
+* Load the local JS file asynchronously by default
+
+= 1.8.1 =
+* Add Discord follow button
+* Add Snapchat share button
+* Fix AddToAny loading when a non-WordPress version of jQuery is used
+
+= 1.8.0 =
+* Switch to more recent WordPress functions (especially for loading plugin script assets)
+* Load the local JS file asynchronously by default
+* Update allowed HTML output for the floating bars
+* A centered horizontal floating bar now requires WordPress 5.5.0+ (or some custom CSS)
+* Additional input validation & sanitization in admin
+* Additional output escaping
+
+= 1.7.48 =
+* Escape a custom universal button's image URL
+
+= 1.7.47 =
+* Additional input validation & sanitization in admin
+* Additional output escaping
+* Update Twitter icon color
+* Remove Mix
+
+= 1.7.46 =
+* In addition to requiring the `manage_options` user capability in Settings, require the `unfiltered_html` user capability for changing the Sharing Header, Additional JavaScript, and Additional CSS fields
+ * Note: In WordPress Multisite, only Super Admins have the `unfiltered_html` capability
+
+= 1.7.45 =
+* Add Tumblr share count option
+* Remove Facebook share count option because Facebook no longer provides public API access to share counts
+* Remove Blinklist
+* Resolve PHP 8 deprecations (thanks eclev91)
+* Override `background` style on buttons in the Twenty Twenty-One default theme
 
 = 1.7.44 =
 * Update the Print service to support AMP (thanks andrei0x309)
