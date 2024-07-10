@@ -47,7 +47,15 @@ function A2A_SHARE_SAVE_init() {
 		addtoany_update_options();
 	}
 }
+
+// XTEC ************ MODIFICAT - Add language support before the class to instantiate
+// 2017.02.07 @xaviernietosanchez
+add_filter( 'plugins_loaded', 'A2A_SHARE_SAVE_init' );
+// ************ ORIGINAL
+/*
 add_filter( 'init', 'A2A_SHARE_SAVE_init' );
+*/
+// ************ FI
 
 function A2A_SHARE_SAVE_link_vars( $args = array() ) {
 	global $post;
@@ -819,7 +827,16 @@ function A2A_SHARE_SAVE_add_to_content( $content ) {
 			// Search results posts (same as Archive page posts option).
 			( is_search() && isset( $options['display_in_posts_on_archive_pages'] ) && $options['display_in_posts_on_archive_pages'] == '-1' ) || 
 			// Excerpt (the_excerpt is the current filter).
+
+			// XTEC ************ MODIFICAT - If not defined, not display in excerpt
+			// 2016.03.16 @sarjona
+			( 'the_excerpt' == current_filter() && (!isset( $options['display_in_excerpts'] ) || $options['display_in_excerpts'] == '-1' )) ||
+			//************ ORIGINAL
+			/*
 			( 'the_excerpt' == current_filter() && isset( $options['display_in_excerpts'] ) && $options['display_in_excerpts'] == '-1' ) ||
+			 */
+			//************ FI
+
 			// Posts in feed.
 			( $is_feed && isset( $options['display_in_feed'] ) && $options['display_in_feed'] == '-1' ) ||
 			
@@ -828,7 +845,16 @@ function A2A_SHARE_SAVE_add_to_content( $content ) {
 			
 			// Pages
 			// Individual pages.
+
+			// XTEC ************ MODIFICAT - If not defined, not display in pages
+			// 2016.03.16 @sarjona
+			( is_page() && (!isset( $options['display_in_pages']) || $options['display_in_pages'] == '-1' )) ||
+			//************ ORIGINAL
+			/*
 			( is_singular('page') && isset( $options['display_in_pages'] ) && $options['display_in_pages'] == '-1' ) ||
+			*/
+			//************ FI
+
 			// Attachment (media) pages.
 			( is_attachment() && isset( $options['display_in_attachments'] ) && $options['display_in_attachments'] == '-1' ) ||
 			// <!--nosharesave--> legacy tag.
@@ -1267,7 +1293,14 @@ add_filter( 'admin_menu', 'A2A_SHARE_SAVE_add_menu_link' );
 function A2A_SHARE_SAVE_widgets_init() {
 	global $A2A_SHARE_SAVE_plugin_dir;
 	
+	// XTEC ************ MODIFICAT - Fixed white screen when logging through WSL
+    // 2015.10.07 @aginard
+	include_once( 'addtoany.widgets.php' );
+	//************ ORIGINAL
+	/*
 	include_once $A2A_SHARE_SAVE_plugin_dir . '/addtoany.widgets.php';
+	*/
+	//************ FI
 	register_widget( 'A2A_SHARE_SAVE_Widget' );
 	register_widget( 'A2A_Follow_Widget' );
 }
@@ -1292,3 +1325,32 @@ function A2A_SHARE_SAVE_actlinks( $links, $file ) {
 }
 
 add_filter( 'plugin_action_links', 'A2A_SHARE_SAVE_actlinks', 10, 2 );
+
+// XTEC *********** AFEGIT Open Graph Protocol to metadata facebook share
+// 2016.10.11 @xaviernietosanchez
+function add_opengraph_doctype( $output ) {
+    return $output . ' xmlns:og="http://ogp.me/ns#" xmlns:fb="http://www.facebook.com/2008/fbml"';
+}
+add_filter('language_attributes', 'add_opengraph_doctype');
+
+// Add information Open Graph
+function insert_fb_in_head() {
+    global $post;
+    if ( ! is_singular() ) { return; } //Si no es un post o página
+    echo '<meta property="og:title" content="' . get_the_title() . '"/>';
+    echo '<meta property="og:type" content="article"/>';
+    echo '<meta property="og:url" content="' . get_permalink() . '"/>';
+    $FbDescription = wp_strip_all_tags($post->post_content);
+    if( strlen( $FbDescription ) > 200 ){
+    	$FbDescription = substr($FbDescription,0,200).'...';
+    }
+    echo '<meta property="og:description" content="' . $FbDescription . '"/>';
+    if ( has_post_thumbnail( $post->ID ) ) {
+        $thumbnail_src = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'full' );
+        echo '<meta property="og:image" content="' . esc_attr( $thumbnail_src[0] ) . '"/>';
+        echo '<meta property="og:image:width" content="' . esc_attr( $thumbnail_src[1] ) . '"/>';
+        echo '<meta property="og:image:height" content="' . esc_attr( $thumbnail_src[2] ) . '"/>';
+    }
+}
+add_action( 'wp_head', 'insert_fb_in_head', 1 );
+//************ FI
