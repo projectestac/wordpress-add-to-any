@@ -14,10 +14,10 @@ class A2A_SHARE_SAVE_Widget extends WP_Widget {
 	/** Constructor */
 	function __construct() {
 		$widget_ops = array( 
-			'description' => 'Share buttons for sharing your content.',
+			'description' => __( 'Share buttons for sharing your content.', 'add-to-any' ),
 			'customize_selective_refresh' => true,
 		);
-		parent::__construct( '', 'AddToAny Share', $widget_ops );
+		parent::__construct( '', __( 'AddToAny Share', 'add-to-any' ), $widget_ops );
 		
 		// Enqueue script if in Customizer preview.
 		// is_customize_preview() @since 4.0.0
@@ -81,7 +81,7 @@ class A2A_SHARE_SAVE_Widget extends WP_Widget {
 		$title = isset( $instance ) && ! empty( $instance['title'] ) ? __( $instance['title'] ) : '';
 		?>
 		<p>
-			<label for="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>"><?php _e( 'Title:' ); ?></label> 
+			<label for="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>"><?php _e( 'Title:', 'add-to-any' ); ?></label> 
 			<input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'title' ) ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>" />
 		</p>
 		<p>
@@ -102,10 +102,10 @@ class A2A_Follow_Widget extends WP_Widget {
 	/** Constructor */
 	function __construct() {
 		$widget_ops = array( 
-			'description' => 'Follow buttons link to your social media.',
+			'description' => __( 'Follow buttons link to your social media.', 'add-to-any' ),
 			'customize_selective_refresh' => true,
 		);
-		parent::__construct( '', 'AddToAny Follow', $widget_ops );	
+		parent::__construct( '', __( 'AddToAny Follow', 'add-to-any' ), $widget_ops );
 		
 		// Enqueue script if in Customizer preview.
 		// is_customize_preview() @since 4.0.0
@@ -207,19 +207,19 @@ class A2A_Follow_Widget extends WP_Widget {
 		
 		?>
 		<p>
-			<label for="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>"><?php _e( 'Title:' ); ?></label> 
+			<label for="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>"><?php _e( 'Title:', 'add-to-any' ); ?></label> 
 			<input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'title' ) ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>" />
 		</p>
 		<p>
 			<label for="<?php echo esc_attr( $this->get_field_id( 'icon_size' ) ); ?>"><?php _e( 'Icon Size:', 'add-to-any' ); ?></label>
 			<input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'icon_size' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'icon_size' ) ); ?>" type="number" max="300" min="10" maxlength="3" step="2" oninput="if(this.value.length > 3) this.value=this.value.slice(0, 3)" placeholder="32" value="<?php echo esc_attr( $icon_size ); ?>">
-			<small>Pixels</small>
+			<small><?php esc_html_e( 'Pixels', 'add-to-any' ); ?></small>
 		</p>
 <?php foreach ( $services as $code => $service ) : 
 		$code_id = $code . '_id';
 		$id_accepted = false !== strpos( $service['href'], '${id}' );
 		$id_value = ! empty( $instance[ $code_id ] ) ? $instance[ $code_id ] : '';
-		$label_text = $id_accepted ? sprintf( __('%s ID:'), $service['name'] ) : sprintf( __('%s URL:'), $service['name'] );
+		$label_text = $id_accepted ? sprintf( __('%s ID:', 'add-to-any'), $service['name'] ) : sprintf( __('%s URL:', 'add-to-any'), $service['name'] );
 ?>
 		<p>
 			<label for="<?php echo esc_attr( $this->get_field_id( $code_id ) ); ?>"><?php echo esc_attr( $label_text ); ?></label>

@@ -5,32 +5,32 @@ $A2A_SHARE_SAVE_services = array(
 	"facebook" => array(
 		"name" => "Facebook",
 		"icon" => "facebook",
-		"color" => "1877F2",
+		"color" => "0866FF",
 	),
-	'threads' => array( 
-		'name' => 'Threads',
-		'icon' => 'threads',
-		'color' => '2A2A2A',
-	),
-	"twitter" => array(
-		"name" => "Twitter",
-		"icon" => "twitter",
-		"color" => "1D9BF0",
+	"mastodon" => array(
+		"name" => "Mastodon",
+		"icon" => "mastodon",
+		"color" => "6364FF",
 	),
 	"pinterest" => array(
 		"name" => "Pinterest",
 		"icon" => "pinterest",
-		"color" => "BD081C",
+		"color" => "e60023",
+	),
+	"whatsapp" => array(
+		"name" => "WhatsApp",
+		"icon" => "whatsapp",
+		"color" => "12AF0A",
 	),
 	"email" => array(
 		"name" => "Email",
 		"icon" => "email",
-		"color" => "0166FF",
+		"color" => "888990",
 	),
 	"tumblr" => array(
 		"name" => "Tumblr",
 		"icon" => "tumblr",
-		"color" => "35465C",
+		"color" => "001935",
 	),
 	"reddit" => array(
 		"name" => "Reddit",
@@ -42,11 +42,6 @@ $A2A_SHARE_SAVE_services = array(
 		"icon" => "linkedin",
 		"color" => "007BB5",
 	),
-	"whatsapp" => array(
-		"name" => "WhatsApp",
-		"icon" => "whatsapp",
-		"color" => "12AF0A",
-	),
 	"amazon_wish_list" => array(
 		"name" => "Amazon Wish List",
 		"icon" => "amazon",
@@ -55,7 +50,7 @@ $A2A_SHARE_SAVE_services = array(
 	"aol_mail" => array(
 		"name" => "AOL Mail",
 		"icon" => "aol",
-		"color" => "2A2A2A",
+		"color" => "1A1A1A",
 	),
 	"balatarin" => array(
 		"name" => "Balatarin",
@@ -65,12 +60,7 @@ $A2A_SHARE_SAVE_services = array(
 	"bibsonomy" => array(
 		"name" => "BibSonomy",
 		"icon" => "bibsonomy",
-		"color" => "2A2A2A",
-	),
-	"bitty_browser" => array(
-		"name" => "Bitty Browser",
-		"icon" => "bitty",
-		"color" => "999",
+		"color" => "1A1A1A",
 	),
 	"blogger" => array(
 		"name" => "Blogger",
@@ -81,6 +71,11 @@ $A2A_SHARE_SAVE_services = array(
 		"name" => "BlogMarks",
 		"icon" => "blogmarks",
 		"color" => "535353",
+	),
+	"bluesky" => array(
+		"name" => "Bluesky",
+		"icon" => "bluesky",
+		"color" => "1285fe",
 	),
 	"bookmarks_fr" => array(
 		"name" => "Bookmarks.fr",
@@ -95,12 +90,12 @@ $A2A_SHARE_SAVE_services = array(
 	"buffer" => array(
 		"name" => "Buffer",
 		"icon" => "buffer",
-		"color" => "2A2A2A",
+		"color" => "1A1A1A",
 	),
 	"copy_link" => array(
 		"name" => "Copy Link",
 		"icon" => "link",
-		"color" => "0166FF",
+		"color" => "888990",
 	),
 	"diary_ru" => array(
 		"name" => "Diary.Ru",
@@ -115,7 +110,7 @@ $A2A_SHARE_SAVE_services = array(
 	"digg" => array(
 		"name" => "Digg",
 		"icon" => "digg",
-		"color" => "2A2A2A",
+		"color" => "1A1A1A",
 	),
 	"diigo" => array(
 		"name" => "Diigo",
@@ -155,7 +150,7 @@ $A2A_SHARE_SAVE_services = array(
 	"google_gmail" => array(
 		"name" => "Gmail",
 		"icon" => "gmail",
-		"color" => "DD5347",
+		"color" => "EA4335",
 	),
 	"google_classroom" => array(
 		"name" => "Google Classroom",
@@ -185,7 +180,7 @@ $A2A_SHARE_SAVE_services = array(
 	"instapaper" => array(
 		"name" => "Instapaper",
 		"icon" => "instapaper",
-		"color" => "2A2A2A",
+		"color" => "1A1A1A",
 	),
 	"kakao" => array(
 		"name" => "Kakao",
@@ -195,7 +190,7 @@ $A2A_SHARE_SAVE_services = array(
 	"known" => array(
 		"name" => "Known",
 		"icon" => "known",
-		"color" => "2A2A2A",
+		"color" => "1A1A1A",
 	),
 	"line" => array(
 		"name" => "Line",
@@ -212,11 +207,6 @@ $A2A_SHARE_SAVE_services = array(
 		"icon" => "mail_ru",
 		"color" => "356FAC",
 	),
-	"mastodon" => array(
-		"name" => "Mastodon",
-		"icon" => "mastodon",
-		"color" => "2b90d9",
-	),
 	"mendeley" => array(
 		"name" => "Mendeley",
 		"icon" => "mendeley",
@@ -226,6 +216,11 @@ $A2A_SHARE_SAVE_services = array(
 		"name" => "Meneame",
 		"icon" => "meneame",
 		"color" => "FF7D12",
+	),
+	"sms" => array(
+		"name" => "Message",
+		"icon" => "sms",
+		"color" => "6CBE45",
 	),
 	"facebook_messenger" => array(
 		"name" => "Messenger",
@@ -237,6 +232,16 @@ $A2A_SHARE_SAVE_services = array(
 		"icon" => "mewe",
 		"color" => "007DA1",
 	),
+	"micro_blog" => array(
+		"name" => "Micro.blog",
+		"icon" => "micro_blog",
+		"color" => "FF8800",
+	),
+	"mix" => array(
+		"name" => "Mix",
+		"icon" => "mix",
+		"color" => "ff8226",
+	),
 	"mixi" => array(
 		"name" => "Mixi",
 		"icon" => "mixi",
@@ -245,7 +250,7 @@ $A2A_SHARE_SAVE_services = array(
 	"myspace" => array(
 		"name" => "MySpace",
 		"icon" => "myspace",
-		"color" => "2A2A2A",
+		"color" => "1A1A1A",
 	),
 	"odnoklassniki" => array(
 		"name" => "Odnoklassniki",
@@ -280,7 +285,7 @@ $A2A_SHARE_SAVE_services = array(
 	"print" => array(
 		"name" => "Print",
 		"icon" => "print",
-		"color" => "0166FF",
+		"color" => "888990",
 	),
 	"printfriendly" => array(
 		"name" => "PrintFriendly",
@@ -295,12 +300,17 @@ $A2A_SHARE_SAVE_services = array(
 	"kindle_it" => array(
 		"name" => "Push to Kindle",
 		"icon" => "kindle",
-		"color" => "2A2A2A",
+		"color" => "1A1A1A",
 	),
 	"qzone" => array(
 		"name" => "Qzone",
 		"icon" => "qzone",
 		"color" => "2B82D9",
+	),
+	"raindrop_io" => array(
+		"name" => "Raindrop.io",
+		"icon" => "raindrop_io",
+		"color" => "0B7ED0",
 	),
 	"rediff" => array(
 		"name" => "Rediff MyPage",
@@ -332,15 +342,10 @@ $A2A_SHARE_SAVE_services = array(
 		"icon" => "slashdot",
 		"color" => "004242",
 	),
-	"sms" => array(
-		"name" => "SMS",
-		"icon" => "sms",
-		"color" => "6CBE45",
-	),
 	"snapchat" => array(
 		"name" => "Snapchat",
 		"icon" => "snapchat",
-		"color" => "2A2A2A",
+		"color" => "1A1A1A",
 	),
 	"stocktwits" => array(
 		"name" => "StockTwits",
@@ -367,10 +372,15 @@ $A2A_SHARE_SAVE_services = array(
 		"icon" => "telegram",
 		"color" => "2CA5E0",
 	),
+	"threads" => array(
+		"name" => "Threads",
+		"icon" => "threads",
+		"color" => "1A1A1A",
+	),
 	"threema" => array(
 		"name" => "Threema",
 		"icon" => "threema",
-		"color" => "2A2A2A",
+		"color" => "1A1A1A",
 	),
 	"trello" => array(
 		"name" => "Trello",
@@ -380,10 +390,15 @@ $A2A_SHARE_SAVE_services = array(
 	"twiddla" => array(
 		"name" => "Twiddla",
 		"icon" => "twiddla",
-		"color" => "2A2A2A",
+		"color" => "1A1A1A",
+	),
+	"twitter" => array(
+		"name" => "Twitter",
+		"icon" => "twitter",
+		"color" => "1D9BF0",
 	),
 	"typepad_post" => array(
-		"name" => "TypePad Post",
+		"name" => "TypePad",
 		"icon" => "typepad",
 		"color" => "D2DE61",
 	),
@@ -405,7 +420,7 @@ $A2A_SHARE_SAVE_services = array(
 	"wordpress" => array(
 		"name" => "WordPress",
 		"icon" => "wordpress",
-		"color" => "464646",
+		"color" => "585C60",
 	),
 	"wykop" => array(
 		"name" => "Wykop",
@@ -415,7 +430,7 @@ $A2A_SHARE_SAVE_services = array(
 	"x" => array(
 		"name" => "X",
 		"icon" => "x",
-		"color" => "2A2A2A",
+		"color" => "1A1A1A",
 	),
 	"xing" => array(
 		"name" => "XING",
@@ -472,6 +487,12 @@ $A2A_FOLLOW_services = array(
 		'href' => 'https://www.behance.net/${id}',
 		'icon' => 'behance',
 		'color' => '007EFF',
+	),
+	'bluesky' => array(
+		'name' => 'Bluesky',
+		'href' => 'https://bsky.app/profile/${id}',
+		'icon' => 'bluesky',
+		'color' => '1285FE',
 	),
 	'flickr' => array(
 		'name' => 'Flickr',

@@ -2,15 +2,15 @@
 Contributors: micropat, addtoany
 Tags: buttons, share, icons, social media, share buttons, sharing, share button, media, social, marketing, links, email, seo, woocommerce, google, linkedin, reddit, facebook, twitter, pinterest, whatsapp, instagram, youtube, share this, sharethis, feed
 Requires at least: 4.5
-Tested up to: 6.3
+Tested up to: 6.6
 Requires PHP: 5.6
-Stable tag: 1.8.8
+Stable tag: 1.8.10
 
-Share buttons for WordPress including the AddToAny button, Facebook, Twitter, WhatsApp, Pinterest, Reddit, Threads, many more, and follow icons too.
+Share buttons for WordPress including the AddToAny button, Facebook, Mastodon, WhatsApp, Pinterest, Reddit, Threads, many more, and follow icons too.
 
 == Description ==
 
-The AddToAny Share Buttons plugin for WordPress increases traffic & engagement by helping people share your posts and pages to any service. Services include Facebook, Twitter, Threads, Pinterest, WhatsApp, LinkedIn, Mastodon, Tumblr, Reddit, WeChat, and many more sharing and social media sites & apps.
+The AddToAny Share Buttons plugin for WordPress increases traffic & engagement by helping people share your posts and pages to any service. Services include Facebook, Mastodon, Pinterest, WhatsApp, LinkedIn, Threads, Bluesky, Tumblr, Reddit, X, WeChat, and many more sharing and social media sites & apps.
 
 AddToAny is the home of universal sharing, and the AddToAny plugin is the most popular share plugin for WordPress, making sites social media ready since 2006.
 
@@ -23,7 +23,7 @@ AddToAny is the home of universal sharing, and the AddToAny plugin is the most p
 * **Image** sharing buttons - share buttons for [sharing images](https://www.addtoany.com/buttons/customize/wordpress/image_sharing)
 * **Vector** share buttons & follow buttons — [custom color](https://www.addtoany.com/buttons/customize/wordpress/icon_color) SVG icons
 * **Custom** share icons — use your own if you prefer
-* Official buttons including the Facebook Like Button, Twitter Tweet Button, Pinterest Save Button, and LinkedIn Share Button
+* Official buttons including the Facebook Like Button, Pinterest Save Button, and LinkedIn Share Button
 * Universal email sharing makes it easy to share via Gmail, Yahoo Mail, Outlook.com (Hotmail), AOL Mail, and any other web or native apps
 
 = Custom Placement & Appearance =
@@ -63,7 +63,7 @@ AddToAny is the home of universal sharing, and the AddToAny plugin is the most p
 = Wide Support =
 
 * Over 10 years of development
-* Over 15 million downloads
+* Over 16 million downloads
 * Translated into dozens of languages
 * Ongoing support from the community
 
@@ -129,7 +129,7 @@ Customize the shared URL like so:
 
 Display specific share buttons by specifying comma-separated <a href="https://www.addtoany.com/services/">service codes</a>:
 
-`[addtoany buttons="facebook,twitter,email"]`
+`[addtoany buttons="facebook,mastodon,email"]`
 
 Share a specific image or video to certain services that accept arbitrary media (Pinterest, Yummly, Houzz):
 
@@ -147,7 +147,7 @@ For more technical information on setting your pages up for Facebook sharing, se
 
 = Why do share links route through AddToAny? =
 
-AddToAny routing enables publisher customization, visitor personalization, and keeps the AddToAny plugin remarkably lightweight without the need for constant plugin updates. In AddToAny menus, visitors see the services they actually use. On mobile, AddToAny presents the choice of sharing to a service's native app or mobile site and the preference is used on the next share. Publishers take advantage of AddToAny services such as <a href="https://www.addtoany.com/buttons/customize/wordpress/email_template">email templates</a>, <a href="https://www.addtoany.com/buttons/customize/wordpress/twitter_message">Twitter templates</a>, <a href="https://www.addtoany.com/buttons/customize/wordpress/templates">custom parameters</a>, <a href="https://www.addtoany.com/buttons/customize/wordpress/link_tracking">URL shorteners</a>, localization, and more. Just as service icons change, service endpoints change too, and AddToAny is updated daily to reflect service endpoint and API changes.
+AddToAny routing enables publisher customization, visitor personalization, and keeps the AddToAny plugin remarkably lightweight without the need for constant plugin updates. In AddToAny menus, visitors see the services they actually use. On mobile, AddToAny presents the choice of sharing to a service's native app or mobile site and the preference is used on the next share. Publishers take advantage of AddToAny services such as <a href="https://www.addtoany.com/buttons/customize/wordpress/email_template">email templates</a>, <a href="https://www.addtoany.com/buttons/customize/wordpress/templates">custom parameters</a>, <a href="https://www.addtoany.com/buttons/customize/wordpress/link_tracking">URL shorteners</a>, localization, and more. Just as service icons change, service endpoints change too, and AddToAny is updated daily to reflect service endpoint and API changes.
 
 = Where are buttons such as Instagram, YouTube, Snapchat? =
 
@@ -167,7 +167,7 @@ You can specify [AddToAny service code(s)](https://www.addtoany.com/services/) t
 
 `<?php if ( function_exists( 'ADDTOANY_SHARE_SAVE_KIT' ) ) { 
 	ADDTOANY_SHARE_SAVE_KIT( array( 
-		'buttons' => array( 'facebook', 'twitter', 'email', 'whatsapp' ),
+		'buttons' => array( 'facebook', 'mastodon', 'email', 'whatsapp' ),
 	) );
 } ?>`
 
@@ -215,7 +215,7 @@ See the [supported follow services](https://www.addtoany.com/buttons/customize/f
 		'buttons' => array(
 			'facebook'  => array( 'id' => 'zuck' ),
 			'instagram' => array( 'id' => 'kevin' ),
-			'twitter'   => array( 'id' => 'jack' ),
+			'tumblr'   => array( 'id' => 'photomatt' ),
 		),
 	) );
 } ?>`
@@ -334,6 +334,30 @@ Upload (or move) the `add-to-any` plugin directory into the `/wp-content/mu-plug
 
 == Changelog ==
 
+= 1.8.10 =
+* Add Bluesky share button
+* Add Bluesky follow button
+* Add Micro.blog share button
+* Improve internationalization (thanks alexclassroom)
+
+= 1.8.9 =
+* Add Mix
+* Add Raindrop.io
+* Include Mastodon as a default standalone service
+* Update services
+* Update some icons
+ * Balatarin
+ * Facebook
+ * Gmail
+ * Copy Link
+ * Outlook.com
+ * Trello
+ * Tumblr
+ * WordPress
+ * Wykop
+* Update some icon colors
+* Remove discontinued services
+
 = 1.8.8 =
 * Add Google Translate share button
 * Add Google Maps follow button
@@ -342,10 +366,7 @@ Upload (or move) the `add-to-any` plugin directory into the `/wp-content/mu-plug
 * Add X share button
 
 = 1.8.7 =
-* Add Threads share button (early support as a standalone share button)
- * Threads doesn't offer a sharing endpoint for the web yet, but:
- * You can enable the Threads share button early, and the button will appear once Threads' sharing endpoint is available on the web
- * Users can use the AddToAny share button on mobile to share to the native Threads app
+* [Add Threads share button](https://www.addtoany.com/blog/threads-share-button/)
 * Add Threads follow button
 * Add TikTok follow button
 * Support for the proposed WP Consent API from the `wp-consent-api` plugin
