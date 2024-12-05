@@ -1102,7 +1102,7 @@ function A2A_SHARE_SAVE_admin_head() {
 			$active_services = $options['active_services'];
 		} else {
 			// Use default services if options have not been set yet (and no services were just saved in the form)
-			$active_services = array( 'facebook', 'twitter', 'email' );
+			$active_services = array( 'facebook', 'mastodon', 'email' );
 		}
 		
 		$active_services_for_js = array();

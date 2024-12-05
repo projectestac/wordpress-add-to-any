@@ -12,6 +12,11 @@ $A2A_SHARE_SAVE_services = array(
 		"icon" => "mastodon",
 		"color" => "6364FF",
 	),
+	"bluesky" => array(
+		"name" => "Bluesky",
+		"icon" => "bluesky",
+		"color" => "1285fe",
+	),
 	"pinterest" => array(
 		"name" => "Pinterest",
 		"icon" => "pinterest",
@@ -71,11 +76,6 @@ $A2A_SHARE_SAVE_services = array(
 		"name" => "BlogMarks",
 		"icon" => "blogmarks",
 		"color" => "535353",
-	),
-	"bluesky" => array(
-		"name" => "Bluesky",
-		"icon" => "bluesky",
-		"color" => "1285fe",
 	),
 	"bookmarks_fr" => array(
 		"name" => "Bookmarks.fr",
@@ -550,7 +550,7 @@ $A2A_FOLLOW_services = array(
 	),
 	'twitter' => array(
 		'name' => 'Twitter',
-		'href' => 'https://twitter.com/${id}',
+		'href' => 'https://x.com/${id}',
 		'icon' => 'twitter',
 		'color' => '55ACEE',
 	),
