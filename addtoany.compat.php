@@ -64,7 +64,7 @@ function addtoany_kses_allow_css_declarations( $allow_css, $css_test_string ) {
 }
 	
 /**
- * Load theme compatibility functions.
+ * Loads theme compatibility functions.
  */
 function addtoany_load_theme_compat() {
 	add_action( 'loop_start', 'addtoany_excerpt_remove' );
@@ -73,7 +73,7 @@ function addtoany_load_theme_compat() {
 add_action( 'after_setup_theme', 'addtoany_load_theme_compat', -1 );
 
 /**
- * Remove from excerpts where buttons could be redundant or awkward.
+ * Removes from excerpts where buttons could be redundant or awkward.
  */
 function addtoany_excerpt_remove() {
 	// If Twenty Sixteen theme
@@ -86,12 +86,10 @@ function addtoany_excerpt_remove() {
 }
 
 /**
- * Change the priority of standard buttons in content to work around a
+ * Changes the priority of standard buttons in content to work around a
  * Jetpack ~v7.8 Related Posts bug that removes content added to AMP posts 
  * if the content's filter has a priority number greater than 40.
  */
-add_action( 'wp_loaded', 'addtoany_priority_for_amp_jetpack' );
-
 function addtoany_priority_for_amp_jetpack() {
 	// If the AMP plugin is enabled, the Jetpack plugin is enabled,
 	// and Jetpack's Related Posts module is enabled.
@@ -101,11 +99,11 @@ function addtoany_priority_for_amp_jetpack() {
 	}
 }
 
-/**
- * Move buttons from WooCommerce product description to WooCommerce's sharing block.
- */
-add_action( 'woocommerce_share', 'addtoany_woocommerce_share', 10 );
+add_action( 'wp_loaded', 'addtoany_priority_for_amp_jetpack' );
 
+/**
+ * Moves buttons from WooCommerce product description to WooCommerce's sharing block.
+ */
 function addtoany_woocommerce_share() {
 	remove_filter( 'the_content', 'A2A_SHARE_SAVE_add_to_content', 98 );
 	remove_filter( 'the_excerpt', 'A2A_SHARE_SAVE_add_to_content', 98 );
@@ -137,28 +135,43 @@ function addtoany_woocommerce_share() {
 	}
 }
 
-/**
- * Exclude AddToAny assets domain from WP Rocket.
- */
-add_filter( 'rocket_minify_excluded_external_js', 'addtoany_wp_rocket_exclusion' );
+add_action( 'woocommerce_share', 'addtoany_woocommerce_share', 10 );
 
+/**
+ * Excludes AddToAny's assets domain from WP Rocket.
+ */
 function addtoany_wp_rocket_exclusion( $excluded ) {
 	$excluded[] = 'static.addtoany.com';
 	return $excluded;
 }
 
-/**
- * Support the `wp-consent-api` plugin's feature proposal for a WP Consent API.
- */
+add_filter( 'rocket_minify_excluded_external_js', 'addtoany_wp_rocket_exclusion' );
+
+// Support the `wp-consent-api` plugin's feature proposal for a WP Consent API.
 add_filter( "wp_consent_api_registered_{$plugin}", '__return_true' );
 
+/**
+ * Checks for 3rd party consent using the WP Consent API or Complianz plugin 
+ * and sets the $A2A_3p_consent accordingly.
+ */
 function addtoany_check_3p_consent() {
 	global $A2A_3p_consent;
-    if ( function_exists( 'wp_has_consent' ) ) {
+	if ( function_exists( 'wp_has_consent' ) ) {
 		$A2A_3p_consent = wp_has_consent( 'marketing' );
 	} elseif ( function_exists( 'cmplz_has_consent' ) ) {
 		$A2A_3p_consent = cmplz_has_consent( 'marketing' );
 	}
 }
 
-add_action( 'plugins_loaded', 'addtoany_check_3p_consent' );
+add_action( 'init', 'addtoany_check_3p_consent' );
+
+/**
+ * Disables AddToAny's content filter to avoid appearing within the UI of WPBakery's frontend editor.
+ */
+function addtoany_wpbakery_disable_add_to_content( $query ) {
+	if ( function_exists( 'vc_is_page_editable' ) && vc_is_page_editable() ) {
+		remove_filter( 'the_content', 'A2A_SHARE_SAVE_add_to_content', 98 ); 
+	}
+}
+
+add_action( 'wp', 'addtoany_wpbakery_disable_add_to_content' );

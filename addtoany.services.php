@@ -460,7 +460,7 @@ $A2A_FOLLOW_services = array(
 	),
 	'threads' => array(
 		'name' => 'Threads',
-		'href' => 'https://www.threads.net/@${id}',
+		'href' => 'https://www.threads.com/@${id}',
 		'icon' => 'threads',
 		'color' => '2A2A2A',
 	),

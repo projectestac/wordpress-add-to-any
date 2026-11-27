@@ -3,15 +3,15 @@ Contributors: micropat, addtoany
 Tags: share, social, share buttons, share icons, social media
 License: GPLv2 or later
 Requires at least: 4.5
-Tested up to: 6.7
+Tested up to: 7.0
 Requires PHP: 5.6
-Stable tag: 1.8.13
+Stable tag: 1.8.18
 
-Share buttons for WordPress including the AddToAny button, Facebook, Mastodon, WhatsApp, Pinterest, Reddit, Threads, many more, and follow icons too.
+Share buttons for WordPress including the AddToAny button, Facebook, Bluesky, Mastodon, WhatsApp, Pinterest, Reddit, many more, and follow icons too.
 
 == Description ==
 
-The AddToAny Share Buttons plugin for WordPress increases traffic & engagement by helping people share your posts and pages to any service. Services include Facebook, Mastodon, Pinterest, WhatsApp, LinkedIn, Threads, Bluesky, Tumblr, Reddit, X, WeChat, and many more sharing and social media sites & apps.
+The AddToAny Share Buttons plugin for WordPress increases traffic & engagement by helping people share your posts and pages to any service. Services include Facebook, Bluesky, Mastodon, Pinterest, WhatsApp, LinkedIn, Threads, Tumblr, Reddit, X, WeChat, and many more sharing and social media sites & apps.
 
 AddToAny is the home of universal sharing, and the AddToAny plugin is the most popular share plugin for WordPress, making sites social media ready since 2006.
 
@@ -64,7 +64,7 @@ AddToAny is the home of universal sharing, and the AddToAny plugin is the most p
 = Wide Support =
 
 * Over 10 years of development
-* Over 17 million downloads
+* Over 18 million downloads
 * Translated into dozens of languages
 * Ongoing support from the community
 
@@ -335,7 +335,7 @@ Upload (or move) the `add-to-any` plugin directory into the `/wp-content/mu-plug
 
 == Changelog ==
 
-= 1.8.13 =
-* Fix defaults in settings
+= 1.8.18 =
+* Update admin styling for WordPress 7.0+
 
 See `changelog.txt` in the plugin's directory for the full changelog.

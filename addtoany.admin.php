@@ -1273,11 +1273,16 @@ function A2A_SHARE_SAVE_admin_head() {
 	.addtoany_extra_section {
 		outline: 0;
 	}
+	/* Center 'show more' button */
+	.addtoany_show_more_button {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+	}
 	/* Adjust position of arrow icon on 'show more' button */
 	.addtoany_show_more_button .dashicons {
 		position: relative;
 		right: 1px;
-		top: 2px;
 	}
 	@media screen and (max-width: 782px) {
 		.addtoany_show_more_button .dashicons {

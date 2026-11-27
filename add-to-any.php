@@ -3,7 +3,7 @@
  * Plugin Name: AddToAny Share Buttons
  * Plugin URI: https://www.addtoany.com/
  * Description: Share buttons for your pages including AddToAny's universal sharing button, Facebook, Mastodon, LinkedIn, Pinterest, WhatsApp and many more.
- * Version: 1.8.13
+ * Version: 1.8.18
  * Author: AddToAny
  * Author URI: https://www.addtoany.com/
  * Text Domain: add-to-any
@@ -792,7 +792,7 @@ function A2A_SHARE_SAVE_add_to_content( $content ) {
 		// Sharing disabled on post?
 		! empty( $sharing_disabled ) 
 	) {
-		// Return early
+		// Return early.
 		return $content;
 	}
 	
@@ -830,9 +830,7 @@ function A2A_SHARE_SAVE_add_to_content( $content ) {
 			// Individual pages.
 			( is_singular('page') && isset( $options['display_in_pages'] ) && $options['display_in_pages'] == '-1' ) ||
 			// Attachment (media) pages.
-			( is_attachment() && isset( $options['display_in_attachments'] ) && $options['display_in_attachments'] == '-1' ) ||
-			// <!--nosharesave--> legacy tag.
-			( (strpos( $content, '<!--nosharesave-->') !== false ) )
+			( is_attachment() && isset( $options['display_in_attachments'] ) && $options['display_in_attachments'] == '-1' )
 		)
 	) {
 		// Return early.

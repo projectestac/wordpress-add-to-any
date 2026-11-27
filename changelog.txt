@@ -1,3 +1,19 @@
+= 1.8.18 =
+* Update admin styling for WordPress 7.0+
+
+= 1.8.17 =
+* Fix the expected default placement within Divi (thanks Holly)
+* Adjust WPBakery compatibility
+
+= 1.8.16 =
+* Resolve conflict with WPBakery
+
+= 1.8.15 =
+* Fix PHP notice when used with the Complianz plugin
+
+= 1.8.14 =
+* Update Threads follow button to link to threads.com instead of threads.net
+
 = 1.8.13 =
 * Fix defaults in settings
 
