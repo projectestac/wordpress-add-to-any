@@ -1104,7 +1104,16 @@ function A2A_SHARE_SAVE_enqueue_script() {
 	$additional_js = ( isset( $options['additional_js_variables'] ) ) ? $options['additional_js_variables'] : '';
 	$script_configs_escaped = ( ( $cache ) ? "\n" . 'a2a_config.static_server=' . wp_json_encode( esc_url( $static_server ), JSON_UNESCAPED_SLASHES ) . ';' : '' )
 		. ( $icon_color ? "\n" . 'a2a_config.icon_color="' . $icon_color . '";' : '' )
+		// XTEC ************ MODIFICAT - Disable the post-share "Thanks for sharing!" modal, which can show an ad. It goes
+		// after the additional JavaScript so that it can't be enabled again
+		// 2026.11.27 @aginard
+		. ( $additional_js ? "\n" . stripslashes( $additional_js ) : '' )
+		. "\n" . 'a2a_config.thanks={postShare:false};';
+		// ************ ORIGINAL
+		/*
 		. ( $additional_js ? "\n" . stripslashes( $additional_js ) : '' );
+		*/
+		// ************ FI
 	
 	$inline_javascript = "\n"
 		. 'window.a2a_config=window.a2a_config||{};'
@@ -1290,3 +1299,37 @@ function A2A_SHARE_SAVE_actlinks( $links, $file ) {
 }
 
 add_filter( 'plugin_action_links', 'A2A_SHARE_SAVE_actlinks', 10, 2 );
+
+// XTEC ************ AFEGIT - Open Graph metadata, so that Facebook shows the featured image of the post
+// 2016.10.11 @xaviernietosanchez
+// 2026.11.27 @aginard - Escaped the values and cut the description without breaking multibyte characters
+function xtec_addtoany_opengraph_prefix( $output ) {
+	return $output . ' prefix="og: https://ogp.me/ns#"';
+}
+add_filter( 'language_attributes', 'xtec_addtoany_opengraph_prefix' );
+
+function xtec_addtoany_opengraph_meta() {
+	if ( ! is_singular() ) {
+		return;
+	}
+
+	$post = get_queried_object();
+	$description = trim( preg_replace( '/\s+/', ' ', wp_strip_all_tags( strip_shortcodes( $post->post_content ) ) ) );
+	if ( mb_strlen( $description ) > 200 ) {
+		$description = mb_substr( $description, 0, 200 ) . '...';
+	}
+
+	echo '<meta property="og:title" content="' . esc_attr( wp_strip_all_tags( get_the_title( $post ) ) ) . '" />' . "\n";
+	echo '<meta property="og:type" content="article" />' . "\n";
+	echo '<meta property="og:url" content="' . esc_url( get_permalink( $post ) ) . '" />' . "\n";
+	echo '<meta property="og:description" content="' . esc_attr( $description ) . '" />' . "\n";
+
+	$image = has_post_thumbnail( $post ) ? wp_get_attachment_image_src( get_post_thumbnail_id( $post ), 'full' ) : false;
+	if ( $image ) {
+		echo '<meta property="og:image" content="' . esc_url( $image[0] ) . '" />' . "\n";
+		echo '<meta property="og:image:width" content="' . (int) $image[1] . '" />' . "\n";
+		echo '<meta property="og:image:height" content="' . (int) $image[2] . '" />' . "\n";
+	}
+}
+add_action( 'wp_head', 'xtec_addtoany_opengraph_meta', 1 );
+// ************ FI

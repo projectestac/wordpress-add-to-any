@@ -889,6 +889,11 @@ function A2A_SHARE_SAVE_options_page() {
 	
 	</form>
 	
+	<?php
+	// XTEC ************ ELIMINAT - Hide the promotion of the plugin
+	// 2026.11.27 @aginard
+	/*
+	?>
 	<h2><?php _e('Like this plugin?','add-to-any'); ?></h2>
 	<p><?php _e('<a href="https://wordpress.org/support/plugin/add-to-any/reviews/#new-post" target="_blank">Give it a 5 star rating</a> on WordPress.org.','add-to-any'); ?></p>
 	<p><?php _e('<a href="https://www.addtoany.com/share#title=WordPress%20Share%20Plugin%20by%20AddToAny.com&amp;url=https%3A%2F%2Fwordpress.org%2Fplugins%2Fadd-to-any%2F">Share it</a> and follow <a href="https://www.addtoany.com/">AddToAny</a> on <a href="https://www.facebook.com/AddToAny" target="_blank">Facebook</a> &amp; <a href="https://twitter.com/AddToAny" target="_blank">Twitter</a>.','add-to-any'); ?></p>
@@ -896,6 +901,10 @@ function A2A_SHARE_SAVE_options_page() {
 	<h2><?php _e('Need support?','add-to-any'); ?></h2>
 	<p><?php _e('See the <a href="https://wordpress.org/plugins/add-to-any/faq/">FAQs</a>.','add-to-any'); ?></p>
 	<p><?php _e('Search the <a href="https://wordpress.org/support/plugin/add-to-any">support forums</a>.','add-to-any'); ?></p>
+	<?php
+	*/
+	// ************ FI
+	?>
 	</div>
 	
 	<script src="https://static.addtoany.com/menu/page.js"></script>
